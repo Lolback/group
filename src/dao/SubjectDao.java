@@ -47,6 +47,7 @@ public class SubjectDao extends Dao {
 
     // その他の必要なメソッド...
     //6/27 中本晴輝 filter,saveメソッドを仮作成、ちょっとよくわかんねえ
+    //コミットできねえ
     //filterメソッド
     public List<Subject> filter(School school) throws Exception{
 		//リストを初期化
