@@ -1,36 +1,54 @@
 package bean;
 
-import java.io.IOException;
+public class Score {
+    private String academicYear;
+    private String className;
+    private String subject;
+    private String times;
+    private int score;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-@WebServlet("/score")
-public class Score extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/scoreManagement.jsp").forward(request, response);
+    // academicYear のゲッターとセッター
+    public String getAcademicYear() {
+        return academicYear;
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String academicYear = request.getParameter("academicYear");
-        String className = request.getParameter("class");
-        String subject = request.getParameter("subject");
-        String times = request.getParameter("times");
+    public void setAcademicYear(String academicYear) {
+        this.academicYear = academicYear;
+    }
 
-        // 検索結果をデータベースから取得（仮のデータとして固定値を使用）
-        // 実際にはここでデータベースアクセスを行い、条件に合致するデータを取得する
-        String result = "検索結果：入学年度=" + academicYear + ", クラス=" + className + ", 科目=" + subject + ", 回数=" + times;
+    // className のゲッターとセッター
+    public String getClassName() {
+        return className;
+    }
 
-        // 検索結果をリクエスト属性に設定
-        request.setAttribute("result", result);
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
-        // 結果ページに転送
-        request.getRequestDispatcher("/WEB-INF/score.jsp").forward(request, response);
+    // subject のゲッターとセッター
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    // times のゲッターとセッター
+    public String getTimes() {
+        return times;
+    }
+
+    public void setTimes(String times) {
+        this.times = times;
+    }
+
+    // score のゲッターとセッター
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 }
-

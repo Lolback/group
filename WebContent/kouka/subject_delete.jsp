@@ -1,3 +1,5 @@
+<%@ page import="dao.SubjectDao" %>
+<%@ page import="bean.Subject" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% request.setCharacterEncoding("UTF-8"); %>
@@ -25,12 +27,28 @@
                 </div>
                 <div class="my-2 text-center">
                     <p>科目コード: <%= request.getParameter("subjectCode") %></p>
-                    <p>学校コード: <%= request.getParameter("schoolCode") %></p>
-                    <p>科目名: <%= request.getParameter("subjectName") %></p>
+                    <%-- 学校コードと科目名をSubjectDaoから取得して表示 --%>
+                    <%
+                        String subjectCode = request.getParameter("subjectCode");
+                        SubjectDao subjectDao = new SubjectDao();
+                        try {
+                            Subject subject = subjectDao.getBySubjectCode(subjectCode);
+                            if (subject != null) {
+                    %>
+                                <p>学校コード: <%= subject.getSchoolCode() %></p>
+                                <p>科目名: <%= subject.getSubjectName() %></p>
+                    <%
+                            } else {
+                    %>
+                                <p>科目情報が見つかりませんでした。</p>
+                    <%
+                            }
+                        } catch (Exception e) {
+                            out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
+                        }
+                    %>
                     <form action="SubjectDeleteExecute.action" method="post">
                         <input type="hidden" name="subjectCode" value="<%= request.getParameter("subjectCode") %>" />
-                        <input type="hidden" name="schoolCode" value="<%= request.getParameter("schoolCode") %>" />
-                        <input type="hidden" name="subjectName" value="<%= request.getParameter("subjectName") %>" />
                         <button type="submit" class="btn btn-danger">削除</button>
                         <a href="subject.jsp">キャンセル</a>
                     </form>
