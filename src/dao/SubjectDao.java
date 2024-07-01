@@ -84,6 +84,9 @@ public class SubjectDao extends Dao {
 				}
 			}
 		}
+
+	//
+
 		//コネクションを閉じる
 		if (statement != null) {
 			try {
