@@ -1,69 +1,87 @@
+<%@ page import="java.sql.*" %>
+<%@ page import="javax.naming.*" %>
+<%@ page import="javax.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../background.html" %>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>点数登録</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成績追加</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-    <h1>点数登録</h1>
-    <form method="post" action="score">
-                <div class="form-group">
-                    <label for="academicYear">入学年度</label>
-                    <select id="academicYear" name="academicYear">
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="class">クラス</label>
-                    <select id="class" name="class">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="subject">科目</label>
-                    <select id="subject" name="subject">
-                        <option value="math">数学</option>
-                        <option value="science">科学</option>
-                        <option value="history">歴史</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="times">回数</label>
-                    <select id="times" name="times">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </div>
-                <button type="submit">検索</button>
-            </form>
+    <h1 class="toptitle">得点管理システム</h1>
+    <h2 class="subtitle">成績追加</h2>
+    <%
+        String studentNo = request.getParameter("studentNo");
 
-    <form action="ScoreServlet" method="post">
-        <table border="1">
-            <tr>
-                <th>入学年度</th>
-                <th>クラス</th>
-                <th>学生番号</th>
-                <th>氏名</th>
-                <th>点数</th>
-            </tr>
-            <c:forEach var="student" items="${students}">
-                <tr>
-                    <td>${student.entYear}</td>
-                    <td>${student.classNum}</td>
-                    <td>${student.id}</td>
-                    <td>${student.name}</td>
-                    <td><input type="number" name="score_${student.id}" value="${student.score}"></td>
-                </tr>
-            </c:forEach>
-        </table>
-        <button type="submit">登録して終了</button>
-    </form>
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            Context initContext = new InitialContext();
+            DataSource ds = (DataSource)initContext.lookup("java:/comp/env/jdbc/kouka");
+
+            conn = ds.getConnection();
+
+            String sql = "SELECT STUDENT_NO, CLASS_NUM, SUBJECT_CD, POINT FROM TEST WHERE STUDENT_NO = ?";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, studentNo);
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                String subjectCode = rs.getString("SUBJECT_CD");
+                String classNum = rs.getString("CLASS_NUM");
+                String point = rs.getString("POINT");
+    %>
+                <form action="score_update.jsp" method="post">
+				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
+                    <input type="hidden" name="originalStudentNo" value="<%= studentNo %>">
+                    <p>学生番号: <%= studentNo %></p>
+                    <p>クラス番号: <input type="text" name="classNum" value="<%= classNum %>"></p>
+                    <p>科目コード: <input type="text" name="subjectCode" value="<%= subjectCode %>"></p>
+                    <p>点数: <input type="text" name="point" value="<%= point %>"></p>
+                    <input type="submit" value="登録">
+                </div>
+                </form>
+    <%
+            } else {
+                out.println("<p>指定された成績が見つかりません。</p>");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    %>
+    <a href="student_score.jsp">成績一覧に戻る</a>
 </body>
 </html>
+
+<%@ include file="../footer.html" %>
