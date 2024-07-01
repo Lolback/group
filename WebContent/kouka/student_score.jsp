@@ -1,21 +1,21 @@
+<%@ page import="java.sql.*" %>
+<%@ page import="javax.naming.*" %>
+<%@ page import="javax.sql.*" %>
+<%@include file="../background.html" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="../background.html" %>
-<% request.setCharacterEncoding("UTF-8"); %>
-<c:import url="../common/base.jsp">
-    <c:param name="title">
-        <h1 class="toptitle">得点管理システム</h1>
-    </c:param>
-
-    <c:param name="scripts"></c:param>
-
-    <c:param name="content">
-        <section class="me-4">
-            <h2 class="subtitle">成績管理</h2>
-            <%@ include file="sidebar.jsp" %>
-            <div class="my-2 text-end px-4">
-                <a href="score_add.jsp">新規登録</a>
-            </div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成績管理</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>
+<h1 class="toptitle">得点管理システム</h1>
+    <h2 class="subtitle">成績管理</h2>
+    <%@ include file="sidebar.jsp" %>
+    <a href="score_add.jsp">新規登録</a>
             <form method="post" action="scoreManagement">
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                     <div class="col-3">
@@ -55,39 +55,77 @@
                     </div>
                 </div>
             </form>
-            <c:choose>
-                <c:when test="${scores.size() > 0}">
                     <div>検索結果：${scores.size()}件</div>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>入学年度</th>
-                                <th>クラス</th>
-                                <th>科目</th>
-                                <th>回数</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach var="score" items="${scores}">
-                                <tr>
-                                    <td>${score.student.entYear}</td>
-                                    <td>${score.student.classNum}</td>
-                                    <td>${score.subject}</td>
-                                    <td>${score.times}</td>
-                                    <td><a href="ScoreUpdate.action?scoreId=${score.id}">変更</a></td>
-                                    <td><a href="ScoreDelete.action?scoreId=${score.id}">削除</a></td>
-                                </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                </c:when>
-                <c:otherwise>
-                    <div>成績情報が存在しませんでした</div>
-                </c:otherwise>
-            </c:choose>
-        </section>
-    </c:param>
-</c:import>
+
+    <table class="table table-hover">
+        <tr>
+            <th>学生番号</th>
+            <th>クラス</th>
+            <th>科目</th>
+            <th>点数</th>
+            <th colspan="2">　　　　操作</th>
+        </tr>
+        <%
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            ResultSet rs = null;
+
+            try {
+                Context initContext = new InitialContext();
+                DataSource ds = (DataSource)initContext.lookup("java:/comp/env/jdbc/kouka");
+
+                conn = ds.getConnection();
+
+                String sql = "SELECT STUDENT_NO, CLASS_NUM, SUBJECT_CD, POINT FROM TEST";
+
+                pstmt = conn.prepareStatement(sql);
+
+                rs = pstmt.executeQuery();
+
+                while (rs.next()) {
+                    String studentNo = rs.getString("STUDENT_NO");
+                    String subjectCode = rs.getString("SUBJECT_CD");
+                    String classNum = rs.getString("CLASS_NUM");
+                    String point = rs.getString("POINT");
+        %>
+                    <tr>
+                        <td><%= studentNo %></td>
+                        <td><%= subjectCode %></td>
+                        <td><%= classNum %></td>
+                        <td><%= point %></td>
+                        <td><a href="subject_edit.jsp?subjectCode=<%= subjectCode %>">変更</a></td>
+                        <td><a href="subject_delete.jsp?subjectCode=<%= subjectCode %>">削除</a></td>
+                    </tr>
+        <%
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (pstmt != null) {
+                    try {
+                        pstmt.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (conn != null) {
+                    try {
+                        conn.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        %>
+    </table>
+</body>
+</html>
 <%@include file="../footer.html" %>

@@ -1,54 +1,44 @@
 package bean;
 
 public class Score {
-    private String academicYear;
-    private String className;
-    private String subject;
-    private String times;
-    private int score;
+    private String studentNo; // 学生番号
+    private String subjectCode; // 科目コード
+    private String classNum; // クラス番号
+    private String point; // 点数
 
-    // academicYear のゲッターとセッター
-    public String getAcademicYear() {
-        return academicYear;
+    // Getter and Setter for studentNo
+    public String getStudentNo() {
+        return studentNo;
     }
 
-    public void setAcademicYear(String academicYear) {
-        this.academicYear = academicYear;
+    public void setStudentNo(String studentNo) {
+        this.studentNo = studentNo;
     }
 
-    // className のゲッターとセッター
-    public String getClassName() {
-        return className;
+    // Getter and Setter for subjectCode
+    public String getSubjectCode() {
+        return subjectCode;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
     }
 
-    // subject のゲッターとセッター
-    public String getSubject() {
-        return subject;
+    // Getter and Setter for classNum
+    public String getClassNum() {
+        return classNum;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setClassNum(String classNum) {
+        this.classNum = classNum;
     }
 
-    // times のゲッターとセッター
-    public String getTimes() {
-        return times;
+    // Getter and Setter for point
+    public String getPoint() {
+        return point;
     }
 
-    public void setTimes(String times) {
-        this.times = times;
-    }
-
-    // score のゲッターとセッター
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
+    public void setPoint(String point) {
+        this.point = point;
     }
 }
