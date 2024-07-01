@@ -52,6 +52,8 @@ public class SubjectDao extends Dao {
     public List<Subject> filter(School school) throws Exception{
 		//リストを初期化
 		List<Subject> list = new ArrayList<>();
+		//
+		Subject subject = new Subject();
 		//コネクションを確立
 		Connection connection = getConnection();
 		//プリペアードステートメント
@@ -69,7 +71,7 @@ public class SubjectDao extends Dao {
 			//プリペアードステートメントを実行
 			rSet = statement.executeQuery();
 			//リストへの格納処理を実行
-			list = postFilter(rSet, school);
+			list.add(subject);
 		} catch (Exception e) {
 			throw e;
 		} finally {
