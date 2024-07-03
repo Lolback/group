@@ -15,7 +15,7 @@
 <h1 class="toptitle">得点管理システム</h1>
     <h2 class="subtitle">科目編集</h2>
     <%
-        String subjecteCod = request.getParameter("subjectCode");
+        String subjectCode = request.getParameter("subjectCode");
 
         Connection conn = null;
         PreparedStatement pstmt = null;

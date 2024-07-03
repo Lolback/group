@@ -15,7 +15,7 @@
 <h1 class="toptitle">得点管理システム</h1>
     <h2 class="subtitle">成績管理</h2>
     <%@ include file="sidebar.jsp" %>
-    <a href="score_add.jsp">新規登録</a>
+    <a href="student_add.jsp">新規登録</a>
             <form method="post" action="scoreManagement">
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                     <div class="col-3">
@@ -59,11 +59,12 @@
 
     <table class="table table-hover">
         <tr>
-            <th>学生番号</th>
+            <th>入学年度</th>
             <th>クラス</th>
-            <th>科目</th>
+            <th>学生番号</th>
+            <th>氏名</th>
             <th>点数</th>
-            <th colspan="2">　　　　操作</th>
+
         </tr>
         <%
             Connection conn = null;
@@ -76,25 +77,35 @@
 
                 conn = ds.getConnection();
 
-                String sql = "SELECT STUDENT_NO, CLASS_NUM, SUBJECT_CD, POINT FROM TEST";
+                String sql = "SELECT ENT_YEAR, CLASS_NUM, STUDENT_NO, NAME, POINT FROM STUDENT";
 
                 pstmt = conn.prepareStatement(sql);
 
                 rs = pstmt.executeQuery();
 
                 while (rs.next()) {
-                    String studentNo = rs.getString("STUDENT_NO");
-                    String subjectCode = rs.getString("SUBJECT_CD");
+                    Integer entYear = rs.getInt("ENT_YEAR");
                     String classNum = rs.getString("CLASS_NUM");
-                    String point = rs.getString("POINT");
+                    String studentNo = rs.getString("STUDENT_NO");
+                    String name = rs.getString("NAME");
+                    Integer point = rs.getInt("POINT");
         %>
                     <tr>
-                        <td><%= studentNo %></td>
-                        <td><%= subjectCode %></td>
+                        <td><%= entYear %></td>
                         <td><%= classNum %></td>
-                        <td><%= point %></td>
-                        <td><a href="subject_edit.jsp?subjectCode=<%= subjectCode %>">変更</a></td>
-                        <td><a href="subject_delete.jsp?subjectCode=<%= subjectCode %>">削除</a></td>
+                        <td><%= studentNo %></td>
+                        <td><%= name %></td>
+                        <td>
+						    <form class="score" method="post" action="updateScore.jsp">
+						        <input type="hidden" name="studentNo" value="<%= studentNo %>">
+						        <input type="text" name="point" value="<%= point %>">
+						        <input type="submit" value="更新">
+						    </form>
+						</td>
+
+
+
+
                     </tr>
         <%
                 }
@@ -126,6 +137,7 @@
             }
         %>
     </table>
+
 </body>
 </html>
 <%@include file="../footer.html" %>
