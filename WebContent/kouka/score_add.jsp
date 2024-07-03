@@ -4,8 +4,14 @@
 href="${pageContext.request.contextPath}/css/style.css">
 <!DOCTYPE html>
 <html>
+<%@ page import="java.sql.*" %>
+<%@ page import="javax.naming.*" %>
+<%@ page import="javax.sql.*" %>
+<%@include file="../background.html" %>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>学生管理</title>
         <h1 class="toptitle green">得点管理システム</h1>
 <meta charset="UTF-8">
@@ -27,9 +33,29 @@ href="${pageContext.request.contextPath}/css/style.css">
 </style>
 </head>
 
+
 <body>
-<h2>科目名: ${subjectName} (第${times}回)</h2>
+<span>
+<h2>科目名:
 <form action="registerGrades" method="post">
+<select class="form-select" id="student-f1-select" name="f10">
+<option value="0">--------</option>
+<c:forEach var="subjectName" items="${ent_year_set}">
+<option value="${subjectName}" <c:if test="${subjectName == f10}">selected</c:if>>${subjectName}</option>
+</c:forEach>
+</select>
+第
+<select class="form-select" id="student-f1-select" name="f10">
+<option value="0">--------</option>
+<c:forEach var="subjectName" items="${ent_year_set}">
+<option value="${times}" <c:if test="${times == f10}">selected</c:if>>${times}</option>
+</c:forEach>
+</select>
+回</h2>
+</span>
+
+
+
 <table>
 <thead>
 <tr>
@@ -42,13 +68,24 @@ href="${pageContext.request.contextPath}/css/style.css">
 </thead>
 
 <tbody>
-<c:forEach var="student" items="${studentList}">
 <tr>
 
-<td>${student.enrollmentYear}</td>
-<td>${student.classNumber}</td>
-<td>${student.studentNumber}</td>
-<td>${student.studentName}</td>
+
+
+<td><select class="form-select" id="student-f1-select" name="f1">
+<option value="0">--------</option>
+<c:forEach var="year" items="${ent_year_set}">
+<option value="${year}" <c:if test="${year == f1}">selected</c:if>>${year}</option>
+</c:forEach>
+</select></td>
+<td><select class="form-select" id="student-f2-select" name="f2">
+<option value="0">--------</option>
+<c:forEach var="num" items="${class_num_set}">
+<option value="${num}" <c:if test="${num == f2}">selected</c:if>>${num}</option>
+</c:forEach>
+</select></td>
+<td><input type="text" class="form-control" id="student-number" name="studentNumber" value="${param.studentNumber}"pattern="^[0-9]{1,7}$" title="0から9999999の数値を入力してください"></td>
+<td><input type="text" class="form-control" id="student-name" name="studentName" value="${param.studentName}"></td>
 
 <td>
 
@@ -56,47 +93,12 @@ href="${pageContext.request.contextPath}/css/style.css">
 </td>
 </tr>
 
-</c:forEach>
 </tbody>
 </table>
 
-<nobr>
-<div class="col-4">
-<label class="form-label" for="student-f1-select">✈</label>
-<select class="form-select" id="student-f1-select" name="f1">
-<option value="0">--------</option>
-<c:forEach var="year" items="${ent_year_set}">
-<option value="${year}" <c:if test="${year == f1}">selected</c:if>>${year}</option>
-</c:forEach>
-</select>
-
-</div>
-<div class="col-4">
-<label class="form-label" for="student-f2-select">✈</label>
-<select class="form-select" id="student-f2-select" name="f2">
-<option value="0">--------</option>
-<c:forEach var="num" items="${class_num_set}">
-<option value="${num}" <c:if test="${num == f2}">selected</c:if>>${num}</option>
-</c:forEach>
-</select>
-</div>
-
-<div class="col-3">
-<label class="form-label" for="student-number">✈</label>
-<input type="text" class="form-control" id="student-number" name="studentNumber" value="${param.studentName}">
-</div>
 
 
-<div class="col-3">
-<label class="form-label" for="student-name">✈</label>
-<input type="text" class="form-control" id="student-name" name="studentName" value="${param.studentName}">
-</div>
 
-<div class="col-3">
-<label class="form-label" for="student-score">✈</label>
-<input type="text" class="form-control" id="student-score" name="studentScore" value="${param.studentScore}">
-</div>
-</nobr>
 
 <form action="searchAdd.jsp" method="post">
 <input type="submit" value="登録して終了">

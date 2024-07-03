@@ -1,13 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet"
-href="${pageContext.request.contextPath}/css/style.css">
 <!DOCTYPE html>
 <html>
+<%@ page import="java.sql.*" %>
+<%@ page import="javax.naming.*" %>
+<%@ page import="javax.sql.*" %>
+<%@include file="../background.html" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8">
-<title>学生管理</title>
-        <h1 class="toptitle green">得点管理システム</h1>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科目管理</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <h1 class="subtitle">成績管理</h1>
