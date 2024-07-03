@@ -17,6 +17,7 @@ public class StudentDao extends Dao {
 
 
 	public Student get(String no) throws Exception{
+
 		//学生インスタンスを初期化
 		Student student = new Student();
 		//データベースへのコネクションを確立
@@ -271,6 +272,7 @@ public class StudentDao extends Dao {
 		int count = 0;
 
 		try {
+
 			//データベースから学生を取得
 			Student old = get(student.getNo());
 			if (old == null) {
@@ -289,7 +291,7 @@ public class StudentDao extends Dao {
 				//学生が存在した場合
 				//プリペアードステートメントにUPDATE文をセット
 				statement = connection
-						.prepareStatement("update student set name=?, class_num=?, is attend=? where no=?");
+						.prepareStatement("update student set name=?, class_num=?, is_attend=? where no=?");
 				//プリペアードステートメントに値をバインド
 				statement.setString(1, student.getName());
 				statement.setInt(2, student.getEntYear());
