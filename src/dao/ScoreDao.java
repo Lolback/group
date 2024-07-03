@@ -35,6 +35,7 @@ public class ScoreDao extends Dao {
         return score;
     }
 
+
     public boolean delete(String studentNo, String subjectCode) throws Exception {
         Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement("DELETE FROM SCORE WHERE STUDENT_NO = ? AND SUBJECT_CODE = ?");
