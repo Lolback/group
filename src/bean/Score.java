@@ -42,3 +42,4 @@ public class Score {
         this.point = point;
     }
 }
+
