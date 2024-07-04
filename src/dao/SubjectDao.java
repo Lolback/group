@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.School;
 import bean.Subject;
 
 public class SubjectDao extends Dao {
@@ -47,13 +46,12 @@ public class SubjectDao extends Dao {
 
     // その他の必要なメソッド...
     //6/27 中本晴輝 filter,saveメソッドを仮作成、ちょっとよくわかんねえ
-    //コミットできねえ
     //filterメソッド
-    public List<Subject> filter(School school) throws Exception{
+    public List<Subject> filter(Subject subject) throws Exception{
 		//リストを初期化
 		List<Subject> list = new ArrayList<>();
 		//
-		Subject subject = new Subject();
+
 		//コネクションを確立
 		Connection connection = getConnection();
 		//プリペアードステートメント
@@ -67,11 +65,11 @@ public class SubjectDao extends Dao {
 			//プリペアードステートメントにSQL文をセット
 			statement = connection.prepareStatement(statement  + order);
 			//プリペアードステートメントに学校コードをバインド
-			statement.setString(1, school.getCd());
+			statement.setString(1, subject.getSchoolCode());
 			//プリペアードステートメントを実行
 			rSet = statement.executeQuery();
 			//リストへの格納処理を実行
-			list.add(subject);
+			list.add((Subject) rSet);
 		} catch (Exception e) {
 			throw e;
 		} finally {
