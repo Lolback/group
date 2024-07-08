@@ -12,6 +12,7 @@ public class SchoolDao extends Dao{
 	private String baseSql = "select * from school where school_cd=?" ;
 
 	public School get(String school_cd) throws Exception{
+
 		//学生インスタンスを初期化
 		School school = new School();
 		//データベースへのコネクションを確立
@@ -21,7 +22,7 @@ public class SchoolDao extends Dao{
 
 		try {
 			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("select * from school where school_cd=?");
+			statement = connection.prepareStatement("select * from school where cd=?");
 			//プリペアードステートメントに学生番号をバインド
 			statement.setString(1, school_cd);
 			//プリペアードステートメントを実行
@@ -30,8 +31,8 @@ public class SchoolDao extends Dao{
 			if (rSet.next()) {
 				//リザルトセットが存在する場合
 				//学生インスタンスに検索結果をセット
-				school.setCd(rSet.getString("school_cd"));
-				school.setName(rSet.getString("school_name"));
+				school.setCd(rSet.getString("cd"));
+				school.setName(rSet.getString("name"));
 			} else {
 				//リザルトセットが存在しない場合
 				//学生インスタンスにnullをセット

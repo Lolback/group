@@ -53,6 +53,20 @@ public class StudentListAction extends Action {
 		classNum = request.getParameter("f2");
 		isAttendStr = request.getParameter("f3");
 
+		//ビジネスロジック 4
+		if (entYearStr != null) {
+			//数値に変換
+			entYear = Integer.parseInt(entYearStr);
+		}
+		//在学フラグが送信されていた場合
+		if (isAttendStr != null) {
+			//在学フラグを立てる
+			isAttend = true;
+			//リクエストに在学フラグをセット
+			request.setAttribute("f3", isAttendStr);
+		}
+
+
 		//DBからデータ取得 3
 		//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		//List<String> list = cNumDao.filter(teacher.getSchool());
@@ -77,11 +91,6 @@ public class StudentListAction extends Action {
 			students = sDao.filter(teacher.getSchool(), isAttend);
 		}
 
-		//ビジネスロジック 4
-		if (entYearStr != null) {
-			//数値に変換
-			entYear = Integer.parseInt(entYearStr);
-		}
 		//リストを初期化
 		List<Integer> entYearSet = new ArrayList<>();
 		//10年前から1年後まで年をリストに追加
@@ -94,13 +103,6 @@ public class StudentListAction extends Action {
 		request.setAttribute("f1", entYear);
 		//リクエストにクラス番号をセット
 		request.setAttribute("f2", classNum);
-		//在学フラグが送信されていた場合
-		if (isAttendStr != null) {
-			//在学フラグを立てる
-			isAttend = true;
-			//リクエストに在学フラグをセット
-			request.setAttribute("f3", isAttendStr);
-		}
 		//リクエストに学生リストをセット
 		request.setAttribute("students", students);
 		//リクエストにデータをセット
