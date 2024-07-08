@@ -26,6 +26,8 @@ public class TestListAction extends Action {
 
 	//07.03中本晴輝
 	//成績参照作成開始
+	//07.08
+	//一応完成、ただ機能の検証およびsql文の作成はできていない
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 	throws Exception{
@@ -71,7 +73,7 @@ public class TestListAction extends Action {
 		classNum = request.getParameter("f2");
 		isAttendStr = request.getParameter("f3");
 		slSubjectName = request.getParameter("f4");
-		slNum = request.getParameter("f6");
+		slNum = request.getParameter("f5");
 
 		//DBからデータ取得 3
 		//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
