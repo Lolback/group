@@ -1,10 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<link rel="stylesheet"
+href="${pageContext.request.contextPath}/css/style.css">
 <!DOCTYPE html>
 <html>
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
 <%@include file="../background.html" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +21,7 @@
 <th>入学年度</th> <!-- ID: 2, 検索条件項目のヘッダー(固定値) -->
 <th>クラス</th> <!-- ID: 3, 検索条件項目のヘッダー(固定値) -->
 <th>科目</th> <!-- ID: 4, 検索条件項目のヘッダー(固定値) -->
-<th>回目</th> <!-- ID: 5, 検索条件項目のヘッダー(固定値) -->
+<th>回数</th> <!-- ID: 5, 検索条件項目のヘッダー(固定値) -->
 </tr>
 <tr>
 <td>
