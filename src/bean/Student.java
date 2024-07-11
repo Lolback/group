@@ -10,6 +10,9 @@ public class Student implements Serializable {
 	private String classNum;
 	private boolean isAttend;
 	private School school;
+    private int studentId;
+    private String studentName;
+    private int courseId;
 
 	public String getNo() {
 		return no;
@@ -58,5 +61,19 @@ public class Student implements Serializable {
 	public void setSchool(School school) {
 		this.school = school;
 	}
+
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
 
 }

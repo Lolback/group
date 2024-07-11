@@ -15,7 +15,7 @@
 <body>
     <c:import url="/common/base.jsp">
         <c:param name="title">
-            <h1 class="toptitle">科目管理システム</h1>
+            <h1 class="toptitle">得点管理システム</h1>
         </c:param>
 
         <c:param name="scripts"></c:param>

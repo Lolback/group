@@ -3,8 +3,11 @@ package bean;
 public class Score {
     private String studentNo; // 学生番号
     private String subjectCode; // 科目コード
+    private String no; //回数
     private String classNum; // クラス番号
     private String point; // 点数
+
+
 
     // Getter and Setter for studentNo
     public String getStudentNo() {
@@ -12,7 +15,7 @@ public class Score {
     }
 
     public void setStudentNo(String studentNo) {
-        this.studentNo = studentNo;
+        this.no = studentNo;
     }
 
     // Getter and Setter for subjectCode
@@ -41,4 +44,13 @@ public class Score {
     public void setPoint(String point) {
         this.point = point;
     }
+
+    public String getNo() {
+    	return no;
+    }
+
+    public void setNo(String no) {
+    	this.no = no;
+    }
 }
+

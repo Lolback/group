@@ -27,7 +27,7 @@
 
         conn = ds.getConnection();
 
-        String sql = "SELECT STUDENT_NO, CLASS_NUM, SUBJECT_CD, POINT FROM TEST WHERE SUBJECT_CD = ?";
+        String sql = "SELECT NO, CLASS_NUM, SUBJECT_CD, POINT FROM TEST WHERE SUBJECT_CD = ?";
 
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, scoreCode);
@@ -35,14 +35,14 @@
         rs = pstmt.executeQuery();
 
         if (rs.next()) {
-            String studentNo = rs.getString("STUDENT_NO");
+            String no = rs.getString("NO");
             String subjectCode = rs.getString("SUBJECT_CD");
             String classNum = rs.getString("CLASS_NUM");
             String point = rs.getString("POINT");
 %>
             <form action="score_update.jsp" method="post">
                 <input type="hidden" name="originalScoreCode" value="<%= scoreCode %>">
-                <p>学生番号: <input type="text" name="studentNo" value="<%= studentNo %>"></p>
+                <p>学生番号: <input type="text" name="no" value="<%= no %>"></p>
                 <p>科目コード: <input type="text" name="subjectCode" value="<%= subjectCode %>"></p>
                 <p>クラス: <input type="text" name="classNum" value="<%= classNum %>"></p>
                 <p>点数: <input type="text" name="point" value="<%= point %>"></p>
