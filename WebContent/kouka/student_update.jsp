@@ -39,7 +39,7 @@
 
 <div class="col-3">
 <label class="form-label" for="student-f4-select">氏名</label>
-<input type="text" class="form-control" id="f4" name="f4">
+<input type="text" class="form-control" id="f4" name="f4" value=<%=request.getParameter("name") %> required>
 </div>
 
 

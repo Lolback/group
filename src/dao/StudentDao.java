@@ -106,15 +106,15 @@ public class StudentDao extends Dao {
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文の条件
-		String condition = "and ent_year=? and class_num=?";
+		String condition = " and ent_year=? and class_num=?";
 		//SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc";
 
 		//SQL文の在学フラグ条件
 		String conditionIsAttend = "";
 		//在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend ="and is_attend=true";
+			conditionIsAttend =" and is_attend=true";
 		}
 
 		try {
@@ -164,15 +164,15 @@ public class StudentDao extends Dao {
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文の条件
-		String condition = "and ent_year=?";
+		String condition = " and ent_year=?";
 		//SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc";
 
 		//SQL文の在学フラグ
 		String conditionIsAttend = "";
 		//在学フラグがtrueだった場合
 		if (isAttend) {
-			conditionIsAttend = "and is_attend=true";
+			conditionIsAttend = " and is_attend=true";
 		}
 
 		try {
@@ -218,13 +218,13 @@ public class StudentDao extends Dao {
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文の条件
-		String order = "order by no asc";
+		String order = " order by no asc";
 
 		//SQL文の在学フラグ
 		String conditionIsAttend = "";
 		//在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is_attend=true";
+			conditionIsAttend = " and is_attend=true";
 		}
 
 		try {
@@ -330,6 +330,43 @@ public class StudentDao extends Dao {
 		} else {
 			//実行件数が0件の場合
 			return false;
+		}
+	}
+
+	public void delete(String no) throws Exception{
+
+		//データベースへのコネクションを確立
+		Connection connection = getConnection();
+		//プリペアードステートメント
+		PreparedStatement statement = null;
+
+		try {
+			//プリペアードステートメントにSQL文をセット
+			statement = connection.prepareStatement("delete from student where no=?");
+			//プリペアードステートメントに学生番号をバインド
+			statement.setString(1, no);
+			//プリペアードステートメントを実行
+			int rSet =statement.executeUpdate();
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			//プリペアードステートメントを閉じる
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+			//コネクションを閉じる
+			if (connection != null) {
+				try{
+				connection.close();
+			} catch (SQLException sqle) {
+				throw sqle;
+			}
 		}
 	}
 }
