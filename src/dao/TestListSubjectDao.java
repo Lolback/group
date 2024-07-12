@@ -12,7 +12,11 @@ import bean.Subject;
 import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao{
-	private String baseSql = "select * from test where school_cd=?" ;
+	private String baseSql = ""
+			+ "select student.no,student.class_num,test.point,test.no,subject.name "
+			+ "from test "
+			+ "join student on student.no = test.student_no "
+			+ "join subject on subject.cd = test.subject_cd where school_cd=?" ;
 
 
 

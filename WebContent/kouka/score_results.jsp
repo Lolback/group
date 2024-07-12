@@ -122,7 +122,7 @@
                             <input type="hidden" name="no" value="<%= no %>">
                             <input type="hidden" name="subject" value="<%= subjectName %>">
                             <input type="text" name="point" value="<%= point %>">
-                            <input type="submit" value="登録">
+                            <input type="submit" value="更新">
                         </form>
                     </td>
                 </tr>
