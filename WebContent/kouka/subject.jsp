@@ -12,17 +12,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-<h1 class="toptitle">得点管理システム</h1>
     <h2 class="subtitle">科目管理</h2>
     <%@ include file="sidebar.jsp" %>
     <a href="subject_add.jsp">新規登録</a>
 
-    <table class="table table-hover">
+    <table border="1">
         <tr>
-            <th>学校コード</th>
             <th>科目コード</th>
             <th>科目名</th>
-            <th colspan="2">　　　　操作</th>
         </tr>
         <%
             Connection conn = null;
@@ -35,19 +32,17 @@
 
                 conn = ds.getConnection();
 
-                String sql = "SELECT SCHOOL_CD, CD, NAME FROM SUBJECT";
+                String sql = "SELECT CD, NAME FROM SUBJECT";
 
                 pstmt = conn.prepareStatement(sql);
 
                 rs = pstmt.executeQuery();
 
                 while (rs.next()) {
-                    String schoolCode = rs.getString("SCHOOL_CD");
                     String subjectCode = rs.getString("CD");
                     String subjectName = rs.getString("NAME");
         %>
                     <tr>
-                        <td><%= schoolCode %></td>
                         <td><%= subjectCode %></td>
                         <td><%= subjectName %></td>
                         <td><a href="subject_edit.jsp?subjectCode=<%= subjectCode %>">変更</a></td>
