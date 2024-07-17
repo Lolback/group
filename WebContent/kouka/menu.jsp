@@ -21,7 +21,7 @@
                     <div class="btn-test">
                         <a href="test_list.jsp">成績管理</a>
                         <a href="score_add.jsp">成績登録</a>
-                        <a href="score_view.jsp">成績参照</a>
+                        <a href="TestList.action">成績参照</a>
                     </div>
                     <a class="btn-subject" href="subject.jsp">科目管理</a>
                 </div>
