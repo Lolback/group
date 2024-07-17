@@ -163,4 +163,11 @@ public class SubjectDao extends Dao {
 			return false;
 		}
 	}
+
+	//07.03中本晴輝
+	//SubjectUpdateExecuteActionクラスにおいてエラー対策のために仮作成
+	public boolean update(Subject subject) {
+		// TODO 自動生成されたメソッド・スタブ
+		return false;
+	}
 }
