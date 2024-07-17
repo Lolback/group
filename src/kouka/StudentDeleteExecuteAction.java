@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.StudentDao;
 import tool.Action;
@@ -15,11 +14,9 @@ public class StudentDeleteExecuteAction extends Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 	throws Exception{
-		HttpSession session = request.getSession();//セッション
 
 		String no = "";
 		StudentDao sDao = new StudentDao();//学生Dao
-		//ClassNumDao cNumDao = new ClassNumDao();//クラス番号Daoを初期化
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
 		no = request.getParameter("no");
