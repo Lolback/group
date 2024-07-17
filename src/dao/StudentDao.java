@@ -330,4 +330,12 @@ public class StudentDao extends Dao {
 			return false;
 		}
 	}
+
+
+	//07.03中本晴輝
+	//delete関数をエラー対策のために仮作成
+	public void delete(Student student) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
 }
