@@ -89,6 +89,8 @@ public class StudentListAction extends Action {
 			entYearSet.add(i);
 		}
 
+
+
 		//レスポンス値をセット 6
 		//リクエストに入学年度をセット
 		request.setAttribute("f1", entYear);
