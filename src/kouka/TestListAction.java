@@ -120,7 +120,7 @@ public class TestListAction extends Action {
 		request.setAttribute("slNum", slNum);
 
 		//JSPへフォワード
-		request.getRequestDispatcher("student_score.jsp").forward(request, response);
+		request.getRequestDispatcher("score_view.jsp").forward(request, response);
 	}
 	}
 }
