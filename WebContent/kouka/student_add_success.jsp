@@ -14,8 +14,8 @@
 
 <div>登録が完了しました</div>
 
-<a href="student_add.jsp">戻る</a>
-<a href="StudentListAction">学生一覧</a>
+<a href="StudentCreate.action">戻る</a>
+<a href="StudentList.action">学生一覧</a>
 
 <c:choose>
 <c:when test="${not empty students}">

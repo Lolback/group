@@ -33,7 +33,7 @@
                             <c:otherwise>×</c:otherwise>
                         </c:choose>
                     </p>
-                    <form action="StudentDeleteExecute.action" method="post">
+                    <form action="StudentDeleteExecute.action?no=<%=request.getParameter("no") %>" method="post">
                         <input type="hidden" name="no" value="${no}" />
                         <button type="submit" class="btn btn-danger">削除</button>
                         <a href="StudentList.action" class="btn btn-secondary">キャンセル</a>
