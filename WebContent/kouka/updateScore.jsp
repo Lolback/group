@@ -31,7 +31,7 @@
             request.getSession().setAttribute("updateMessage", "更新が完了しました。");
 
             // リダイレクト
-            response.sendRedirect("score_results.jsp"); // 更新後に検索結果ページにリダイレクト
+            response.sendRedirect("score_view.jsp"); // 更新後に検索結果ページにリダイレクト
         } else {
             // 更新失敗時の処理（任意）
             out.println("<p>更新できませんでした。</p>");
