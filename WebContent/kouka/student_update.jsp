@@ -39,13 +39,15 @@
 
 <div class="col-3">
 <label class="form-label" for="student-f4-select">氏名</label>
-<input type="text" class="form-control" id="f4" name="f4">
+<input type="text" class="form-control" id="f4" name="f4" value=<%=request.getParameter("name") %> required>
 </div>
-
 
 <div class="col-2 form-check text-center">
 <label class="form-check-label" for="student-f5-select">在学中
-<input type="checkbox" id="student-f5-check" name="f5">
+<c:choose>
+<c:when test="${isAttend == true}"><input type="checkbox" id="student-f5-check" name="f5" checked></c:when>
+<c:otherwise><input type="checkbox" id="student-f5-check" name="f5"></c:otherwise>
+</c:choose>
 </label>
 </div>
 

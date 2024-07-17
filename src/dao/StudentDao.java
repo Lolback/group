@@ -17,6 +17,7 @@ public class StudentDao extends Dao {
 
 
 	public Student get(String no) throws Exception{
+
 		//学生インスタンスを初期化
 		Student student = new Student();
 		//データベースへのコネクションを確立
@@ -105,15 +106,15 @@ public class StudentDao extends Dao {
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文の条件
-		String condition = "and ent_year=? and class_num=?";
+		String condition = " and ent_year=? and class_num=?";
 		//SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc";
 
 		//SQL文の在学フラグ条件
 		String conditionIsAttend = "";
 		//在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend ="and is_attend=true";
+			conditionIsAttend =" and is_attend=true";
 		}
 
 		try {
@@ -163,15 +164,15 @@ public class StudentDao extends Dao {
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文の条件
-		String condition = "and ent_year=?";
+		String condition = " and ent_year=?";
 		//SQL文のソート
-		String order = "order by no asc";
+		String order = " order by no asc";
 
 		//SQL文の在学フラグ
 		String conditionIsAttend = "";
 		//在学フラグがtrueだった場合
 		if (isAttend) {
-			conditionIsAttend = "and is_attend=true";
+			conditionIsAttend = " and is_attend=true";
 		}
 
 		try {
@@ -217,13 +218,13 @@ public class StudentDao extends Dao {
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文の条件
-		String order = "order by no asc";
+		String order = " order by no asc";
 
 		//SQL文の在学フラグ
 		String conditionIsAttend = "";
 		//在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is_attend=true";
+			conditionIsAttend = " and is_attend=true";
 		}
 
 		try {
@@ -271,6 +272,7 @@ public class StudentDao extends Dao {
 		int count = 0;
 
 		try {
+
 			//データベースから学生を取得
 			Student old = get(student.getNo());
 			if (old == null) {
@@ -289,13 +291,12 @@ public class StudentDao extends Dao {
 				//学生が存在した場合
 				//プリペアードステートメントにUPDATE文をセット
 				statement = connection
-						.prepareStatement("update student set name=?, class_num=?, is attend=? where no=?");
+						.prepareStatement("update student set name=?, class_num=?, is_attend=? where no=?");
 				//プリペアードステートメントに値をバインド
 				statement.setString(1, student.getName());
-				statement.setInt(2, student.getEntYear());
-				statement.setString(3, student.getClassNum());
-				statement.setBoolean(4, student.getIsAttend());
-				statement.setString(5, student.getNo());
+				statement.setString(2, student.getClassNum());
+				statement.setBoolean(3, student.getIsAttend());
+				statement.setString(4, student.getNo());
 			}
 
 			//プリペアードステートメントを実行
@@ -331,12 +332,40 @@ public class StudentDao extends Dao {
 		}
 	}
 
+	public void delete(String no) throws Exception{
 
-	//07.03中本晴輝
-	//delete関数をエラー対策のために仮作成
-	public void delete(Student student) {
-		// TODO 自動生成されたメソッド・スタブ
+		//データベースへのコネクションを確立
+		Connection connection = getConnection();
+		//プリペアードステートメント
+		PreparedStatement statement = null;
 
+		try {
+			//プリペアードステートメントにSQL文をセット
+			statement = connection.prepareStatement("delete from student where no=?");
+			//プリペアードステートメントに学生番号をバインド
+			statement.setString(1, no);
+			//プリペアードステートメントを実行
+			int rSet =statement.executeUpdate();
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			//プリペアードステートメントを閉じる
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+			//コネクションを閉じる
+			if (connection != null) {
+				try{
+				connection.close();
+			} catch (SQLException sqle) {
+				throw sqle;
+			}
+		}
 	}
 }
-
