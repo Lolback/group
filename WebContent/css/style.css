@@ -132,7 +132,6 @@ body {
 
 
 .toptitle {
-    background: black;
     font-family: "Comic Sans MS";
     line-height: 50px;
     font-weight: bold;
@@ -142,7 +141,17 @@ body {
     margin: 0 auto; /* 外側の余白を自動調整 */
     text-align: left; /* テキストを中央に配置 */
     padding-left: 25px;
+    animation: colorChange 10s infinite; /* アニメーションの適用 */
 }
+
+@keyframes colorChange {
+    0% { background: black; }
+    25% { background: red; }
+    50% { background: orage; }
+    75% { background: green; }
+    100% { background: black; }
+}
+
 
 
 
