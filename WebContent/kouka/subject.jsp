@@ -12,15 +12,17 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+<h1 class="toptitle">得点管理システム</h1>
     <h2 class="subtitle">科目管理</h2>
     <%@ include file="sidebar.jsp" %>
     <a href="subject_add.jsp">新規登録</a>
 
-    <table border="1">
+    <table class="table table-hover">
         <tr>
             <th>学校コード</th>
             <th>科目コード</th>
             <th>科目名</th>
+            <th colspan="2">　　　　操作</th>
         </tr>
         <%
             Connection conn = null;
