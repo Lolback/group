@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% request.setCharacterEncoding("UTF-8"); %>
+<%@ page import="java.util.List" %>
+<% List<String> ent_year_candidates = (List<String>)request.getAttribute("ent_year_candidates"); %>
+
 <c:import url="/common/base.jsp">
 <c:param name="title">
 <h1 class="toptitle">得点管理システム</h1>
@@ -17,25 +20,22 @@
 <div class="col-4">
 <label class="form-label" for="student-f1-select">入学年度</label>
 <select class="form-select" id="student-f1-select" name="f1">
-<option value="0">--------</option>
-<option value="1">placeholder</option>
-<c:forEach var="year" items="${ent_year_set}">
-<option value="${year}" <c:if test="${year == f1}">selected</c:if>>${year}</option>
+<c:forEach var="ent_year_candidate" items="<%=ent_year_candidates %>">
+<option value="${ent_year_candidate}" >${ent_year_candidate}</option>
 </c:forEach>
 </select>
 </div>
 
 <div class="col-3">
 <label class="form-label" for="student-f2-select">学生番号</label>
-<input type="text" class="form-control" id="f2" name="f2">
+<input type="text" class="form-control" id="f2" name="f2" required>
 </div>
 
 
 <div class="col-4">
 <label class="form-label" for="student-f3-select">クラス</label>
 <select class="form-select" id="student-f3-select" name="f3">
-<option value="0">--------</option>
-<option value="1">placeholder</option>
+<option value="0">placeholder</option>
 <c:forEach var="num" items="${class_num_set}">
 <option value="${num}" <c:if test="${num == f2}">selected</c:if>>${num}</option>
 </c:forEach>
@@ -45,7 +45,7 @@
 
 <div class="col-3">
 <label class="form-label" for="student-f4-select">氏名</label>
-<input type="text" class="form-control" id="f4" name="f4">
+<input type="text" class="form-control" id="f4" name="f4" required>
 </div>
 
 

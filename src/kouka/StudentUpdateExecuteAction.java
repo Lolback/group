@@ -18,27 +18,29 @@ public class StudentUpdateExecuteAction extends Action {
 	throws Exception{
 		HttpSession session = request.getSession();//セッション
 
+		String no="";//入力された学生番号
 		String classNum="";//入力されたクラス番号
 		String name="";//入力された学生番号
 		String isAttendStr="";//入力された在学フラグ
-		int entYear = 0;//入が宇年度
 		boolean isAttend = false;//在学フラグ
 		Student student = new Student();//学生
 		StudentDao sDao = new StudentDao();//学生Dao
 		//ClassNumDao cNumDao = new ClassNumDao();//クラス番号Daoを初期化
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
-		//リクエストパラメータの取得 2
+		//リクエストパラメータの取得
+		no = request.getParameter("f2");
 		classNum = request.getParameter("f3");
 		name = request.getParameter("f4");
 		isAttendStr = request.getParameter("f5");
 
-		//ビジネスロジック 4
+		//ビジネスロジック
 		if (isAttendStr != null) {
 			//在学フラグを立てる
 			isAttend = true;
 		}
 
+		student.setNo(no);
 		student.setClassNum(classNum);
 		student.setName(name);
 		student.setIsAttend(isAttend);
@@ -46,7 +48,7 @@ public class StudentUpdateExecuteAction extends Action {
 		sDao.save(student);
 
 		//JSPへフォワード
-		request.getRequestDispatcher("student_list.jsp").forward(request, response);
+		request.getRequestDispatcher("student_update_success.jsp").forward(request, response);
 	}
 
 }
