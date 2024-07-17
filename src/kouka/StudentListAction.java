@@ -120,4 +120,3 @@ public class StudentListAction extends Action {
         request.getRequestDispatcher("student_list.jsp").forward(request, response);
     }
 }
->>>>>>> branch 'master' of https://github.com/Lolback/group.git
