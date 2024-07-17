@@ -5,7 +5,21 @@
 
 <%
     String studentNo = request.getParameter("no");
-    Integer newPoint = Integer.parseInt(request.getParameter("point"));
+    String subject = request.getParameter("subject");
+    String pointStr = request.getParameter("point");
+
+    if (studentNo == null || studentNo.isEmpty() || subject == null || subject.isEmpty() || pointStr == null || pointStr.isEmpty()) {
+        out.println("<p>すべてのフィールドを入力してください。</p>");
+        return;
+    }
+
+    int point;
+    try {
+        point = Integer.parseInt(pointStr);
+    } catch (NumberFormatException e) {
+        out.println("<p>点数は数値で入力してください。</p>");
+        return;
+    }
 
     Connection conn = null;
     PreparedStatement pstmt = null;
@@ -14,28 +28,34 @@
         Context initContext = new InitialContext();
         DataSource ds = (DataSource)initContext.lookup("java:/comp/env/jdbc/kouka");
         conn = ds.getConnection();
+        conn.setAutoCommit(false);
 
-        String sql = "UPDATE TEST SET POINT = ? WHERE STUDENT_NO = ?";
+        String sql = "UPDATE TEST SET POINT = ? WHERE STUDENT_NO = ? AND SUBJECT_CD = (SELECT CD FROM SUBJECT WHERE NAME = ?)";
         pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, newPoint);
+        pstmt.setInt(1, point);
         pstmt.setString(2, studentNo);
+        pstmt.setString(3, subject);
 
         int rowsAffected = pstmt.executeUpdate();
 
         if (rowsAffected > 0) {
-            // 更新成功時の処理
-            conn.commit(); // コミットを忘れないようにしましょう
-            conn.setAutoCommit(true); // オートコミットを再設定（必要に応じて）
-
-            // 更新が完了しましたというメッセージをセッションに保存
+            conn.commit();
             request.getSession().setAttribute("updateMessage", "更新が完了しました。");
-
-            // リダイレクト
-            response.sendRedirect("score_results.jsp"); // 更新後に検索結果ページにリダイレクト
+            response.sendRedirect("score_results.jsp");
         } else {
-            // 更新失敗時の処理（任意）
-            out.println("<p>更新できませんでした。</p>");
+            conn.rollback();
+            out.println("<p>更新に失敗しました。</p>");
         }
+    } catch (SQLException e) {
+        if (conn != null) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        e.printStackTrace();
+        out.println("<p>SQLエラーが発生しました: " + e.getMessage() + "</p>");
     } catch (Exception e) {
         e.printStackTrace();
         out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
