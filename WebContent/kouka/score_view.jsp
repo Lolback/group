@@ -161,7 +161,7 @@
                     <td><%= name %></td>
                     <td><%= subjectName %></td>
                     <td>
-                        <form class="score" method="post" action="updateScore.jsp">
+                        <form class="score" method="post" action="ScoreUpdate.action">
                             <input type="hidden" name="no" value="<%= no %>">
                             <input type="hidden" name="subject" value="<%= subjectName %>">
                             <input type="text" name="point" value="<%= point %>">
