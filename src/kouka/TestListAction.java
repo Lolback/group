@@ -14,11 +14,8 @@ import bean.ClassNum;
 import bean.School;
 import bean.Student;
 import bean.Subject;
-import bean.Teacher;
 import bean.TestListSubject;
 import dao.ClassNumDao;
-import dao.StudentDao;
-import dao.SubjectDao;
 import dao.TestListSubjectDao;
 import tool.Action;
 
@@ -28,28 +25,28 @@ public class TestListAction extends Action {
 	//成績参照作成開始
 	//07.08
 	//一応完成、ただ機能の検証およびsql文の作成はできていない
+	//07.18
+	//全然わからん
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 	throws Exception{
 		HttpSession session = request.getSession();//セッション
 		//Teacher teacher = (Teacher)session.getAttribute("user");
-		Teacher teacher = new Teacher();
 		Subject subject = new Subject();
+		TestListSubject testsub = new TestListSubject();
+		String name = testsub.getStudentName();
+		System.out.print(name);
 
 		//daoをそれぞれ実装
-		StudentDao sDao = new StudentDao();//学生Dao
 		ClassNumDao cNumDao = new ClassNumDao();//クラス番号Daoを初期化
 		TestListSubjectDao tlsubDao = new TestListSubjectDao(); //成績Daoを初期化
-		SubjectDao subDao = new SubjectDao();//科目Daoを初期化
 
-		String entYearStr="";//選択された入学年度
-		String classNum="";//選択されたクラス番号
-		String isAttendStr="";//選択された在学フラグ
-		String slSubjectName="";//選択された科目
-		String slNum="" ;//選択されたテストの回数
+		String entYearStr="2022";//選択された入学年度
+		String classNum="A";//選択されたクラス番号
+		String slSubjectName="kokugo";//選択された科目
+		String slNum="1" ;//選択されたテストの回数
 
 		int entYear = 0;//入学年度
-		boolean isAttend = false;//在学フラグ
 
 		List<TestListSubject> tlsub = null;//成績リスト
 		List<Student> students = null;//学生リスト
@@ -62,19 +59,10 @@ public class TestListAction extends Action {
 		//クラス番号取得のためなので変更の可能性あり
 		School school = new School();
 
-		//検証用　仮実装用
-		school.setCd("1");
-		school.setName("school1");
-		teacher.setSchool(school);
-		teacher.getSchool();
+
+		//テスト用に全てのデータを仮で入れる
 
 		//リクエストパラメータの取得 2
-		entYearStr = request.getParameter("f1");
-		classNum = request.getParameter("f2");
-		isAttendStr = request.getParameter("f3");
-		slSubjectName = request.getParameter("f4");
-		slNum = request.getParameter("f5");
-
 		//DBからデータ取得 3
 		//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		//List<String> list = cNumDao.filter(teacher.getSchool());
@@ -104,13 +92,7 @@ public class TestListAction extends Action {
 		request.setAttribute("f1", entYear);
 		//リクエストにクラス番号をセット
 		request.setAttribute("f2", classNum);
-		//在学フラグが送信されていた場合
-		if (isAttendStr != null) {
-			//在学フラグを立てる
-			isAttend = true;
-			//リクエストに在学フラグをセット
-			request.setAttribute("f3", isAttendStr);
-		}
+
 		//リクエストに学生リストをセット
 		request.setAttribute("students", students);
 		//リクエストにデータをセット

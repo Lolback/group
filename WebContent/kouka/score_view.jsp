@@ -36,15 +36,17 @@
     <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
         <div class="col-3">
             <label class="form-label" for="academicYear">入学年度</label>
-            <select class="form-select" id="academicYear" name="academicYear">
+            <select class="form-select" id="academicYear" name="f1">
+            <c:forEach var="year" items="${ent_year_set}">
                 <option value="2023">2023</option>
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
+                </c:forEach>
             </select>
         </div>
         <div class="col-2">
             <label class="form-label" for="class">クラス</label>
-            <select class="form-select" id="class" name="class">
+            <select class="form-select" id="class" name="f2">
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
