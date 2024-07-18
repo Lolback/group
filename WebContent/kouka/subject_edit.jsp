@@ -2,7 +2,6 @@
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../background.html" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -12,8 +11,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-<h1 class="toptitle">得点管理システム</h1>
-    <h2 class="subtitle">科目編集</h2>
+    <h2>科目編集</h2>
     <%
         String subjectCode = request.getParameter("subjectCode");
 
@@ -79,5 +77,3 @@
     <a href="subject.jsp">科目一覧に戻る</a>
 </body>
 </html>
-
-<%@include file="../footer.html" %>
