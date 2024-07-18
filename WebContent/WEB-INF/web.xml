@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1"/>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <!-- ScoreUpdateActionサーブレットの定義 -->
+    <servlet>
+        <servlet-name>ScoreUpdateAction</servlet-name>
+        <servlet-class>kouka.ScoreUpdateAction</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ScoreUpdateAction</servlet-name>
+        <url-pattern>/ScoreUpdate.action</url-pattern>
+    </servlet-mapping>
+
+    <!-- ScoreUpdateExecuteActionサーブレットの定義 -->
+    <servlet>
+        <servlet-name>ScoreUpdateExecuteAction</servlet-name>
+        <servlet-class>kouka.ScoreUpdateExecuteAction</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ScoreUpdateExecuteAction</servlet-name>
+        <url-pattern>/ScoreUpdateExecuteAction</url-pattern>
+    </servlet-mapping>
+
+</web-app>

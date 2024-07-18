@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <%@ page import="java.sql.*" %>
@@ -26,9 +27,9 @@
         <%= updateMessage %>
     </div>
 <%
-    // メッセージを表示した後、セッションから削除（次の更新時に再表示しないため）
-    request.getSession().removeAttribute("updateMessage");
-}
+        // メッセージを表示した後、セッションから削除（次の更新時に再表示しないため）
+        request.getSession().removeAttribute("updateMessage");
+    }
 %>
 
 <h1></h1>
@@ -71,7 +72,6 @@
         </div>
     </div>
 </form>
-<div>検索結果：${scores.size()}件</div>
 
 <table class="table table-hover">
     <tr>
@@ -86,10 +86,11 @@
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        int resultCount = 0;
 
         try {
             Context initContext = new InitialContext();
-            DataSource ds = (DataSource)initContext.lookup("java:/comp/env/jdbc/kouka");
+            DataSource ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/kouka");
 
             conn = ds.getConnection();
 
@@ -104,6 +105,7 @@
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
+                resultCount++;
                 Integer entYear = rs.getInt("ENT_YEAR");
                 String classNum = rs.getString("CLASS_NUM");
                 String no = rs.getString("NO");
@@ -156,6 +158,7 @@
         }
     %>
 </table>
+<div>検索結果：<%= resultCount %>件</div>
 </body>
 </html>
 <%@include file="../footer.html" %>
