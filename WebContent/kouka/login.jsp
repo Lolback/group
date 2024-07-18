@@ -26,7 +26,7 @@ href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <h1 class="toptitle">ログイン</h1>
-<form action="login" method="post">
+<form action="LoginExecute.action" method="post">
 <label for="id">ログインID</label>
 <input type="text" id="id" name="id" maxlength="20" placeholder="半角でご入力ください" required>
 <label for="password">パスワード</label>
