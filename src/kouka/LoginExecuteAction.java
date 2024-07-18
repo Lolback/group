@@ -26,7 +26,7 @@ public class LoginExecuteAction extends Action {
 
 			if (current_teacher!=null) {
 				session.setAttribute("current_teacher", current_teacher);
-				request.getRequestDispatcher("login_success.jsp").forward(request, response);
+				request.getRequestDispatcher("menu.jsp").forward(request, response);
 				return;
 			}
 
