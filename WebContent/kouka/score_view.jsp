@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <%@ page import="java.sql.*" %>
@@ -80,13 +81,6 @@
 <input type="hidden" id="studentCode" name="studentCode" value="st">
 
 <script>
-    function searchGradesBySubject() {
-        // Clear student search criteria
-        document.getElementById('studentNumber').value = '学生番号を入力してください';
-        // Perform subject search
-        // Implement the logic to search grades by subject here
-    }
-
     function searchGradesByStudent() {
         var studentNumber = document.getElementById('studentNumber').value.trim();
 
