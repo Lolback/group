@@ -62,7 +62,7 @@ public class StudentListAction extends Action {
         }
 
         // ログインユーザーの学校コードをもとにクラス番号の一覧を取得
-        List<ClassNum> list = cNumDao.filter(teacher.getSchool());
+        List<ClassNum> classNumList = cNumDao.filter(teacher.getSchool());
 
         if (entYear != 0 && !classNum.equals("0")) {
             // 入学年度とクラス番号を指定
@@ -88,11 +88,20 @@ public class StudentListAction extends Action {
             }
         }
 
+        //日付候補
         // リストを初期化
         List<Integer> entYearSet = new ArrayList<>();
         // 10年前から1年後まで年をリストに追加
         for (int i = year - 10; i <= year; i++) {
             entYearSet.add(i);
+        }
+
+        //クラス番号候補
+        // リストを初期化
+        List<Integer> classNumSet = new ArrayList<>();
+        // クラス番号をリストに追加
+        for (int i = 0; i <= classNumList.size() - 1; i++) {
+        	classNumSet.add(classNumList.get(i).getClassNum());
         }
 
         // レスポンス値をセット 6
@@ -105,7 +114,7 @@ public class StudentListAction extends Action {
         // リクエストに学生リストをセット
         request.setAttribute("students", students);
         // リクエストにデータをセット
-        request.setAttribute("class_num_set", list);
+        request.setAttribute("class_num_set", classNumSet);
         request.setAttribute("ent_year_set", entYearSet);
 
         // JSPへフォワード
