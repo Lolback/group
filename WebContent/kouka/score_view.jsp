@@ -105,7 +105,6 @@
         // Perform subject search
         // Implement the logic to search grades by subject here
     }
-
     function searchGradesByStudent() {
         var studentNumber = document.getElementById('studentNumber').value.trim();
 

@@ -16,6 +16,7 @@
 
         String studentNo = request.getParameter("studentNo");
         String subjectCode = request.getParameter("subjectCode");
+        String schoolCode = request.getParameter("schoolCode");
         String classNum = request.getParameter("classNum");
         String point = request.getParameter("point");
 
@@ -28,13 +29,14 @@
 
             conn = ds.getConnection();
 
-            String sql = "INSERT INTO TEST (STUDENT_NO, SUBJECT_CD, CLASS_NUM, POINT) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO TEST (STUDENT_NO, SUBJECT_CD, SCHOOL_CD, CLASS_NUM, POINT) VALUES (?, ?, ?, ?, ?)";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, studentNo);
             pstmt.setString(2, subjectCode);
-            pstmt.setString(3, classNum);
-            pstmt.setString(4, point);
+            pstmt.setString(3, schoolCode);
+            pstmt.setString(4, classNum);
+            pstmt.setString(5, point);
 
             int result = pstmt.executeUpdate();
 
