@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<%@ page import="java.util.List" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
@@ -37,25 +38,44 @@
         <div class="col-3">
             <label class="form-label" for="academicYear">入学年度</label>
             <select class="form-select" id="academicYear" name="academicYear">
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
+	            <option value="0">--------</option>
+				<%
+			    	List<Integer> entYearSet = (List<Integer>) request.getAttribute("ent_year_set");
+				    for (int i = 0; i < entYearSet.size(); i++) {
+				%>
+				   <option value="<%= entYearSet.get(i) %>"><%= entYearSet.get(i) %></option>
+				<%
+				    }
+				%>
             </select>
         </div>
         <div class="col-2">
             <label class="form-label" for="class">クラス</label>
             <select class="form-select" id="class" name="class">
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
+	            <option value="0">---</option>
+				<%
+			    	List<Integer> classNumSet = (List<Integer>) request.getAttribute("class_num_set");
+				    for (int i = 0; i < classNumSet.size(); i++) {
+				%>
+				   <option value="<%= classNumSet.get(i) %>"><%= classNumSet.get(i) %></option>
+				<%
+				    }
+				%>
             </select>
         </div>
         <div class="col-2">
             <label class="form-label" for="subject">科目</label>
             <select class="form-select" id="subject" name="subject">
-                <option value="math">数学</option>
-                <option value="science">科学</option>
-                <option value="history">歴史</option>
+	            <option value="0">-----</option>
+				<%
+			    	List<String> subjectCdSet = (List<String>) request.getAttribute("subject_cd_set");
+			    	List<String> subjectNameSet = (List<String>) request.getAttribute("subject_name_set");
+				    for (int i = 0; i < subjectCdSet.size(); i++) {
+				%>
+				   <option value="<%= subjectCdSet.get(i) %>"><%= subjectNameSet.get(i) %></option>
+				<%
+				    }
+				%>
             </select>
         </div>
         <div class="col-2">
@@ -63,7 +83,6 @@
             <select class="form-select" id="times" name="times">
                 <option value="1">1</option>
                 <option value="2">2</option>
-                <option value="3">3</option>
             </select>
         </div>
         <div class="col-1 text-center">

@@ -4,9 +4,9 @@ public class Score {
     private String studentNo; // 学生番号
     private String subjectCode; // 科目コード
     private String classNum; // クラス番号
+    private String schoolCode; // 学校コード
     private String point; // 点数
-    private String entYear; // 入学年度
-    private String name; // 氏名
+    private String number; // 回数
 
     public String getStudentNo() {
         return studentNo;
@@ -40,19 +40,19 @@ public class Score {
         this.point = point;
     }
 
-    public String getEntYear() {
-        return entYear;
+    public String getSchoolCode() {
+        return schoolCode;
     }
 
-    public void setEntYear(String entYear) {
-        this.entYear = entYear;
+    public void setSchoolCode(String schoolCode) {
+        this.schoolCode = schoolCode;
     }
 
-    public String getName() {
-        return name;
+    public String getNumber() {
+        return number;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNumber(String number) {
+        this.number = number;
     }
 }
