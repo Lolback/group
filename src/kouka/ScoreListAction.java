@@ -24,7 +24,8 @@ public class ScoreListAction extends Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
-
+        // Teacher teacher = (Teacher)session.getAttribute("user");
+        // 仮実装のため、教師情報をダミーで設定
         Teacher teacher = new Teacher();
 
         String entYearStr = ""; // 入学年度

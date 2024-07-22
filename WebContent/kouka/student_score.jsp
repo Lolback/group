@@ -15,7 +15,9 @@
 <h1 class="toptitle">得点管理システム</h1>
     <h2 class="subtitle">成績管理</h2>
     <%@ include file="sidebar.jsp" %>
+    <div class="add">
     <a href="student_add.jsp">新規登録</a>
+    </div>
             <form method="post" action="score_results.jsp">
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                     <div class="col-3">
