@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.ClassNum;
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.ClassNumDao;
 import tool.Action;
 
@@ -29,6 +30,7 @@ public class TestListAction extends Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 	throws Exception{
 		//Teacher teacher = (Teacher)session.getAttribute("user");
+        Teacher teacher = new Teacher();
 		Subject subject = new Subject();
 
 
