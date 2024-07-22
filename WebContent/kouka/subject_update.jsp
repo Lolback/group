@@ -22,47 +22,55 @@
     Connection conn = null;
     PreparedStatement pstmt = null;
 
-    try {
-        Context initContext = new InitialContext();
-        DataSource ds = (DataSource)initContext.lookup("java:/comp/env/jdbc/kouka");
+    if (subjectName == null || subjectName.trim().isEmpty()) {
+        // 科目名が未入力の場合のエラーメッセージ
+        out.println("<p style='color:red;'>これは必須フィールドです。</p>");
+        // 編集画面に戻るリンクを表示
+        out.println("<a href='subject_edit.jsp?subjectCode=" + originalSubjectCode + "'>編集画面に戻る</a>");
+    } else {
+        try {
+            Context initContext = new InitialContext();
+            DataSource ds = (DataSource)initContext.lookup("java:/comp/env/jdbc/kouka");
 
-        conn = ds.getConnection();
+            conn = ds.getConnection();
 
-        String sql = "UPDATE SUBJECT SET SCHOOL_CD = ?, CD = ?, NAME = ? WHERE CD = ?";
+            String sql = "UPDATE SUBJECT SET SCHOOL_CD = ?, CD = ?, NAME = ? WHERE CD = ?";
 
-        pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, schoolCode);
-        pstmt.setString(2, subjectCode);
-        pstmt.setString(3, subjectName);
-        pstmt.setString(4, originalSubjectCode);
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, schoolCode);
+            pstmt.setString(2, subjectCode);
+            pstmt.setString(3, subjectName);
+            pstmt.setString(4, originalSubjectCode);
 
-        int result = pstmt.executeUpdate();
+            int result = pstmt.executeUpdate();
 
-        if (result > 0) {
-            out.println("<p>科目が正常に更新されました。</p>");
-        } else {
-            out.println("<p>科目の更新に失敗しました。</p>");
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-        out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
-    } finally {
-        if (pstmt != null) {
-            try {
-                pstmt.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (result > 0) {
+                out.println("<p>科目が正常に更新されました。</p>");
+                out.println("<a href='subject.jsp'>科目一覧に戻る</a>");
+            } else {
+                out.println("<p>科目の更新に失敗しました。</p>");
+                out.println("<a href='subject_edit.jsp?subjectCode=" + originalSubjectCode + "'>編集画面に戻る</a>");
             }
-        }
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 %>
-<a href="subject.jsp">科目一覧に戻る</a>
 </body>
 </html>

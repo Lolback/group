@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Lolback/group.git
 <!DOCTYPE html>
 <html>
 <%@ page import="java.sql.*" %>

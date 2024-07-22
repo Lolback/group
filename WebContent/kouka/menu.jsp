@@ -21,15 +21,15 @@
                     <div class="btn-test">
                         <a href="test_list.jsp">成績管理</a>
                         <a href="score_add.jsp">成績登録</a>
-<<<<<<< HEAD
-                        <a href="TestList.action">成績参照</a>
-=======
                         <a href="ScoreList.action">成績参照</a>
->>>>>>> branch 'master' of https://github.com/Lolback/group.git
                     </div>
                     <a class="btn-subject" href="subject.jsp">科目管理</a>
                 </div>
+                	<a href="login.jsp">ログイン</a>
+                	</div>
+                <a href="logout-in.jsp">ログアウト</a>
             </div>
+
 
         </section>
     </c:param>
