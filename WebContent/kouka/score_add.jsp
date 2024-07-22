@@ -12,6 +12,10 @@
         <section class="me-4">
             <form action="add_score_process.jsp" method="POST" accept-charset="UTF-8">
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
+              		<div class="col-4">
+                        <label for="classNum">クラス:</label>
+                        <input type="text" id="classNum" name="classNum" required>
+                    </div>
                     <div class="col-4">
                         <label for="studentNo">学生番号:</label>
                         <input type="text" id="studentNo" name="studentNo" required>
@@ -21,9 +25,14 @@
                         <input type="text" id="subjectCode" name="subjectCode" required>
                     </div>
                     <div class="col-4">
+                        <label for="schoolCode">学校コード:</label>
+                        <input type="text" id="schoolCode" name="schoolCode" required>
+                    </div>
+                    <div class="col-4">
                         <label for="point">点数:</label>
                         <input type="text" id="point" name="point" required>
                     </div>
+
                     <div class="col-1 text-center">
                         <button type="submit">登録</button>
                     </div>

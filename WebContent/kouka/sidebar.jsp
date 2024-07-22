@@ -13,5 +13,6 @@
         <li class="<%= currentUrl.endsWith("score_add.jsp") ? "current" : "" %>"><a href="score_add.jsp">成績登録</a></li>
         <li class="<%= currentUrl.endsWith("score_view.jsp") ? "current" : "" %>"><a href="ScoreList.action">成績参照</a></li>
         <li class="<%= currentUrl.endsWith("subject.jsp") ? "current" : "" %>"><a href="subject.jsp">科目管理</a></li>
+        <li class="<%= currentUrl.endsWith("logout-in.jsp") ? "current" : "" %>"><a href="logout-in.jsp">ログアウト</a></li>
     </ul>
 </nav>
