@@ -76,6 +76,7 @@ base
 ==============*/
 
 html, body {
+  width: 100% !important;
   width: 800px;
   margin: 0;
   padding: 0;
@@ -169,18 +170,20 @@ body {
 
 
 .footer {
-	background: pink;
-	text-align: center;
+    background: linear-gradient(to right, #f06292, #f48fb1); /* グラデーション背景 */
+    text-align: center;
     line-height: 25px;
     font-weight: bold;
     color: #FFF;
-
-    bottom: 0; /*下に固定*/
-    width:870px; /* フッター幅を指定*/
-	margin:0 auto;
+    width: 870px;
+    margin: 0 auto;
+    border-top: 3px solid #ff4081; /* 上部に線を追加 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* シャドウの追加 */
+    width: 100% !important;
 }
 
-}
+
+
 
 .logout {
 	text-align: right
@@ -213,10 +216,18 @@ body {
     display: flex;
     flex-direction: column;
     background-color: pink;
-    width:150px;
+    width: 150px;
     margin: 3em;
     border: 6px inset pink;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* シャドウの追加 */
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.btn-test:hover {
+    transform: scale(1.1); /* ホバー時に拡大 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* ホバー時のシャドウの強調 */
+}
+
 
 
 .btn-student {
@@ -229,7 +240,14 @@ body {
   justify-content: center;
   text-align: center; /* 複数行のテキストを中央に揃えるため */
   border: 6px inset lightgreen;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* シャドウの追加 */
+  transition: background-color 0.3s ease, transform 0.3s ease;
 
+}
+
+.btn-student:hover {
+    transform: scale(1.1); /* ホバー時に拡大 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* ホバー時のシャドウの強調 */
 }
 
 
@@ -243,6 +261,13 @@ body {
   justify-content: center;
   text-align: center; /* 複数行のテキストを中央に揃えるため */
   border: 6px inset skyblue;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* シャドウの追加 */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-subject:hover {
+    transform: scale(1.1); /* ホバー時に拡大 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* ホバー時のシャドウの強調 */
 }
 
 /* table全体のスタイリング */
@@ -287,6 +312,14 @@ table tbody td a {
 table tbody td a:hover {
     text-decoration: underline;
 }
+
+.add {
+    text-align: right; /* 右寄せ */
+    margin-right: 20px; /* 右側にマージンを追加 */
+    padding-right: 15px; /* 右側にパディングを追加 */
+}
+
+
 
 
 /*!

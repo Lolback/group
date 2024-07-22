@@ -1,46 +1,58 @@
+<!DOCTYPE html>
+<html>
+<%@ page import="java.sql.*" %>
+<%@ page import="javax.naming.*" %>
+<%@ page import="javax.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% request.setCharacterEncoding("UTF-8"); %>
-<c:import url="/common/base.jsp">
-    <c:param name="title">
-        <h1 class="toptitle">得点管理システム</h1>
-    </c:param>
-    <c:param name="scripts"></c:param>
-    <c:param name="content">
-        <h2 class="subtitle">得点登録</h2>
-        <%@ include file="sidebar.jsp" %>
-        <section class="me-4">
-            <form action="add_score_process.jsp" method="POST" accept-charset="UTF-8">
-                <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
-              		<div class="col-4">
-                        <label for="classNum">クラス:</label>
-                        <input type="text" id="classNum" name="classNum" required>
-                    </div>
-                    <div class="col-4">
-                        <label for="studentNo">学生番号:</label>
-                        <input type="text" id="studentNo" name="studentNo" required>
-                    </div>
-                    <div class="col-4">
-                        <label for="subjectCode">科目コード:</label>
-                        <input type="text" id="subjectCode" name="subjectCode" required>
-                    </div>
-                    <div class="col-4">
-                        <label for="schoolCode">学校コード:</label>
-                        <input type="text" id="schoolCode" name="schoolCode" required>
-                    </div>
-                    <div class="col-4">
-                        <label for="point">点数:</label>
-                        <input type="text" id="point" name="point" required>
-                    </div>
+<%@ include file="../background.html" %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成績登録</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>
+    <h1 class="toptitle">得点管理システム</h1>
+    <h2 class="subtitle">成績登録</h2>
+    <%@ include file="sidebar.jsp" %>
 
-                    <div class="col-1 text-center">
-                        <button type="submit">登録</button>
-                    </div>
-                    <div class="mt-2 text-warning">${errors.get("f1")}</div>
-                </div>
-            </form>
-            <a href="student_score.jsp">得点一覧に戻る</a>
-        </section>
-    </c:param>
-</c:import>
-<%@include file="../footer.html" %>
+    <!-- メッセージ表示 -->
+    <%
+        String updateMessage = (String) request.getSession().getAttribute("updateMessage");
+        if (updateMessage != null && !updateMessage.isEmpty()) {
+    %>
+        <div class="alert alert-success" role="alert">
+            <%= updateMessage %>
+        </div>
+    <%
+            request.getSession().removeAttribute("updateMessage");
+        }
+    %>
+
+    <!-- 成績登録フォーム -->
+    <form method="post" action="ScoreCreateAction">
+        <table class="table table-hover">
+            <tr>
+                <th>入学年度</th>
+                <th>クラス</th>
+                <th>学生番号</th>
+                <th>氏名</th>
+                <th>科目</th>
+                <th>点数</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="entYear" size="3"></td>
+                <td><input type="text" name="classNum" size="3"></td>
+                <td><input type="text" name="no" size="3"></td>
+                <td><input type="text" name="name" size="3"></td>
+                <td><input type="text" name="subject" size="3"></td>
+                <td><input type="text" name="point" size="3"></td>
+                <td><input type="submit" value="登録"></td>
+            </tr>
+        </table>
+    </form>
+
+    <%@include file="../footer.html" %>
+</body>
+</html>
