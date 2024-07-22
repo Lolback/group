@@ -28,9 +28,13 @@ public class LoginExecuteAction extends Action {
 				session.setAttribute("current_teacher", current_teacher);
 				request.getRequestDispatcher("menu.jsp").forward(request, response);
 				return;
+			} else {
+				request.setAttribute("error",true);
+				request.getRequestDispatcher("Login.action").forward(request, response);
+				return;
 			}
 
-			request.getRequestDispatcher("login_error.jsp").forward(request, response);
+			//request.getRequestDispatcher("login_error.jsp").forward(request, response);
 	}
 
 }
