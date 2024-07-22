@@ -41,11 +41,7 @@ public class StudentListAction extends Action {
         // クラス番号取得のためなので変更の可能性あり
         School school = new School();
 
-        // 検証用 仮実装用
-        school.setCd("1");
-        school.setName("school1");
-        teacher.setSchool(school);
-        teacher.getSchool();
+        teacher = (Teacher) session.getAttribute("current_teacher");
 
         // リクエストパラメータの取得 2
         entYearStr = request.getParameter("f1");
@@ -65,12 +61,8 @@ public class StudentListAction extends Action {
             isAttend = true;
         }
 
-        // DBからデータ取得 3
         // ログインユーザーの学校コードをもとにクラス番号の一覧を取得
-        // List<String> list = cNumDao.filter(teacher.getSchool());
-
-        // 6/12現在はログイン機能を付けないため学生Daoから直接全てのクラス番号の一覧を取得
-        List<ClassNum> list = cNumDao.filter(school);
+        List<ClassNum> list = cNumDao.filter(teacher.getSchool());
 
         if (entYear != 0 && !classNum.equals("0")) {
             // 入学年度とクラス番号を指定
