@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Student;
+import bean.Teacher;
 import dao.StudentDao;
 import tool.Action;
 
@@ -17,6 +18,7 @@ public class StudentCreateExecuteAction extends Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 	throws Exception{
 		HttpSession session = request.getSession();//セッション
+        Teacher teacher = new Teacher();
 
 		String entYearStr="";//入力された入学年度
 		String no="";//入力された学生番号
@@ -27,8 +29,9 @@ public class StudentCreateExecuteAction extends Action {
 		boolean isAttend = false;//在学フラグ
 		Student student = new Student();//学生
 		StudentDao sDao = new StudentDao();//学生Dao
-		//ClassNumDao cNumDao = new ClassNumDao();//クラス番号Daoを初期化
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
+
+        teacher = (Teacher) session.getAttribute("current_teacher");
 
 		//リクエストパラメータの取得 2
 		entYearStr = request.getParameter("f1");
@@ -52,6 +55,7 @@ public class StudentCreateExecuteAction extends Action {
 		student.setClassNum(classNum);
 		student.setName(name);
 		student.setIsAttend(isAttend);
+		student.setSchool(teacher.getSchool());
 
 		sDao.save(student);
 
