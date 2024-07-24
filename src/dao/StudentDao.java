@@ -39,6 +39,9 @@ public class StudentDao extends Dao {
 			if (rSet.next()) {
 				//リザルトセットが存在する場合
 				//学生インスタンスに検索結果をセット
+				student.setNo(rSet.getString("no"));
+				student.setName(rSet.getString("name"));
+				student.setEntYear(Integer.parseInt(rSet.getString("ent_year")));
 				student.setClassNum(rSet.getString("class_num"));
 				student.setIsAttend(rSet.getBoolean("is_attend"));
 				//学校フィールドには学校コードで検索した学校インスタンスをセット

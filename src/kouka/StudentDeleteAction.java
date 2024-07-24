@@ -24,6 +24,8 @@ public class StudentDeleteAction extends Action {
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
 		student = sDao.get(no);
+		System.out.println(student.getNo());
+		System.out.println(student.getName());
 
 		request.setAttribute("no", student.getNo());
 		request.setAttribute("classNum", student.getClassNum());
