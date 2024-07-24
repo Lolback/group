@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <%@ page import="java.util.List" %>
-<% List<String> ent_year_candidates = (List<String>)request.getAttribute("ent_year_candidates"); %>
+<% List<String> ent_year_set = (List<String>)request.getAttribute("ent_year_set"); %>
+<% List<String> class_num_set = (List<String>)request.getAttribute("class_num_set"); %>
 
 <c:import url="/common/base.jsp">
 <c:param name="title">
@@ -20,8 +21,8 @@
 <div class="col-4">
 <label class="form-label" for="student-f1-select">入学年度</label>
 <select class="form-select" id="student-f1-select" name="f1">
-<c:forEach var="ent_year_candidate" items="<%=ent_year_candidates %>">
-<option value="${ent_year_candidate}" >${ent_year_candidate}</option>
+<c:forEach var="ent_year_set" items="<%=ent_year_set %>">
+<option value="${ent_year_set}" >${ent_year_set}</option>
 </c:forEach>
 </select>
 </div>
@@ -35,7 +36,6 @@
 <div class="col-4">
 <label class="form-label" for="student-f3-select">クラス</label>
 <select class="form-select" id="student-f3-select" name="f3">
-<option value="0">placeholder</option>
 <c:forEach var="num" items="${class_num_set}">
 <option value="${num}" <c:if test="${num == f2}">selected</c:if>>${num}</option>
 </c:forEach>

@@ -23,7 +23,6 @@ public class StudentListAction extends Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(); // セッション
-        // Teacher teacher = (Teacher)session.getAttribute("user");
         Teacher teacher = new Teacher();
 
         String entYearStr = ""; // 入力された入学年度
@@ -47,11 +46,6 @@ public class StudentListAction extends Action {
         entYearStr = request.getParameter("f1");
         classNum = request.getParameter("f2");
         isAttendStr = request.getParameter("f3");
-
-        // デバッグ用ログ出力
-        System.out.println("entYearStr: " + entYearStr);
-        System.out.println("classNum: " + classNum);
-        System.out.println("isAttendStr: " + isAttendStr);
 
         // リクエストパラメータの検証と変換
         if (entYearStr != null && !entYearStr.isEmpty()) {
@@ -81,18 +75,11 @@ public class StudentListAction extends Action {
             students = sDao.filter(teacher.getSchool(), isAttend);
         }
 
-        // デバッグ用ログ出力
-        if (students != null) {
-            for (Student student : students) {
-                System.out.println(student.getStudentId() + ", " + student.getStudentName() + ", " + student.getCourseId());
-            }
-        }
-
         //日付候補
         // リストを初期化
         List<Integer> entYearSet = new ArrayList<>();
         // 10年前から1年後まで年をリストに追加
-        for (int i = year - 10; i <= year; i++) {
+        for (int i = year - 10; i <= year + 10; i++) {
             entYearSet.add(i);
         }
 
