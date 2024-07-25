@@ -34,6 +34,7 @@ public class ScoreListAction extends Action {
         String entYearStr = ""; // 入学年度
         String classNum = ""; // クラス番号
         String subjectCode = ""; // 科目コード
+        String times = ""; // 回数
         int entYear = 0; // 入学年度
         List<Student> students = null; // 学生リスト
         ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
@@ -41,6 +42,7 @@ public class ScoreListAction extends Action {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        boolean filterFlag = false;
         int resultCount = 0;
 
         teacher = (Teacher) session.getAttribute("current_teacher");
@@ -54,29 +56,33 @@ public class ScoreListAction extends Action {
             entYearStr = request.getParameter("academicYear");
             classNum = request.getParameter("class");
             subjectCode = request.getParameter("subject");
+            times = request.getParameter("times");
 
             // SQLの組み立て
-            String sql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME, " +
-                         "COALESCE(t.POINT, 0) AS POINT " +
+            String sql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME " +
+                         //"COALESCE(t.POINT, 0) AS POINT " +
                          "FROM STUDENT s " +
                          "JOIN SUBJECT sub ON sub.SCHOOL_CD = s.SCHOOL_CD " +
-                         "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD " +
+                         //"LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD " +
                          "WHERE s.SCHOOL_CD = ?";
 
             // 入学年度が指定されている場合、条件を追加
             if (entYearStr != null && !entYearStr.isEmpty()) {
                 entYear = Integer.parseInt(entYearStr);
                 sql += " AND s.ENT_YEAR = ?";
+                filterFlag = true;
             }
 
             // クラス番号が指定されている場合、条件を追加
             if (classNum != null && !classNum.isEmpty()) {
                 sql += " AND s.CLASS_NUM = ?";
+                filterFlag = true;
             }
 
             // 科目コードが指定されている場合、条件を追加
             if (subjectCode != null && !subjectCode.isEmpty()) {
                 sql += " AND sub.CD = ?";
+                filterFlag = true;
             }
 
             pstmt = conn.prepareStatement(sql);
@@ -86,13 +92,15 @@ public class ScoreListAction extends Action {
             int paramIndex = 2;
 
             if (entYear != 0) {
-                pstmt.setInt(paramIndex++, entYear);
+                pstmt.setInt(paramIndex, entYear);
+                paramIndex++;
             }
             if (classNum != null && !classNum.isEmpty()) {
-                pstmt.setString(paramIndex++, classNum);
+                pstmt.setString(paramIndex, classNum);
+                paramIndex++;
             }
             if (subjectCode != null && !subjectCode.isEmpty()) {
-                pstmt.setString(paramIndex++, subjectCode);
+                pstmt.setString(paramIndex, subjectCode);
             }
 
             rs = pstmt.executeQuery();
@@ -109,9 +117,6 @@ public class ScoreListAction extends Action {
 
                 Subject subject = new Subject();
                 subject.setSubjectName(rs.getString("SUBJECT_NAME"));
-                // subject.setCode(rs.getString("SUBJECT_CD")); // もし必要ならば追加
-
-                // ここでPOINTをStudentオブジェクトに追加する必要がある場合は、student.setPoint(...)を実装する
 
                 studentList.add(student);
             }
@@ -121,8 +126,8 @@ public class ScoreListAction extends Action {
             List<Integer> entYearSet = new ArrayList<>();
             LocalDate todaysDate = LocalDate.now(); // LocalDateインスタンス
             int year = todaysDate.getYear(); // 現在の年を取得
-            // 10年前から1年後まで年をリストに追加
-            for (int i = year - 10; i <= year; i++) {
+            // 10年前から10年後まで年をリストに追加
+            for (int i = year - 10; i <= year + 10; i++) {
                 entYearSet.add(i);
             }
 
@@ -155,6 +160,7 @@ public class ScoreListAction extends Action {
             request.setAttribute("subject_name_set", subjectNameSet);
             request.setAttribute("students", studentList);
             request.setAttribute("resultCount", resultCount);
+            request.setAttribute("filterFlag", filterFlag);
 
         } catch (Exception e) {
             e.printStackTrace();
