@@ -6,5 +6,8 @@ href="${pageContext.request.contextPath}/css/style.css">
 
 ログアウトしました。
 <a href="menu.jsp">メニューに戻る</a>
+または
+<a href="login.jsp">再ログインはこちらから</a>
+
 
 <%@include file="../footer.html" %>
