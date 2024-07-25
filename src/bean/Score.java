@@ -55,4 +55,14 @@ public class Score {
     public void setNumber(String number) {
         this.number = number;
     }
+
+	public void setEntYear(String entYear) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
+
+	public void setName(String name) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
 }
