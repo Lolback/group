@@ -34,13 +34,12 @@
 
             conn = ds.getConnection();
 
-            String sql = "UPDATE SUBJECT SET SCHOOL_CD = ?, CD = ?, NAME = ? WHERE CD = ?";
+            String sql = "UPDATE SUBJECT SET CD = ?, NAME = ? WHERE CD = ?";
 
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, schoolCode);
-            pstmt.setString(2, subjectCode);
-            pstmt.setString(3, subjectName);
-            pstmt.setString(4, originalSubjectCode);
+            pstmt.setString(1, subjectCode);
+            pstmt.setString(2, subjectName);
+            pstmt.setString(3, originalSubjectCode);
 
             int result = pstmt.executeUpdate();
 
