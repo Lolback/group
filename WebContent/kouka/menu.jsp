@@ -20,22 +20,14 @@
                 <div class="button-container">
                     <a class="btn-student" href="StudentList.action">学生管理</a>
                     <div class="btn-test">
-<<<<<<< HEAD
                         <a href="student_score.jsp">成績参照</a>
 
                         <a href="ScoreList.action">成績管理</a>
-=======
-                        <a href="student_score.jsp">成績管理</a>
-                        <a href="ScoreList.action">成績参照</a>
->>>>>>> branch 'master' of https://github.com/Lolback/group.git
+
 
                     </div>
                     <a class="btn-subject" href="subject.jsp">科目管理</a>
                 </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/Lolback/group.git
 
 
 
