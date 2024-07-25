@@ -50,6 +50,13 @@ public class StudentCreateAction extends Action {
         	classNumSet.add(classNumList.get(i).getClassNum());
         }
 
+        //重複フラグ
+        try {
+        	boolean duplicate_flag = (boolean)request.getAttribute("duplicate_flag");
+        } catch(Exception e) {
+        	request.setAttribute("duplicate_flag", false);
+        }
+
 		request.setAttribute("ent_year_set", entYearCandidates);
         request.setAttribute("class_num_set", classNumSet);
 

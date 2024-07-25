@@ -29,7 +29,6 @@
 <div class="col-4">
 <label class="form-label" for="student-f3-select">クラス</label>
 <select class="form-select" id="student-f3-select" name="f3">
-<option value="0">--------</option>
 <c:forEach var="num" items="${class_num_set}">
 <option value="${num}" <c:if test="${num == f2}">selected</c:if>>${num}</option>
 </c:forEach>
@@ -57,6 +56,8 @@
 <div class="mt-2 text-warning">${errors.get("f1")}</div>
 </div>
 </form>
+
+<a href="StudentList.action">学生一覧に戻る</a>
 
 </section>
 </c:param>
