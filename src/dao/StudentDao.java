@@ -289,7 +289,7 @@ public class StudentDao extends Dao {
 				statement.setInt(3, student.getEntYear());
 				statement.setString(4, student.getClassNum());
 				statement.setBoolean(5, student.getIsAttend());
-				statement.setString(6, "1"); //仮
+				statement.setString(6, student.getSchool().getCd());
 			} else {
 				//学生が存在した場合
 				//プリペアードステートメントにUPDATE文をセット

@@ -59,20 +59,13 @@ public class Score {
         this.number = number;
     }
 
-	public String getEntYear() {
-		return entYear;
-	}
-
 	public void setEntYear(String entYear) {
-		this.entYear = entYear;
-	}
+		// TODO 自動生成されたメソッド・スタブ
 
-	public String getName() {
-		return name;
 	}
 
 	public void setName(String name) {
-		this.name = name;
-	}
+		// TODO 自動生成されたメソッド・スタブ
 
+	}
 }
