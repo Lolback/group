@@ -1,6 +1,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
+<%@ page import="bean.Teacher" %>
 <%@include file="../background.html" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -31,13 +32,16 @@
             PreparedStatement pstmt = null;
             ResultSet rs = null;
 
+            Teacher teacher = new Teacher();
+            teacher = (Teacher) session.getAttribute("current_teacher");
+
             try {
                 Context initContext = new InitialContext();
                 DataSource ds = (DataSource)initContext.lookup("java:/comp/env/jdbc/kouka");
 
                 conn = ds.getConnection();
 
-                String sql = "SELECT CD, NAME FROM SUBJECT";
+                String sql = "SELECT CD, NAME FROM SUBJECT WHERE SCHOOL_CD = " + teacher.getSchool().getCd();
 
                 pstmt = conn.prepareStatement(sql);
 
