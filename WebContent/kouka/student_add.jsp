@@ -5,6 +5,8 @@
 <%@ page import="java.util.List" %>
 <% List<String> ent_year_set = (List<String>)request.getAttribute("ent_year_set"); %>
 <% List<String> class_num_set = (List<String>)request.getAttribute("class_num_set"); %>
+<% boolean duplicate_flag = (boolean)request.getAttribute("duplicate_flag"); %>
+<% System.out.println(duplicate_flag); %>
 
 <c:import url="/common/base.jsp">
 <c:param name="title">
@@ -20,7 +22,8 @@
 
 <div class="col-4">
 <label class="form-label" for="student-f1-select">入学年度</label>
-<select class="form-select" id="student-f1-select" name="f1">
+<select class="form-select" id="student-f1-select" name="f1" required>
+<option value="" >-----</option>
 <c:forEach var="ent_year_set" items="<%=ent_year_set %>">
 <option value="${ent_year_set}" >${ent_year_set}</option>
 </c:forEach>
@@ -31,6 +34,9 @@
 <label class="form-label" for="student-f2-select">学生番号</label>
 <input type="text" class="form-control" id="f2" name="f2" required>
 </div>
+<% if (duplicate_flag == true) { %>
+	<font color="Gold">学生番号が重複しています</font>
+<% } %>
 
 
 <div class="col-4">
@@ -61,6 +67,8 @@
 <div class="mt-2 text-warning">${errors.get("f1")}</div>
 </div>
 </form>
+
+<a href="StudentList.action">学生一覧に戻る</a>
 
 </section>
 </c:param>

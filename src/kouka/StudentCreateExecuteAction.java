@@ -57,6 +57,14 @@ public class StudentCreateExecuteAction extends Action {
 		student.setIsAttend(isAttend);
 		student.setSchool(teacher.getSchool());
 
+		//重複検知
+		Student duplicateStudent = sDao.get(no);
+		if (duplicateStudent != null) {
+			request.setAttribute("duplicate_flag", true);
+			request.getRequestDispatcher("StudentCreate.action").forward(request, response);
+			return;
+		}
+
 		sDao.save(student);
 
 		//JSPへフォワード
