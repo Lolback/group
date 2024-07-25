@@ -20,7 +20,7 @@
         <div style="color: red;"><%= errorMessage %></div>
     <% } %>
     <h1></h1>
-    <form action="SubjectCreateExcuteAction" method="POST" accept-charset="UTF-8">
+    <form action="SubjectCreateExecute.action" method="POST" accept-charset="UTF-8">
     	<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 	        <div class="col-5">
 	            <label for="subjectCode">科目コード:</label>

@@ -8,15 +8,20 @@ import javax.naming.InitialContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
+import bean.Teacher;
 import tool.Action;
 public class SubjectCreateExecuteAction extends Action {
    @Override
    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();//セッション
        String subjectCode = request.getParameter("subjectCode");
        String subjectName = request.getParameter("subjectName");
        String errorMessage = "";
+       Teacher teacher = new Teacher();
+       teacher = (Teacher) session.getAttribute("current_teacher");
        Connection conn = null;
        PreparedStatement pstmt = null;
        ResultSet rs = null;
@@ -37,7 +42,7 @@ public class SubjectCreateExecuteAction extends Action {
                // 科目を追加
                String insertSql = "INSERT INTO SUBJECT (SCHOOL_CD, CD, NAME) VALUES (?, ?, ?)";
                pstmt = conn.prepareStatement(insertSql);
-               pstmt.setString(1, "SCHOOL_CODE"); // 必要に応じて修正
+               pstmt.setString(1, teacher.getSchool().getCd());
                pstmt.setString(2, subjectCode);
                pstmt.setString(3, subjectName);
                int result = pstmt.executeUpdate();

@@ -24,6 +24,7 @@ public class StudentListAction extends Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(); // セッション
         Teacher teacher = new Teacher();
+        teacher = (Teacher) session.getAttribute("current_teacher");
 
         String entYearStr = ""; // 入力された入学年度
         String classNum = ""; // 入力されたクラス番号
@@ -39,8 +40,6 @@ public class StudentListAction extends Action {
         // Schoolをインスタンス化
         // クラス番号取得のためなので変更の可能性あり
         School school = new School();
-
-        teacher = (Teacher) session.getAttribute("current_teacher");
 
         // リクエストパラメータの取得 2
         entYearStr = request.getParameter("f1");
