@@ -9,12 +9,33 @@ public class TestListSubject {
 	private String studentNo;
 	private String studentName;
 	private String classNum;
+	private int testno;
+	private String no;
+	private String name;
+	public String getNo() {
+		return no;
+	}
+
+	public void setNo(String no) {
+		this.no = no;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getTestNo() {
+		return testno;
+	}
+
+	public void setTestNo(int no) {
+		this.testno = no;
+	}
 	private Map<Integer, Integer> points;
-	//TestListStudentのbean
-	private String subjectName;
-	private String subjectCd;
-	private int num;
-	private int point;
 
 	public TestListSubject() {
 
@@ -64,38 +85,6 @@ public class TestListSubject {
 
 	}
 
-	//TestListStudentのbean
-	public String getSubjectName() {
-		return subjectName;
-	}
-
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
-	}
-
-	public String getSubjectCd() {
-		return subjectCd;
-	}
-
-	public void setSubjectCd(String subjectCd) {
-		this.subjectCd = subjectCd;
-	}
-
-	public int getNum() {
-		return num;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
-	}
-
-	public int getPoint() {
-		return point;
-	}
-
-	public void setPoint(int point) {
-		this.point = point;
-	}
 
 
 }
