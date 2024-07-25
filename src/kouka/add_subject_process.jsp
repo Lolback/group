@@ -5,6 +5,7 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
+	String schoolCode = request.getParameter("schoolCode");
     String subjectCode = request.getParameter("subjectCode");
     String subjectName = request.getParameter("subjectName");
 
@@ -32,10 +33,11 @@
             errorMessage = "科目コードが重複しています。";
         } else {
             // 科目を追加
-            String insertSql = "INSERT INTO SUBJECT (CD, NAME) VALUES (?, ?)";
+            String insertSql = "INSERT INTO SUBJECT (SCHOOL_CD, CD, NAME) VALUES (?, ?, ?)";
             pstmt = conn.prepareStatement(insertSql);
-            pstmt.setString(1, subjectCode);
-            pstmt.setString(2, subjectName);
+            pstmt.setString(1, schoolCode);
+            pstmt.setString(2, subjectCode);
+            pstmt.setString(3, subjectName);
             int result = pstmt.executeUpdate();
 
             if (result > 0) {

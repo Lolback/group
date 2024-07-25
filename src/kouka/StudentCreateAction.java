@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.ClassNum;
+import bean.Teacher;
+import dao.ClassNumDao;
 import tool.Action;
 
 public class StudentCreateAction extends Action {
@@ -20,6 +23,10 @@ public class StudentCreateAction extends Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 	throws Exception{
 		HttpSession session = request.getSession();//セッション
+
+        ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
+        Teacher teacher = new Teacher();
+        teacher = (Teacher) session.getAttribute("current_teacher");
 
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
@@ -34,7 +41,17 @@ public class StudentCreateAction extends Action {
 			entYearCandidates.add(i);
 		}
 
-		request.setAttribute("ent_year_candidates", entYearCandidates);
+        //クラス番号候補
+        List<ClassNum> classNumList = cNumDao.filter(teacher.getSchool());
+        // リストを初期化
+        List<Integer> classNumSet = new ArrayList<>();
+        // クラス番号をリストに追加
+        for (int i = 0; i <= classNumList.size() - 1; i++) {
+        	classNumSet.add(classNumList.get(i).getClassNum());
+        }
+
+		request.setAttribute("ent_year_set", entYearCandidates);
+        request.setAttribute("class_num_set", classNumSet);
 
 		//JSPへフォワード
 		request.getRequestDispatcher("student_add.jsp").forward(request, response);

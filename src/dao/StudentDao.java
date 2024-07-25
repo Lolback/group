@@ -39,6 +39,9 @@ public class StudentDao extends Dao {
 			if (rSet.next()) {
 				//リザルトセットが存在する場合
 				//学生インスタンスに検索結果をセット
+				student.setNo(rSet.getString("no"));
+				student.setName(rSet.getString("name"));
+				student.setEntYear(Integer.parseInt(rSet.getString("ent_year")));
 				student.setClassNum(rSet.getString("class_num"));
 				student.setIsAttend(rSet.getBoolean("is_attend"));
 				//学校フィールドには学校コードで検索した学校インスタンスをセット
@@ -286,7 +289,7 @@ public class StudentDao extends Dao {
 				statement.setInt(3, student.getEntYear());
 				statement.setString(4, student.getClassNum());
 				statement.setBoolean(5, student.getIsAttend());
-				statement.setString(6, "1"); //仮
+				statement.setString(6, student.getSchool().getCd());
 			} else {
 				//学生が存在した場合
 				//プリペアードステートメントにUPDATE文をセット
