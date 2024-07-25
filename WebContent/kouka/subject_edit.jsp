@@ -1,6 +1,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
+<%@ page import="bean.Teacher" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ja">
@@ -40,6 +41,9 @@ function validateForm() {
     <% } %>
     <%
         String subjectCode = request.getParameter("subjectCode");
+	    Teacher teacher = new Teacher();
+	    teacher = (Teacher) session.getAttribute("current_teacher");
+        String schoolCode = teacher.getSchool().getCd();
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -51,23 +55,19 @@ function validateForm() {
 
             conn = ds.getConnection();
 
-            String sql = "SELECT SCHOOL_CD, CD, NAME FROM SUBJECT WHERE CD = ?";
+            String sql = "SELECT SCHOOL_CD, CD, NAME FROM SUBJECT WHERE CD = ? AND SCHOOL_CD = ?";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, subjectCode);
+            pstmt.setString(2, schoolCode);
 
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                String schoolCode = rs.getString("SCHOOL_CD");
                 String subjectName = rs.getString("NAME");
     %>
                 <form action="subject_update.jsp" method="post" onsubmit="return validateForm()">
                     <input type="hidden" name="originalSubjectCode" value="<%= subjectCode %>">
-                    <div>
-                        <label for="schoolCode">学校コード:</label>
-                        <input type="text" id="schoolCode" name="schoolCode" value="<%= schoolCode %>" required>
-                    </div>
                     <div>
                         <label for="subjectCode">科目コード:</label>
                         <input type="text" id="subjectCode" name="subjectCode" value="<%= subjectCode %>" required>
