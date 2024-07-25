@@ -23,6 +23,7 @@
                     <div class="col-3">
                         <label class="form-label" for="academicYear">入学年度</label>
                         <select class="form-select" id="academicYear" name="academicYear">
+                        	<option value="---">---</option>
                             <option value="2023">2023</option>
                             <option value="2022">2022</option>
                             <option value="2021">2021</option>
@@ -31,6 +32,7 @@
                     <div class="col-2">
                         <label class="form-label" for="class">クラス</label>
                         <select class="form-select" id="class" name="class">
+                        	<option value="---">---</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>
@@ -39,6 +41,7 @@
                     <div class="col-2">
                         <label class="form-label" for="subject">科目</label>
                         <select class="form-select" id="subject" name="subject">
+                        	<option value="---">---</option>
                             <option value="math">数学</option>
                             <option value="science">科学</option>
                             <option value="history">歴史</option>
@@ -47,6 +50,7 @@
                     <div class="col-2">
                         <label class="form-label" for="times">回数</label>
                         <select class="form-select" id="times" name="times">
+                        	<option value="---">---</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -55,10 +59,32 @@
                     <div class="col-1 text-center">
                         <button type="submit" class="btn btn-secondary">検索</button>
                     </div>
+
                 </div>
             </form>
-
-
+            <!-- 学生情報 -->
+<div id="studentInfo">
+	<form method="post" action="score_results.jsp">
+		<table class="table table-hover">
+		<tr>
+			<th>学生番号</th>
+		</tr>
+		<tr>
+		<td>
+			<input type="text" name="f4" size="10" value="${f4}" placeholder="学生番号を入力してください">
+		</td>
+			<td><input type="submit" value="検索"></td>
+		</tr>
+		</table>
+			</form>
+		</div>
+<!-- 利用方法案内メッセージ -->
+<p id="usageMessage">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</p>
+<!-- 隠しフィールド -->
+<input type="hidden" name="f" value="sj">
+<input type="hidden" name="f" value="st">
+</div>
+<%@include file="../footer.html" %>
 </body>
 </html>
-<%@include file="../footer.html" %>
+

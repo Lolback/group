@@ -30,7 +30,7 @@
     %>
 
     <!-- 成績登録フォーム -->
-    <form method="post" action="ScoreCreateAction">
+    <form method="post" action="ScoreCreate.action">
         <table class="table table-hover">
             <tr>
                 <th>入学年度</th>

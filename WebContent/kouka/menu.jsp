@@ -19,16 +19,14 @@
                 <div class="button-container">
                     <a class="btn-student" href="StudentList.action">学生管理</a>
                     <div class="btn-test">
-                        <a href="test_list.jsp">成績参照</a>
+                        <a href="student_score.jsp">成績参照</a>
 
                         <a href="ScoreList.action">成績管理</a>
 
                     </div>
                     <a class="btn-subject" href="subject.jsp">科目管理</a>
                 </div>
-                	<a href="login.jsp">ログイン</a>
-                	</div>
-                <a href="logout-in.jsp">ログアウト</a>
+
 
 
 

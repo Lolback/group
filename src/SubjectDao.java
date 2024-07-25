@@ -1,4 +1,4 @@
-package dao;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.Subject;
+import dao.Dao;
 
 public class SubjectDao extends Dao {
 
@@ -44,7 +45,12 @@ public class SubjectDao extends Dao {
         return subject;
     }
 
-    public boolean delete(String subjectCode) throws SQLException {
+    public Connection getConnection() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	public boolean delete(String subjectCode) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         boolean success = false;
