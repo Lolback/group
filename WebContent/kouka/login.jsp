@@ -29,7 +29,7 @@
 <body>
 <h1 class="toptitle">得点管理システム</h1>
 <h2 class="subtitle">ログイン</h2>
-<%@ include file="sidebar.jsp" %>
+
 <c:choose>
     <c:when test="${error == true}">
 	    <div>ログインに失敗しました。IDまたはパスワードが正しくありません。</div>
