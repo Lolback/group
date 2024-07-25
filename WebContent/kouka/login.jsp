@@ -6,7 +6,7 @@
 <%@ page import="javax.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../background.html" %>
-<title>ログイン画面</title>
+<title>ログイン</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <style>
        label {
