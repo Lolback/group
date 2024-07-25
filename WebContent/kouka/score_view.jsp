@@ -4,6 +4,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
+<%@ page import="bean.Student" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../background.html" %>
 <head>
@@ -32,13 +33,12 @@
     }
 %>
 
-<h1></h1>
-<form method="post" action="score_view.jsp">
+<form method="post" action="ScoreList.action">
     <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
         <div class="col-3">
             <label class="form-label" for="academicYear">入学年度</label>
-            <select class="form-select" id="academicYear" name="academicYear">
-	            <option value="0">--------</option>
+            <select class="form-select" id="academicYear" name="academicYear" required>
+	            <option value="">-----</option>
 				<%
 			    	List<Integer> entYearSet = (List<Integer>) request.getAttribute("ent_year_set");
 				    for (int i = 0; i < entYearSet.size(); i++) {
@@ -51,8 +51,8 @@
         </div>
         <div class="col-2">
             <label class="form-label" for="class">クラス</label>
-            <select class="form-select" id="class" name="class">
-	            <option value="0">---</option>
+            <select class="form-select" id="class" name="class" required>
+	            <option value="">-----</option>
 				<%
 			    	List<Integer> classNumSet = (List<Integer>) request.getAttribute("class_num_set");
 				    for (int i = 0; i < classNumSet.size(); i++) {
@@ -65,8 +65,8 @@
         </div>
         <div class="col-2">
             <label class="form-label" for="subject">科目</label>
-            <select class="form-select" id="subject" name="subject">
-	            <option value="0">-----</option>
+            <select class="form-select" id="subject" name="subject" required>
+	            <option value="">-----</option>
 				<%
 			    	List<String> subjectCdSet = (List<String>) request.getAttribute("subject_cd_set");
 			    	List<String> subjectNameSet = (List<String>) request.getAttribute("subject_name_set");
@@ -80,7 +80,8 @@
         </div>
         <div class="col-2">
             <label class="form-label" for="times">回数</label>
-            <select class="form-select" id="times" name="times">
+            <select class="form-select" id="times" name="times" required>
+    	        <option value="0">-----</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
@@ -90,11 +91,6 @@
         </div>
     </div>
 </form>
-<div>
-    <label for="studentNumber">学生番号</label>
-    <input type="text" id="studentNumber" name="studentNumber" maxlength="10" required>
-    <button type="button" onclick="searchGradesByStudent()">検索</button>
-</div>
 <input type="hidden" id="subjectCode" name="subjectCode" value="sj">
 <input type="hidden" id="studentCode" name="studentCode" value="st">
 
@@ -120,104 +116,110 @@
     }
 </script>
 
-<table class="table table-hover">
-    <tr>
-        <th>入学年度</th>
-        <th>クラス</th>
-        <th>学生番号</th>
-        <th>氏名</th>
-        <th>科目</th>
-        <th>点数</th>
-    </tr>
-    <%
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        int resultCount = 0;
+<%
+	// セッションから学生リストを取得
+	List<Student> students = (List<Student>) request.getAttribute("students");
+	boolean filterFlag = (boolean) request.getAttribute("filterFlag");
+	if (students.size() > 0 && filterFlag == true) { %>
+	<table class="table table-hover">
+	    <tr>
+	        <th>入学年度</th>
+	        <th>クラス</th>
+	        <th>学生番号</th>
+	        <th>氏名</th>
+	        <th>科目</th>
+	        <th>点数</th>
+	    </tr>
+	    <%
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        int resultCount = 0;
 
-        try {
-            Context initContext = new InitialContext();
-            DataSource ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/kouka");
+	        try {
+	            Context initContext = new InitialContext();
+	            DataSource ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/kouka");
 
-            conn = ds.getConnection();
+	            conn = ds.getConnection();
 
-            // SQLの組み立て
-            String sql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME, " +
-                         "COALESCE(t.POINT, 0) AS POINT " +
-                         "FROM STUDENT s " +
-                         "JOIN SUBJECT sub ON sub.SCHOOL_CD = s.SCHOOL_CD " +
-                         "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD";
+	            // SQLの組み立て
+	            String sql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME, " +
+	                         "COALESCE(t.POINT, 0) AS POINT " +
+	                         "FROM STUDENT s " +
+	                         "JOIN SUBJECT sub ON sub.SCHOOL_CD = s.SCHOOL_CD " +
+	                         "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD";
 
-            // 学生番号が指定されている場合、条件を追加
-            String studentNumberParam = request.getParameter("studentNumber");
-            if (studentNumberParam != null && !studentNumberParam.isEmpty()) {
-                sql += " WHERE s.NO = ?";
-            }
+	            // 学生番号が指定されている場合、条件を追加
+	            String studentNumberParam = request.getParameter("studentNumber");
+	            if (studentNumberParam != null && !studentNumberParam.isEmpty()) {
+	                sql += " WHERE s.NO = ?";
+	            }
 
-            pstmt = conn.prepareStatement(sql);
+	            pstmt = conn.prepareStatement(sql);
 
-            // 学生番号が指定されている場合、プレースホルダに値を設定
-            if (studentNumberParam != null && !studentNumberParam.isEmpty()) {
-                pstmt.setString(1, studentNumberParam);
-            }
+	            // 学生番号が指定されている場合、プレースホルダに値を設定
+	            if (studentNumberParam != null && !studentNumberParam.isEmpty()) {
+	                pstmt.setString(1, studentNumberParam);
+	            }
 
-            rs = pstmt.executeQuery();
+	            rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                resultCount++;
-                Integer entYear = rs.getInt("ENT_YEAR");
-                String classNum = rs.getString("CLASS_NUM");
-                String no = rs.getString("NO");
-                String name = rs.getString("NAME");
-                String subjectName = rs.getString("SUBJECT_NAME");
-                Integer point = rs.getInt("POINT");
-    %>
-                <tr>
-                    <td><%= entYear %></td>
-                    <td><%= classNum %></td>
-                    <td><%= no %></td>
-                    <td><%= name %></td>
-                    <td><%= subjectName %></td>
-                    <td>
-                        <form class="score" method="post" action="ScoreUpdate.action">
-                            <input type="hidden" name="no" value="<%= no %>">
-                            <input type="hidden" name="subject" value="<%= subjectName %>">
-                            <input type="text" name="point" value="<%= point %>">
-                            <input type="submit" value="更新">
-                        </form>
-                    </td>
-                </tr>
-    <%
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    %>
-</table>
+	            while (rs.next()) {
+	                resultCount++;
+	                Integer entYear = rs.getInt("ENT_YEAR");
+	                String classNum = rs.getString("CLASS_NUM");
+	                String no = rs.getString("NO");
+	                String name = rs.getString("NAME");
+	                String subjectName = rs.getString("SUBJECT_NAME");
+	                Integer point = rs.getInt("POINT");
+	    %>
+	                <tr>
+	                    <td><%= entYear %></td>
+	                    <td><%= classNum %></td>
+	                    <td><%= no %></td>
+	                    <td><%= name %></td>
+	                    <td><%= subjectName %></td>
+	                    <td>
+	                        <form class="score" method="post" action="ScoreUpdate.action">
+	                            <input type="hidden" name="no" value="<%= no %>">
+	                            <input type="hidden" name="subject" value="<%= subjectName %>">
+	                            <input type="text" name="point" value="<%= point %>">
+	                            <input type="submit" value="更新">
+	                        </form>
+	                    </td>
+	                </tr>
+	    <%
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
+	        } finally {
+	            if (rs != null) {
+	                try {
+	                    rs.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	            if (pstmt != null) {
+	                try {
+	                    pstmt.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	            if (conn != null) {
+	                try {
+	                    conn.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    %>
+	</table>
 <div>検索結果：<%= resultCount %>件</div>
+<% } %>
 </body>
 </html>
 <%@include file="../footer.html" %>
