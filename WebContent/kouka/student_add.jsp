@@ -7,7 +7,6 @@
 <% List<String> ent_year_set = (List<String>)request.getAttribute("ent_year_set"); %>
 <% List<String> class_num_set = (List<String>)request.getAttribute("class_num_set"); %>
 <% boolean duplicate_flag = (boolean)request.getAttribute("duplicate_flag"); %>
-<% System.out.println(duplicate_flag); %>
 
 <c:import url="/common/base.jsp">
 <c:param name="title">
