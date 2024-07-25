@@ -26,9 +26,6 @@
                     </div>
                     <a class="btn-subject" href="subject.jsp">科目管理</a>
                 </div>
-                	<a href="login.jsp">ログイン</a>
-                	</div>
-                <a href="logout-in.jsp">ログアウト</a>
 
 
 
@@ -37,4 +34,3 @@
 </c:import>
 
 <%@include file="../footer.html" %>
-
