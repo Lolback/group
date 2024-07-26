@@ -20,9 +20,9 @@
                 <div class="button-container">
                     <a class="btn-student" href="StudentList.action">学生管理</a>
                     <div class="btn-test">
-                        <a href="student_score.jsp">成績参照</a>
+                        <a href="student_score.jsp">成績管理</a>
 
-                        <a href="ScoreList.action">成績管理</a>
+                        <a href="ScoreList.action">成績参照</a>
 
 
                     </div>
