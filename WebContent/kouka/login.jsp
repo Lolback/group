@@ -49,4 +49,7 @@
     </form>
 </body>
 </html>
-<%@ include file="../footer.html" %>
+
+<%@include file="../footer.html" %>
+
+

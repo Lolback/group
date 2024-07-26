@@ -2,6 +2,7 @@
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@include file="../background.html" %>
 <!DOCTYPE html>
 <html lang="ja">
