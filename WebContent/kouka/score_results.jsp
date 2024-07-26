@@ -130,50 +130,7 @@
         <th>科目</th>
         <th>点数</th>
     </tr>
-    <%
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        int resultCount = 0;
-
-        try {
-            Context initContext = new InitialContext();
-            DataSource ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/kouka");
-
-            conn = ds.getConnection();
-
-            // SQLの組み立て
-            String sql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME, " +
-                         "COALESCE(t.POINT, 0) AS POINT " +
-                         "FROM STUDENT s " +
-                         "JOIN SUBJECT sub ON sub.SCHOOL_CD = s.SCHOOL_CD " +
-                         "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD";
-
-            // 学生番号が指定されている場合、条件を追加
-            String studentNumberParam = request.getParameter("studentNumber");
-            if (studentNumberParam != null && !studentNumberParam.isEmpty()) {
-                sql += " WHERE s.NO = ?";
-            }
-
-            pstmt = conn.prepareStatement(sql);
-
-            // 学生番号が指定されている場合、プレースホルダに値を設定
-            if (studentNumberParam != null && !studentNumberParam.isEmpty()) {
-                pstmt.setString(1, studentNumberParam);
-            }
-
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                resultCount++;
-                Integer entYear = rs.getInt("ENT_YEAR");
-                String classNum = rs.getString("CLASS_NUM");
-                String no = rs.getString("NO");
-                String name = rs.getString("NAME");
-                String subjectName = rs.getString("SUBJECT_NAME");
-                Integer point = rs.getInt("POINT");
-    %>
-                <tr>
+    <tr>
                     <td><%= entYear %></td>
                     <td><%= classNum %></td>
                     <td><%= no %></td>
@@ -189,35 +146,6 @@
                     </td>
                 </tr>
 
-    <%
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (pstmt != null) {
-                try {
-                    pstmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    %>
 </table>
 <div>検索結果：<%= resultCount %>件</div>
 </body>
