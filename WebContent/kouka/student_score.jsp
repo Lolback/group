@@ -8,13 +8,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>成績管理</title>
+<title>成績参照</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <h1 class="toptitle">得点管理システム</h1>
-    <h2 class="subtitle">成績管理</h2>
+    <h2 class="subtitle">成績参照</h2>
     <%@ include file="sidebar.jsp" %>
+    <h1></h1>
             <form method="post" action="score_results.jsp">
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                     <div class="col-3">
@@ -80,7 +81,7 @@
 <!-- 隠しフィールド -->
 <input type="hidden" name="f" value="sj">
 <input type="hidden" name="f" value="st">
-</div>
 <%@include file="../footer.html" %>
 </body>
 </html>
+

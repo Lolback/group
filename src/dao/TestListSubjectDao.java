@@ -12,12 +12,13 @@ import bean.Subject;
 import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao{
-	private String baseSql = ""
-			+ "select student.no,student.class_num,test.point,test.no,subject.name "
-			+ "from test "
-			+ "join student on student.no = test.student_no "
-			+ "join subject on subject.cd = test.subject_cd where school_cd=?" ;
 
+    private String baseSql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME " +
+            "COALESCE(t.POINT, 0) AS POINT " +
+            "FROM STUDENT s " +
+            "JOIN SUBJECT sub ON sub.SCHOOL_CD = s.SCHOOL_CD " +
+            "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD " +
+            "WHERE s.SCHOOL_CD = ?";
 
 	private List<TestListSubject> postFilter(ResultSet rSet) throws Exception {
 		//リストを初期化
