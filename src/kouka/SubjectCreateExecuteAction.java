@@ -56,7 +56,7 @@ public class SubjectCreateExecuteAction extends Action {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            errorMessage = "エラーが発生しました: " + e.getMessage();
+            errorMessage = "エラーが発生しました。: " + e.getMessage();
         } finally {
             if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
             if (pstmt != null) try { pstmt.close(); } catch (SQLException e) { e.printStackTrace(); }
