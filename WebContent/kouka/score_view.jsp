@@ -17,6 +17,7 @@
 <h1 class="toptitle">得点管理システム</h1>
 <h2 class="subtitle">成績一覧</h2>
 <%@ include file="sidebar.jsp" %>
+<h1></h1>
 <%
     // セッションからメッセージを取得
     String updateMessage = (String) request.getSession().getAttribute("updateMessage");
@@ -63,7 +64,7 @@
 				%>
             </select>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <label class="form-label" for="subject">科目</label>
             <select class="form-select" id="subject" name="subject" required>
 	            <option value="">-----</option>
