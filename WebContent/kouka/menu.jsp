@@ -21,7 +21,6 @@
                     <div class="btn-test">
                         <a href="student_score.jsp">成績参照</a>
                         <a href="ScoreList.action">成績管理</a>
->>>>>>> branch 'master' of https://github.com/Lolback/group.git
 
 
                     </div>
