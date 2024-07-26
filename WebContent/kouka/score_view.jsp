@@ -90,7 +90,8 @@
             </select>
         </div>
         <div class="col-1 text-center">
-            <button type="submit" class="btn btn-secondary">検索</button>
+            <button type="submit" class="btn btn-secondary">
+            検索</button>
         </div>
     </div>
 </form>

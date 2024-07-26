@@ -17,6 +17,10 @@
 <h1 class="toptitle">得点一覧</h1>
     <h2 class="subtitle">成績参照</h2>
     <%@ include file="sidebar.jsp" %>
+    <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
+    <% if (errorMessage != null && !errorMessage.isEmpty()) { %>
+        <div style="color: red;"><%= errorMessage %></div>
+    <% } %>
     <h1></h1>
 <%
     // セッションからメッセージを取得
