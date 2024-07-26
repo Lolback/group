@@ -189,6 +189,6 @@ public class TestListAction extends Action {
         }
 
         // JSPへフォワード
-        request.getRequestDispatcher("score_view.jsp").forward(request, response);
+        request.getRequestDispatcher("student_score.jsp").forward(request, response);
     }
 }

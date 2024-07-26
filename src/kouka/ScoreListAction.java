@@ -190,5 +190,6 @@ public class ScoreListAction extends Action {
 
         // JSPへフォワード
         request.getRequestDispatcher("score_view.jsp").forward(request, response);
+
     }
 }

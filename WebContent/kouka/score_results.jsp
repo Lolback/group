@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-<h1 class="toptitle">得点管理システム</h1>
+<h1 class="toptitle">得点一覧</h1>
 <h2 class="subtitle">検索結果</h2>
 <%@ include file="sidebar.jsp" %>
 <%
@@ -33,7 +33,7 @@
     }
 %>
 
-<form method="post" action="ScoreList.action">
+<form method="post" action="ScoreListSubjectExecute.action">
 
     <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
         <div class="col-3">
