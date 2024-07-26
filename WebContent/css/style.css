@@ -314,9 +314,9 @@ table tbody td a:hover {
 }
 
 .add {
-    text-align: right; /* 右寄せ */
-    margin-right: 20px; /* 右側にマージンを追加 */
-    padding-right: 15px; /* 右側にパディングを追加 */
+    text-align: left; /* 左寄せ */
+    margin-left: 10;
+    padding-left: 10px;
 }
 
 

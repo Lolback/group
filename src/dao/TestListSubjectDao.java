@@ -12,13 +12,13 @@ import bean.Subject;
 import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao{
-	private String baseSql = ""
-			+ "select student.no,student.class_num,test.point,test.no,subject.name "
-			+ "from test "
-			+ "join student on student.no = test.student_no "
-			+ "join subject on subject.cd = test.subject_cd where school_cd=?" ;
 
-
+    private String baseSql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME, " +
+            "COALESCE(t.POINT, 0) AS POINT, t.NO as TESTNO " +
+            "FROM STUDENT s " +
+            "JOIN SUBJECT sub ON sub.SCHOOL_CD = s.SCHOOL_CD " +
+            "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD " +
+            "WHERE s.SCHOOL_CD = ? AND s.ENT_YEAR = ? AND s.CLASS_NUM = ? AND sub.CD = ?";
 
 	private List<TestListSubject> postFilter(ResultSet rSet) throws Exception {
 		//リストを初期化
@@ -58,14 +58,13 @@ public class TestListSubjectDao extends Dao{
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文の条件
-		String condition = "and ent_year=? and class_num=? and subject_cd=?";
 		//SQL文のソート
 		String order = "order by no asc";
 
 
 		try {
 			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement(baseSql + condition + order);
+			statement = connection.prepareStatement(baseSql + order);
 			//ステートメントに入学年度をバインド
 			statement.setInt(1, entYear);
 			//プリペアードステートメントに学校コードをバインド

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <%@ page import="java.util.List" %>
@@ -11,12 +12,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>検索結果</title>
+<title>成績管理</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <h1 class="toptitle">得点管理システム</h1>
-<h2 class="subtitle">成績一覧</h2>
+<h2 class="subtitle">成績管理</h2>
 <%@ include file="sidebar.jsp" %>
 <h1></h1>
 <%
@@ -36,6 +37,7 @@
 %>
 
 <form method="post" action="ScoreList.action">
+
     <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
         <div class="col-3">
             <label class="form-label" for="academicYear">入学年度</label>
@@ -89,7 +91,8 @@
             </select>
         </div>
         <div class="col-1 text-center">
-            <button type="submit" class="btn btn-secondary">検索</button>
+            <button type="submit" class="btn btn-secondary">
+            検索</button>
         </div>
     </div>
 </form>
@@ -147,6 +150,7 @@
 		                String subjectCd = currentTest.getSubject().getSubjectCode();
 		                String subjectName = currentTest.getSubject().getSubjectName();
 		                Integer point = currentTest.getPoint();
+		                Integer num = currentTest.getNo();
 		    %>
 		                <tr>
 		                    <td><%= entYear %></td>
@@ -158,7 +162,7 @@
 		                            <input type="text" name="point" value="<%= point %>">
 		                            <input type="text" name="student_no" value="<%= studentNo %>" hidden="">
 		                            <input type="text" name="subject_cd" value="<%= subjectCd %>" hidden="">
-		                            <input type="text" name="no" value="<%= no %>" hidden="">
+		                            <input type="text" name="num" value="<%= num %>" hidden="">
 		                    </td>
 		                </tr>
 		    <%

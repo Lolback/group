@@ -4,9 +4,12 @@ public class Score {
     private String studentNo; // 学生番号
     private String subjectCode; // 科目コード
     private String classNum; // クラス番号
+
     private String schoolCode; // 学校コード
     private String point; // 点数
     private String number; // 回数
+    private String entYear; // 入学年度
+    private String name; // 名前
 
     public String getStudentNo() {
         return studentNo;

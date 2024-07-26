@@ -4,10 +4,37 @@ import java.util.Map;
 
 public class TestListSubject {
 
+	//TestListSubjectのbean
 	private int entYear;
 	private String studentNo;
 	private String studentName;
 	private String classNum;
+	private int testno;
+	private String no;
+	private String name;
+	public String getNo() {
+		return no;
+	}
+
+	public void setNo(String no) {
+		this.no = no;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getTestNo() {
+		return testno;
+	}
+
+	public void setTestNo(int no) {
+		this.testno = no;
+	}
 	private Map<Integer, Integer> points;
 
 	public TestListSubject() {
@@ -57,6 +84,7 @@ public class TestListSubject {
 		points.put(key, value);
 
 	}
+
 
 
 }

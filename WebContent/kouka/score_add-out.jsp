@@ -5,16 +5,18 @@ href="${pageContext.request.contextPath}/css/style.css">
 <%@include file="../header.html" %>
 <%@include file="../background.html" %>
 <h1 class="toptitle">得点管理システム</h1>
-<h2 class="subtitle">ログアウト</h2>
-<%@ include file="sidebar.jsp" %>
+<h2 class="subtitle">成績登録</h2>
   <style>
     p{
       text-align:center;
     }
   </style>
-<p>すでにログアウトしています。</p>
+
+<p>登録が完了しました。<p>
 <p><a href="menu.jsp">メニューに戻る</a>
-または
-<a href="login.jsp">再ログインはこちらから</a>
+さらに
+<a href="ScoreList.action">追加の場合はこちらから</a>
 </p>
+
+
 <%@include file="../footer.html" %>

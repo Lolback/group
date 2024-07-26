@@ -116,7 +116,6 @@ public class SubjectDao extends Dao {
 			return list;
 	}
 
-
     public Subject getBySubjectCode(String subjectCode) throws SQLException {
         Subject subject = null;
         Connection connection = null;

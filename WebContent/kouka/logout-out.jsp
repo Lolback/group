@@ -5,12 +5,18 @@ href="${pageContext.request.contextPath}/css/style.css">
 <%@include file="../header.html" %>
 <%@include file="../background.html" %>
 <h1 class="toptitle">得点管理システム</h1>
+<h2 class="subtitle">ログアウト</h2>
+  <style>
+    p{
+      text-align:center;
+    }
+  </style>
 
-
-ログアウトしました。
-<a href="menu.jsp">メニューに戻る</a>
+<p>ログアウトしました。<p>
+<p><a href="menu.jsp">メニューに戻る</a>
 または
 <a href="login.jsp">再ログインはこちらから</a>
+</p>
 
 
 <%@include file="../footer.html" %>

@@ -273,8 +273,6 @@ public class TestDao extends Dao {
 
 		int count = 0;
 
-		System.out.println(test.getStudent());
-
 		try {
 
 			//データベースからテストを取得
@@ -295,7 +293,7 @@ public class TestDao extends Dao {
 				//テストが存在した場合
 				//プリペアードステートメントにUPDATE文をセット
 				statement = connection
-						.prepareStatement("update test set point=? where student_no=? and subject_cd= and no=? and class_num=?");
+						.prepareStatement("update test set point=? where student_no=? and subject_cd=? and no=? and class_num=?");
 				//プリペアードステートメントに値をバインド
 				statement.setInt(1, test.getPoint());
 				statement.setString(2, test.getStudent().getNo());

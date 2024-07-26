@@ -33,12 +33,12 @@ public class ScoreUpdateAction extends Action {
         String[] pointList = request.getParameterValues("point");
         String[] studentNoList = request.getParameterValues("student_no");
         String[] subjectCdList = request.getParameterValues("subject_cd");
-        String[] noList = request.getParameterValues("no");
+        String[] noList = request.getParameterValues("num");
         Integer resultCount = Integer.parseInt(request.getParameter("result_count"));
 
         for (int i = 0; i < resultCount; i++) {
-        	Test currentTest = new Test();
-        	currentTest = testDao.get(studentDao.get(studentNoList[i]), subjectDao.get(subjectCdList[i], school), school, Integer.parseInt(noList[i]));
+        	Test currentTest = testDao.get(studentDao.get(studentNoList[i]), subjectDao.get(subjectCdList[i], school), school, Integer.parseInt(noList[i]));
+        	currentTest.setPoint(Integer.parseInt(pointList[i]));
         	testList.add(currentTest);
         }
 
