@@ -6,12 +6,13 @@
 <c:import url="/common/base.jsp">
 <c:param name="title">
 <h1 class="toptitle">得点管理システム</h1>
+<h2 class="subtitle">変更完了</h2>
 </c:param>
 <c:param name="scripts"></c:param>
 <c:param name="content">
 <%@ include file="sidebar.jsp" %>
 <section class="me-4">
-<h2 class="subtitle">新規登録</h2>
+
 
 <div>変更が完了しました</div>
 
@@ -60,3 +61,4 @@
 </section>
 </c:param>
 </c:import>
+<%@ include file="../footer.html" %>
