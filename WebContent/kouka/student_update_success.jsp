@@ -1,6 +1,7 @@
 <%-- 学生一覧JSP --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../background.html" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <c:import url="/common/base.jsp">
 <c:param name="title">
@@ -10,7 +11,7 @@
 <c:param name="content">
 <%@ include file="sidebar.jsp" %>
 <section class="me-4">
-<h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4">新規登録</h2>
+<h2 class="subtitle">新規登録</h2>
 
 <div>変更が完了しました</div>
 
