@@ -33,7 +33,7 @@
         pstmt.close();
 
         if (count > 0) {
-            errorMessage = "同じ学校の科目コードが重複しています。";
+            errorMessage = "科目コードが重複しています。";
         } else {
             // 科目を追加
             String insertSql = "INSERT INTO SUBJECT (SCHOOL_CD, CD, NAME) VALUES (?, ?, ?)";
