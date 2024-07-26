@@ -8,6 +8,11 @@
 <h1 class="toptitle">得点管理システム</h1>
 <h2 class="subtitle">ログアウト</h2>
 <%@ include file="sidebar.jsp" %>
+  <style>
+    p{
+      text-align:center;
+    }
+  </style>
 
 <p>ログアウトしますか？</p>
 <p><a href="Logout.action">ログアウト</a></p>
