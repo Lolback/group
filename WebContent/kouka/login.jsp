@@ -31,7 +31,7 @@
 <h2 class="subtitle">ログイン</h2>
 <c:choose>
     <c:when test="${error == true}">
-	    <div>ログインに失敗しました。IDまたはパスワードが正しくありません。</div>
+	    <div></div>
     </c:when>
     <c:otherwise>
     </c:otherwise>
@@ -50,3 +50,4 @@
 </body>
 </html>
 <%@include file="../footer.html" %>
+
