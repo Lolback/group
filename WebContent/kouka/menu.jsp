@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../background.html" %>
@@ -20,7 +21,6 @@
                     <a class="btn-student" href="StudentList.action">学生管理</a>
                     <div class="btn-test">
                         <a href="student_score.jsp">成績管理</a>
-                        <a href="score_add.jsp">成績登録</a>
                         <a href="ScoreList.action">成績参照</a>
 
                     </div>

@@ -41,9 +41,9 @@
 
                 conn = ds.getConnection();
 
-                String sql = "SELECT CD, NAME FROM SUBJECT WHERE SCHOOL_CD = " + teacher.getSchool().getCd();
-
+                String sql = "SELECT CD, NAME FROM SUBJECT WHERE SCHOOL_CD = ?";
                 pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, teacher.getSchool().getCd()); // SCHOOL_CDのパラメータを設定
 
                 rs = pstmt.executeQuery();
 
