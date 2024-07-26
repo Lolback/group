@@ -22,9 +22,7 @@
                     <div class="btn-test">
                         <a href="student_score.jsp">成績参照</a>
                         <a href="ScoreList.action">成績管理</a>
-
-
-                    </div>
+					</div>
                     <a class="btn-subject" href="subject.jsp">科目管理</a>
                 </div>
 
