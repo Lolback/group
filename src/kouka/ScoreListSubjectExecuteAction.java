@@ -127,6 +127,10 @@ public class ScoreListSubjectExecuteAction  extends Action{
 	            System.out.println(stuNameList);
 	            System.out.println(classNumSet);
 	            System.out.println(studentList);
+	            request.setAttribute("ent_year_set", entYear);
+	            request.setAttribute("class_num_set", classNumSet);
+	            request.setAttribute("students", studentList);
+	            request.setAttribute("resultCount", resultCount);
 
 	        } catch (Exception e) {
 	            e.printStackTrace();
