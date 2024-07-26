@@ -87,7 +87,7 @@
 </form>
             <!-- 学生情報 -->
 <div id="studentInfo">
-	<form method="post" action="score_results.jsp">
+	<form method="post" action="TestListStudent.action">
 		<table class="table table-hover">
 		<tr>
 			<th>学生番号</th>
