@@ -36,7 +36,6 @@ public class ScoreListAction extends Action {
         String subjectCode = ""; // 科目コード
         String times = ""; // 回数
         int entYear = 0; // 入学年度
-        List<Student> students = null; // 学生リスト
         ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
         SubjectDao subjectDao = new SubjectDao(); // 科目Daoを初期化
         Connection conn = null;
@@ -143,7 +142,7 @@ public class ScoreListAction extends Action {
 
             //科目候補
             // ログインユーザーの学校コードをもとに科目の一覧を取得
-            List<Subject> subjectList = subjectDao.filter(teacher.getSchool());
+            List<Subject> subjectList = subjectDao.getAllSubjects();
             // リストを初期化
             List<String> subjectCdSet = new ArrayList<>();
             List<String> subjectNameSet = new ArrayList<>();
@@ -191,5 +190,6 @@ public class ScoreListAction extends Action {
 
         // JSPへフォワード
         request.getRequestDispatcher("score_view.jsp").forward(request, response);
+
     }
 }

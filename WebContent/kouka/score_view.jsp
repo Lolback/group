@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <%@ page import="java.util.List" %>
@@ -35,6 +36,7 @@
 %>
 
 <form method="post" action="ScoreList.action">
+
     <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
         <div class="col-3">
             <label class="form-label" for="academicYear">入学年度</label>

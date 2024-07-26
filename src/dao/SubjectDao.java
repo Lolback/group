@@ -7,63 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.School;
 import bean.Subject;
 
 public class SubjectDao extends Dao {
-
-    public List<Subject> filter(School School) throws SQLException {
-        Subject subject = null;
-        List<Subject> list = null;
-        Connection connection = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = getConnection();
-            statement = connection.prepareStatement("SELECT * FROM SUBJECT WHERE SCHOOL_CD = ?");
-            statement.setString(1, School.getCd());
-            resultSet = statement.executeQuery();
-
-			//リストへの格納処理を実行
-			list = postFilter(resultSet);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return list;
-    }
-
-	private List<Subject> postFilter(ResultSet rSet) throws Exception {
-		//リストを初期化
-		List<Subject> list = new ArrayList<>();
-			try{
-				//リザルトセットを全権走査
-				while (rSet.next()) {
-					//学生インスタンスを初期化
-					Subject subject = new Subject();
-					//学生インスタンスに検索結果をセット
-					subject.setSchoolCode(rSet.getString("SCHOOL_CD"));
-					subject.setSubjectName(rSet.getString("NAME"));
-					subject.setSubjectCode(rSet.getString("CD"));
-					//リストに追加
-					list.add(subject);
-				}
-			} catch (SQLException | NullPointerException e) {
-				e.printStackTrace();
-			}
-			return list;
-	}
-
 
     public Subject getBySubjectCode(String subjectCode) throws SQLException {
         Subject subject = null;
