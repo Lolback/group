@@ -92,7 +92,7 @@
             <!-- 学生情報 -->
 <div id="studentInfo">
 	<form method="post" action="TestListStudent.action">
-		<table>
+		<table class="table table-hover">
 		<tr>
 			<th>学生番号</th>
 		</tr>
