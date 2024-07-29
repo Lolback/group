@@ -64,16 +64,19 @@ public class StudentListAction extends Action {
         if (filterFlag == false) {
         	students = sDao.getAll(teacher.getSchool());
         } else {
-            if (entYear != 0 && !classNum.equals("0")) {
+            if (!entYearStr.isEmpty()  && !classNum.isEmpty()) {
                 // 入学年度とクラス番号を指定
                 students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
-            } else if (entYear != 0 && classNum.equals("0")) {
+                System.out.println("1");
+            } else if (!entYearStr.isEmpty() && classNum.isEmpty()) {
                 // 入学年度のみ指定
                 students = sDao.filter(teacher.getSchool(), entYear, isAttend);
-            } else if (entYear == 0 && (classNum == null || classNum.equals("0"))) {
+                System.out.println("2");
+            } else if (entYearStr.isEmpty() && classNum.isEmpty()) {
                 // 指定なしの場合
                 // 全学生情報を取得
                 students = sDao.filter(teacher.getSchool(), isAttend);
+                System.out.println("3");
             } else {
                 errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
                 request.setAttribute("errors", errors);
