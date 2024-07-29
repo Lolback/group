@@ -33,9 +33,6 @@
 <body>
     <h1 class="toptitle">得点管理システム</h1>
     <h2 class="subtitle">ログイン</h2>
-    <c:if test="${not empty error}">
-        <div class="error-message">ログインに失敗しました。IDまたはパスワードが確認できませんでした</div>
-    </c:if>
     <h1></h1>
 <form action="LoginExecute.action" method="post" class="login_form">
     <label for="id">ログインID</label>
@@ -48,7 +45,9 @@
         <input type="checkbox" id="chk_d_ps" onclick="togglePasswordVisibility()">
         <label for="chk_d_ps">パスワードを表示</label>
     </div>
-
+    <c:if test="${not empty error}">
+    <div class="error-message">ログインに失敗しました。<br>IDまたはパスワードが確認できませんでした</div>
+    </c:if>
     <button type="submit" id="login">ログイン</button>
 </form>
 
