@@ -1,6 +1,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
+<%@ page import="bean.Subject" %>
+<%@ page import="bean.Teacher" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ja">
@@ -14,8 +16,10 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
+	Teacher teacher = new Teacher();
+	teacher = (Teacher) session.getAttribute("current_teacher");
+	String schoolCode = teacher.getSchool().getCd();
     String originalSubjectCode = request.getParameter("originalSubjectCode");
-    String schoolCode = request.getParameter("schoolCode");
     String subjectCode = request.getParameter("subjectCode");
     String subjectName = request.getParameter("subjectName");
 
@@ -34,12 +38,13 @@
 
             conn = ds.getConnection();
 
-            String sql = "UPDATE SUBJECT SET CD = ?, NAME = ? WHERE CD = ?";
+            String sql = "UPDATE SUBJECT SET CD = ?, NAME = ? WHERE CD = ? AND SCHOOL_CD = ?";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, subjectCode);
             pstmt.setString(2, subjectName);
             pstmt.setString(3, originalSubjectCode);
+            pstmt.setString(4, schoolCode);
 
             int result = pstmt.executeUpdate();
 

@@ -65,14 +65,14 @@ public class TestListSubjectDao extends Dao{
 		try {
 			//プリペアードステートメントにSQL文をセット
 			statement = connection.prepareStatement(baseSql + order);
-			//ステートメントに入学年度をバインド
+			//ステートメントに学校コードをバインド
 			statement.setInt(1, entYear);
-			//プリペアードステートメントに学校コードをバインド
+			//プリペアードステートメントに入学年度をバインド
 			statement.setString(2, school.getCd());
 			//プリペアードステートメントにクラス番号をバインド
 			statement.setString(3, classNum);
-			//プリペアードステートメントに科目をバインド
-			statement.setString(4, subject.getSubjectName());
+			//プリペアードステートメントに科目コードをバインド
+			statement.setString(4, subject.getSubjectCode());
 			//プライベートステートメントを実行
 			rSet = statement.executeQuery();
 			//リストへの格納処理を実行

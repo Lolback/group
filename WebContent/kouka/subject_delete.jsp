@@ -1,5 +1,7 @@
 <%@ page import="dao.SubjectDao" %>
+<%@ page import="dao.SchoolDao" %>
 <%@ page import="bean.Subject" %>
+<%@ page import="bean.Teacher" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../background.html" %>
@@ -30,13 +32,17 @@
                     <p>科目コード: <%= request.getParameter("subjectCode") %></p>
                     <%-- 学校コードと科目名をSubjectDaoから取得して表示 --%>
                     <%
+	            	    Teacher teacher = new Teacher();
+	            	    teacher = (Teacher) session.getAttribute("current_teacher");
+	                    String schoolCode = teacher.getSchool().getCd();
                         String subjectCode = request.getParameter("subjectCode");
                         SubjectDao subjectDao = new SubjectDao();
+                        SchoolDao schoolDao = new SchoolDao();
                         try {
-                            Subject subject = subjectDao.getBySubjectCode(subjectCode);
+                            Subject subject = subjectDao.get(subjectCode, schoolDao.get(schoolCode));
                             if (subject != null) {
                     %>
-                                <p>学校コード: <%= subject.getSchoolCode() %></p>
+                                <p>学校コード: <%= schoolCode %></p>
                                 <p>科目名: <%= subject.getSubjectName() %></p>
                     <%
                             } else {

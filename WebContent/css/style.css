@@ -367,7 +367,7 @@ table tbody td a:hover {
 .checkbox-group {
     display: flex;
     align-items: center; /* チェックボックスとラベルを縦に中央揃え */
-    margin-top: 10px; /* チェックボックスとラベルの上に余白を追加 */
+    margin-top: 5px; /* チェックボックスとラベルの上に余白を追加 */
 }
 
 .checkbox-group input[type="checkbox"] {
@@ -382,8 +382,6 @@ table tbody td a:hover {
     line-height: 20px; /* ラベルの行の高さを設定（チェックボックスと合わせる） */
     margin: 0; /* ラベルの上下の余白を削除 */
 }
-
-
 
 
 /*!
