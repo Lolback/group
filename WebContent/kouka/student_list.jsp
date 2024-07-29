@@ -50,6 +50,7 @@
                                 </label>
                     </div>
                     <div class="col-2 text-center">
+                    	<input type=hidden name="filter_flag" value="t">
                         <button class="btn btn-secondary" id="filter-button" onclick="loction.href='StudentList.action'">絞込み</button>
                     </div>
                     <div class="mt-2 text-warning">${errors.get("f1")}</div>

@@ -96,8 +96,6 @@
         </div>
     </div>
 </form>
-<input type="hidden" id="subjectCode" name="subjectCode" value="sj">
-<input type="hidden" id="studentCode" name="studentCode" value="st">
 
 <script>
     function searchGradesBySubject() {

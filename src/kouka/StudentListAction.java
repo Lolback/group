@@ -29,6 +29,8 @@ public class StudentListAction extends Action {
         String entYearStr = ""; // 入力された入学年度
         String classNum = ""; // 入力されたクラス番号
         String isAttendStr = ""; // 入力された在学フラグ
+        String filterFlagStr = ""; // 入力された検索フラグ
+        boolean filterFlag = false; // 検索フラグ
         int entYear = 0; // 入学年度
         boolean isAttend = false; // 在学フラグ
         List<Student> students = null; // 学生リスト
@@ -45,6 +47,8 @@ public class StudentListAction extends Action {
         entYearStr = request.getParameter("f1");
         classNum = request.getParameter("f2");
         isAttendStr = request.getParameter("f3");
+        filterFlagStr = request.getParameter("filter_flag");
+        System.out.println(filterFlagStr);
 
         // リクエストパラメータの検証と変換
         if (entYearStr != null && !entYearStr.isEmpty()) {
@@ -53,25 +57,32 @@ public class StudentListAction extends Action {
         if (isAttendStr != null && isAttendStr.equals("t")) {
             isAttend = true;
         }
+        if (filterFlagStr != null && filterFlagStr.equals("t")) {
+        	filterFlag = true;
+        }
 
         // ログインユーザーの学校コードをもとにクラス番号の一覧を取得
         List<ClassNum> classNumList = cNumDao.filter(teacher.getSchool());
 
-        if (entYear != 0 && !classNum.equals("0")) {
-            // 入学年度とクラス番号を指定
-            students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
-        } else if (entYear != 0 && classNum.equals("0")) {
-            // 入学年度のみ指定
-            students = sDao.filter(teacher.getSchool(), entYear, isAttend);
-        } else if (entYear == 0 && (classNum == null || classNum.equals("0"))) {
-            // 指定なしの場合
-            // 全学生情報を取得
-            students = sDao.filter(teacher.getSchool(), isAttend);
+        if (filterFlag == false) {
+        	students = sDao.getAll(teacher.getSchool());
         } else {
-            errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
-            request.setAttribute("errors", errors);
-            // 全学生情報を取得
-            students = sDao.filter(teacher.getSchool(), isAttend);
+            if (entYear != 0 && !classNum.equals("0")) {
+                // 入学年度とクラス番号を指定
+                students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
+            } else if (entYear != 0 && classNum.equals("0")) {
+                // 入学年度のみ指定
+                students = sDao.filter(teacher.getSchool(), entYear, isAttend);
+            } else if (entYear == 0 && (classNum == null || classNum.equals("0"))) {
+                // 指定なしの場合
+                // 全学生情報を取得
+                students = sDao.filter(teacher.getSchool(), isAttend);
+            } else {
+                errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
+                request.setAttribute("errors", errors);
+                // 全学生情報を取得
+                students = sDao.filter(teacher.getSchool(), isAttend);
+            }
         }
 
         //日付候補

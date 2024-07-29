@@ -116,8 +116,10 @@ public class StudentDao extends Dao {
 		//SQL文の在学フラグ条件
 		String conditionIsAttend = "";
 		//在学フラグがtrueの場合
-		if (isAttend) {
+		if (isAttend == true) {
 			conditionIsAttend =" and is_attend=true";
+		} else {
+			conditionIsAttend = " and is_attend=false";
 		}
 
 		try {
@@ -174,8 +176,10 @@ public class StudentDao extends Dao {
 		//SQL文の在学フラグ
 		String conditionIsAttend = "";
 		//在学フラグがtrueだった場合
-		if (isAttend) {
+		if (isAttend == true) {
 			conditionIsAttend = " and is_attend=true";
+		} else {
+			conditionIsAttend = " and is_attend=false";
 		}
 
 		try {
@@ -226,8 +230,10 @@ public class StudentDao extends Dao {
 		//SQL文の在学フラグ
 		String conditionIsAttend = "";
 		//在学フラグがtrueの場合
-		if (isAttend) {
+		if (isAttend == true) {
 			conditionIsAttend = " and is_attend=true";
+		} else {
+			conditionIsAttend = " and is_attend=false";
 		}
 
 		try {
@@ -370,5 +376,47 @@ public class StudentDao extends Dao {
 				throw sqle;
 			}
 		}
+	}
+
+	public List<Student> getAll(School school) throws Exception{
+		//リストを初期化
+		List<Student> list = new ArrayList<>();
+		//コネクションを確立
+		Connection connection = getConnection();
+		//プリペアードステートメント
+		PreparedStatement statement = null;
+		//リザルトセット
+		ResultSet rSet = null;
+
+		try {
+			//プリペアードステートメントにSQL文をセット
+			statement = connection.prepareStatement(baseSql);
+			//プリペアードステートメントに学校コードをバインド
+			statement.setString(1, school.getCd());
+			//プライベートステートメントを実行
+			rSet = statement.executeQuery();
+			//リストへの格納処理を実行
+			list = postFilter(rSet, school);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			//プリペアードステートメントを閉じる
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			//コネクションを閉じる
+			if (connection !=null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+		return list;
 	}
 }
