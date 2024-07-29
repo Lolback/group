@@ -33,20 +33,25 @@
 <body>
     <h1 class="toptitle">得点管理システム</h1>
     <h2 class="subtitle">ログイン</h2>
+    <h1></h1>
+<form action="LoginExecute.action" method="post" class="login_form">
+    <label for="id">ログインID</label>
+    <input type="text" id="id" name="id" maxlength="20" placeholder="半角でご入力ください" required>
+
+    <label for="password">パスワード</label>
+    <input type="password" id="password" name="password" maxlength="20" placeholder="20文字以内の半角英数字でご入力ください" required>
+
+    <div class="checkbox-group">
+        <input type="checkbox" id="chk_d_ps" onclick="togglePasswordVisibility()">
+        <label for="chk_d_ps">パスワードを表示</label>
+    </div>
     <c:if test="${not empty error}">
-        <div class="error-message">ログインに失敗しました。IDまたはパスワードが確認できませんでした</div>
+    <div class="error-message"><br>IDまたはパスワードが確認できませんでした</div>
     </c:if>
-    <form action="LoginExecute.action" method="post">
-        <label for="id">ログインID</label>
-        <input type="text" id="id" name="id" maxlength="20" placeholder="半角でご入力ください" required>
-        <label for="password">パスワード</label>
-        <input type="password" id="password" name="password" maxlength="20" placeholder="20文字以内の半角英数字でご入力ください" required>
-        <label for="chk_d_ps">
-            <input type="checkbox" id="chk_d_ps" onclick="togglePasswordVisibility()">
-            パスワードを表示
-        </label>
-        <button type="submit" id="login">ログイン</button>
-    </form>
+    <button type="submit" id="login">ログイン</button>
+</form>
+
+	<h1></h1>
 </body>
 </html>
 

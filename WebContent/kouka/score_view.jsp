@@ -6,6 +6,7 @@
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page import="bean.Student" %>
+<%@ page import="bean.Test" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../background.html" %>
 <head>
@@ -84,7 +85,7 @@
         <div class="col-2">
             <label class="form-label" for="times">回数</label>
             <select class="form-select" id="times" name="times" required>
-    	        <option value="0">-----</option>
+    	        <option value="">-----</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
@@ -123,107 +124,56 @@
 <%
 	// セッションから学生リストを取得
 	List<Student> students = (List<Student>) request.getAttribute("students");
+	List<Test> tests = (List<Test>) request.getAttribute("tests");
 	boolean filterFlag = (boolean) request.getAttribute("filterFlag");
+	int resultCount = 0;
 	if (students.size() > 0 && filterFlag == true) { %>
-	<table class="table table-hover">
-	    <tr>
-	        <th>入学年度</th>
-	        <th>クラス</th>
-	        <th>学生番号</th>
-	        <th>氏名</th>
-	        <th>科目</th>
-	        <th>点数</th>
-	    </tr>
-	    <%
-	        Connection conn = null;
-	        PreparedStatement pstmt = null;
-	        ResultSet rs = null;
-	        int resultCount = 0;
-
-	        try {
-	            Context initContext = new InitialContext();
-	            DataSource ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/kouka");
-
-	            conn = ds.getConnection();
-
-	            // SQLの組み立て
-	            String sql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME, " +
-	                         "COALESCE(t.POINT, 0) AS POINT " +
-	                         "FROM STUDENT s " +
-	                         "JOIN SUBJECT sub ON sub.SCHOOL_CD = s.SCHOOL_CD " +
-	                         "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD";
-
-	            // 学生番号が指定されている場合、条件を追加
-	            String studentNumberParam = request.getParameter("studentNumber");
-	            if (studentNumberParam != null && !studentNumberParam.isEmpty()) {
-	                sql += " WHERE s.NO = ?";
-	            }
-
-	            pstmt = conn.prepareStatement(sql);
-
-	            // 学生番号が指定されている場合、プレースホルダに値を設定
-	            if (studentNumberParam != null && !studentNumberParam.isEmpty()) {
-	                pstmt.setString(1, studentNumberParam);
-	            }
-
-	            rs = pstmt.executeQuery();
-
-	            while (rs.next()) {
-	                resultCount++;
-	                Integer entYear = rs.getInt("ENT_YEAR");
-	                String classNum = rs.getString("CLASS_NUM");
-	                String no = rs.getString("NO");
-	                String name = rs.getString("NAME");
-	                String subjectName = rs.getString("SUBJECT_NAME");
-	                Integer point = rs.getInt("POINT");
-	    %>
-	                <tr>
-	                    <td><%= entYear %></td>
-	                    <td><%= classNum %></td>
-	                    <td><%= no %></td>
-	                    <td><%= name %></td>
-	                    <td><%= subjectName %></td>
-	                    <td>
-	                        <form class="score" method="post" action="ScoreUpdate.action">
-	                            <input type="hidden" name="no" value="<%= no %>">
-	                            <input type="hidden" name="subject" value="<%= subjectName %>">
-	                            <input type="text" name="point" value="<%= point %>">
-	                            <input type="submit" value="更新">
-	                        </form>
-	                    </td>
-	                </tr>
-	    <%
-	            }
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	            out.println("<p>エラーが発生しました: " + e.getMessage() + "</p>");
-	        } finally {
-	            if (rs != null) {
-	                try {
-	                    rs.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	            if (pstmt != null) {
-	                try {
-	                    pstmt.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	            if (conn != null) {
-	                try {
-	                    conn.close();
-	                } catch (SQLException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }
-	    %>
-	</table>
+	<form action="ScoreUpdate.action" method="post">
+		<table class="table table-hover">
+		    <tr>
+		        <th>入学年度</th>
+		        <th>クラス</th>
+		        <th>学生番号</th>
+		        <th>氏名</th>
+		        <th>科目</th>
+		        <th>点数</th>
+		    </tr>
+		    <%
+		            for (int i = 0; i < tests.size(); i++) {
+		            	Test currentTest = tests.get(i);
+		                resultCount++;
+		                String studentNo = currentTest.getStudent().getNo();
+		                Integer entYear = currentTest.getStudent().getEntYear();
+		                String classNum = currentTest.getClassNum();
+		                String no = currentTest.getStudent().getNo();
+		                String name = currentTest.getStudent().getName();
+		                String subjectCd = currentTest.getSubject().getSubjectCode();
+		                String subjectName = currentTest.getSubject().getSubjectName();
+		                Integer point = currentTest.getPoint();
+		                Integer num = currentTest.getNo();
+		    %>
+		                <tr>
+		                    <td><%= entYear %></td>
+		                    <td><%= classNum %></td>
+		                    <td><%= no %></td>
+		                    <td><%= name %></td>
+		                    <td><%= subjectName %></td>
+		                    <td>
+		                            <input type="number" name="point" value="<%= point %>" min=0 max=100 step="1" required>
+		                            <input type="text" name="student_no" value="<%= studentNo %>" hidden="">
+		                            <input type="text" name="subject_cd" value="<%= subjectCd %>" hidden="">
+		                            <input type="text" name="num" value="<%= num %>" hidden="">
+		                    </td>
+		                </tr>
+		    <%
+		            }
+		    %>
+		</table>
+		<input type="text" name="result_count" value="<%= resultCount %>" hidden="">
+		<input type="submit" value="更新">
+		<% } %>
+	</form>
 <div>検索結果：<%= resultCount %>件</div>
-<% } %>
 </body>
 </html>
 <%@include file="../footer.html" %>
