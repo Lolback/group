@@ -46,7 +46,7 @@
         <label for="chk_d_ps">パスワードを表示</label>
     </div>
     <c:if test="${not empty error}">
-    <div class="error-message">ログインに失敗しました。<br>IDまたはパスワードが確認できませんでした</div>
+    <div class="error-message"><br>IDまたはパスワードが確認できませんでした</div>
     </c:if>
     <button type="submit" id="login">ログイン</button>
 </form>
