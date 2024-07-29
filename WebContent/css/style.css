@@ -319,6 +319,9 @@ table tbody td a:hover {
     padding-left: 10px;
 }
 
+.wide-select {
+	width: 100%;
+}
 
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
