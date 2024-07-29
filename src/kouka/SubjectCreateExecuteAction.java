@@ -57,7 +57,7 @@ public class SubjectCreateExecuteAction extends Action {
                 pstmt.close();
 
                 if (result > 0) {
-                    response.sendRedirect("subject.jsp");
+                    response.sendRedirect("subject_success.jsp");
                     return; // ここでreturnすることで、リダイレクト後に以下のコードが実行されないようにします。
                 } else {
                     errorMessage = "科目の追加に失敗しました。";
