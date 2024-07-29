@@ -22,7 +22,7 @@
                     <div class="col-4">
                         <label class="form-label" for="student-f1-select">入学年度</label>
                         <select class="form-select" id="student-f1-select" name="f1">
-                            <option value="0">--------</option>
+                            <option value="">--------</option>
                             <c:forEach var="year" items="${ent_year_set}">
                                 <%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
                                     <option values="${num}" <c:if test="${year==f1}">selected</c:if>>${year}
@@ -33,7 +33,7 @@
                     <div class="col-4">
                         <label class="form-label" for="student-f2-select">クラス</label>
                         <select class="form-select" id="student-f2-select" name="f2">
-                            <option value="0">--------</option>
+                            <option value="">--------</option>
                             <c:forEach var="num" items="${class_num_set}">
                                 <%-- 現在のnumと選択されていたf2が　一致していた場合selectedを暗記 --%>
                                     <option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}
@@ -50,7 +50,6 @@
                                 </label>
                     </div>
                     <div class="col-2 text-center">
-                    	<input type=hidden name="filter_flag" value="t">
                         <button class="btn btn-secondary" id="filter-button" onclick="loction.href='StudentList.action'">絞込み</button>
                     </div>
                     <div class="mt-2 text-warning">${errors.get("f1")}</div>

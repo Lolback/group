@@ -47,17 +47,14 @@ public class StudentListAction extends Action {
         entYearStr = request.getParameter("f1");
         classNum = request.getParameter("f2");
         isAttendStr = request.getParameter("f3");
-        filterFlagStr = request.getParameter("filter_flag");
-        System.out.println(filterFlagStr);
 
         // リクエストパラメータの検証と変換
         if (entYearStr != null && !entYearStr.isEmpty()) {
             entYear = Integer.parseInt(entYearStr);
+        	filterFlag = true;
         }
         if (isAttendStr != null && isAttendStr.equals("t")) {
             isAttend = true;
-        }
-        if (filterFlagStr != null && filterFlagStr.equals("t")) {
         	filterFlag = true;
         }
 
