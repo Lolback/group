@@ -149,15 +149,16 @@ public class SubjectDao extends Dao {
         return subject;
     }
 
-    public boolean delete(String subjectCode) throws SQLException {
+    public boolean delete(String subjectCode, String schoolCode) throws SQLException {
         Connection connection = null;
         PreparedStatement statement = null;
         boolean success = false;
 
         try {
             connection = getConnection();
-            statement = connection.prepareStatement("DELETE FROM SUBJECT WHERE CD = ?");
+            statement = connection.prepareStatement("DELETE FROM SUBJECT WHERE CD = ? AND SCHOOL_CD = ?");
             statement.setString(1, subjectCode);
+            statement.setString(2, schoolCode);
             int rowsAffected = statement.executeUpdate();
             success = rowsAffected > 0;
         } catch (Exception e) {
@@ -174,7 +175,7 @@ public class SubjectDao extends Dao {
         return success;
     }
 
-    public List<Subject> getAllSubjects() throws SQLException {
+    public List<Subject> getAllSubjects(String schoolCode) throws SQLException {
         List<Subject> subjects = new ArrayList<>();
         Connection connection = null;
         PreparedStatement statement = null;
@@ -182,7 +183,8 @@ public class SubjectDao extends Dao {
 
         try {
             connection = getConnection();
-            statement = connection.prepareStatement("SELECT * FROM SUBJECT");
+            statement = connection.prepareStatement("SELECT * FROM SUBJECT WHERE SCHOOL_CD = ?");
+            statement.setString(1, schoolCode);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
