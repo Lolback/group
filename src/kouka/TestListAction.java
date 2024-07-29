@@ -142,7 +142,7 @@ public class TestListAction extends Action {
 
             //科目候補
             // ログインユーザーの学校コードをもとに科目の一覧を取得
-            List<Subject> subjectList = subjectDao.getAllSubjects();
+            List<Subject> subjectList = subjectDao.getAllSubjects(teacher.getSchool().getCd());
             // リストを初期化
             List<String> subjectCdSet = new ArrayList<>();
             List<String> subjectNameSet = new ArrayList<>();
