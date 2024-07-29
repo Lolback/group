@@ -4,6 +4,7 @@
 <%@ page import="bean.Subject" %>
 <%@ page import="bean.Teacher" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../background.html" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -13,6 +14,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+	<h1 class="toptitle">得点管理システム</h1>
+    <h2 class="subtitle">科目更新</h2>
+    <%@ include file="sidebar.jsp" %>
 <%
     request.setCharacterEncoding("UTF-8");
 
@@ -78,3 +82,4 @@
 %>
 </body>
 </html>
+<%@include file="../footer.html" %>
