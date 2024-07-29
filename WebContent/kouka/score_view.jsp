@@ -12,12 +12,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>成績管理</title>
+<title>成績登録</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
 <h1 class="toptitle">得点管理システム</h1>
-<h2 class="subtitle">成績管理</h2>
+<h2 class="subtitle">成績登録</h2>
 <%@ include file="sidebar.jsp" %>
 <h1></h1>
 <%
