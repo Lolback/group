@@ -42,7 +42,7 @@
         <div class="col-3">
             <label class="form-label" for="academicYear">入学年度</label>
             <select class="form-select" id="academicYear" name="academicYear" required>
-	            <option value="">-----</option>
+	            <option value="">------</option>
 				<%
 			    	List<Integer> entYearSet = (List<Integer>) request.getAttribute("ent_year_set");
 				    for (int i = 0; i < entYearSet.size(); i++) {
@@ -56,7 +56,7 @@
         <div class="col-2">
             <label class="form-label" for="class">クラス</label>
             <select class="form-select" id="class" name="class" required>
-	            <option value="">-----</option>
+	            <option value="">------</option>
 				<%
 			    	List<Integer> classNumSet = (List<Integer>) request.getAttribute("class_num_set");
 				    for (int i = 0; i < classNumSet.size(); i++) {
@@ -70,7 +70,7 @@
         <div class="col-3">
             <label class="form-label" for="subject">科目</label>
             <select class="form-select" id="subject" name="subject" required>
-	            <option value="">-----</option>
+	            <option value="">------</option>
 				<%
 			    	List<String> subjectCdSet = (List<String>) request.getAttribute("subject_cd_set");
 			    	List<String> subjectNameSet = (List<String>) request.getAttribute("subject_name_set");
@@ -85,7 +85,7 @@
         <div class="col-2">
             <label class="form-label" for="times">回数</label>
             <select class="form-select" id="times" name="times" required>
-    	        <option value="">-----</option>
+    	        <option value="">------</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
