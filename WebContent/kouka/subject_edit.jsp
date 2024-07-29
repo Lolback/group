@@ -69,7 +69,7 @@ function validateForm() {
             if (rs.next()) {
                 String subjectName = rs.getString("NAME");
     %>
-    			<h1></h1>
+				<h1></h1>
                 <form action="subject_update.jsp" method="post" onsubmit="return validateForm()">
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                     <input type="hidden" name="originalSubjectCode" value="<%= subjectCode %>">
