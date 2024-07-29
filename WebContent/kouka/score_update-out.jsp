@@ -5,7 +5,7 @@ href="${pageContext.request.contextPath}/css/style.css">
 <%@include file="../header.html" %>
 <%@include file="../background.html" %>
 <h1 class="toptitle">得点管理システム</h1>
-<h2 class="subtitle">成績管理</h2>
+<h2 class="subtitle">成績登録</h2>
 <%@ include file="sidebar.jsp" %>
 <h1></h1>
   <style>

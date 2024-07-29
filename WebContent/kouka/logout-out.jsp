@@ -6,6 +6,8 @@ href="${pageContext.request.contextPath}/css/style.css">
 <%@include file="../background.html" %>
 <h1 class="toptitle">得点管理システム</h1>
 <h2 class="subtitle">ログアウト</h2>
+<%@ include file="sidebar.jsp" %>
+<h1></h1>
   <style>
     p{
       text-align:center;
