@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="../background.html" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,7 +9,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-    <h2>科目の登録が完了しました。</h2>
+    <h1 class="toptitle">得点管理システム</h1>
+    <h2 class="subtitle">科目登録完了</h2>
+    <p>科目の登録が完了しました。</p>
     <a href="subject.jsp">科目一覧に戻る</a>
 </body>
 </html>
+<%@include file="../footer.html" %>
