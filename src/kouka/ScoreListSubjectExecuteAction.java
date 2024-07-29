@@ -46,6 +46,8 @@ public class ScoreListSubjectExecuteAction  extends Action{
 	        System.out.println(classNum);
 	        System.out.println(subject);
 
+	        entYear = Integer.parseInt(entYearStr);
+
 	        ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
 	        TestListSubjectDao tlsubdao = new TestListSubjectDao(); //成績参照daoを初期化
 
@@ -66,7 +68,6 @@ public class ScoreListSubjectExecuteAction  extends Action{
 	            Context initContext = new InitialContext();
 	            DataSource ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/kouka");
 	            conn = ds.getConnection();
-	            entYear = Integer.parseInt(entYearStr);
 
 	            // リクエストパラメータの取得
 
