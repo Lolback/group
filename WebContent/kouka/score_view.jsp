@@ -128,7 +128,7 @@
 	boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 	int resultCount = 0;
 	if (students.size() > 0 && filterFlag == true) { %>
-	<form class="score" method="post" action="ScoreUpdate.action">
+	<form action="score_update-out.jsp" method="post">
 		<table class="table table-hover">
 		    <tr>
 		        <th>入学年度</th>
