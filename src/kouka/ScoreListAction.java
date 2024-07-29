@@ -19,8 +19,10 @@ import bean.ClassNum;
 import bean.Student;
 import bean.Subject;
 import bean.Teacher;
+import bean.Test;
 import dao.ClassNumDao;
 import dao.SubjectDao;
+import dao.TestDao;
 import tool.Action;
 
 public class ScoreListAction extends Action {
@@ -29,8 +31,6 @@ public class ScoreListAction extends Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
 
-        Teacher teacher = new Teacher();
-
         String entYearStr = ""; // 入学年度
         String classNum = ""; // クラス番号
         String subjectCode = ""; // 科目コード
@@ -38,12 +38,14 @@ public class ScoreListAction extends Action {
         int entYear = 0; // 入学年度
         ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
         SubjectDao subjectDao = new SubjectDao(); // 科目Daoを初期化
+        TestDao testDao = new TestDao(); // テストDaoを初期化
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         boolean filterFlag = false;
         int resultCount = 0;
 
+        Teacher teacher = new Teacher();
         teacher = (Teacher) session.getAttribute("current_teacher");
 
         try {
@@ -58,11 +60,11 @@ public class ScoreListAction extends Action {
             times = request.getParameter("times");
 
             // SQLの組み立て
-            String sql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME " +
-                         //"COALESCE(t.POINT, 0) AS POINT " +
+            String sql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME, " +
+                         "COALESCE(t.POINT, 0) AS POINT " +
                          "FROM STUDENT s " +
                          "JOIN SUBJECT sub ON sub.SCHOOL_CD = s.SCHOOL_CD " +
-                         //"LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD " +
+                         "LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD " +
                          "WHERE s.SCHOOL_CD = ?";
 
             // 入学年度が指定されている場合、条件を追加
@@ -84,6 +86,12 @@ public class ScoreListAction extends Action {
                 filterFlag = true;
             }
 
+            // 回数が指定されている場合、条件を追加
+            if (times != null && !times.isEmpty()) {
+                sql += " AND t.No = ?";
+                filterFlag = true;
+            }
+
             pstmt = conn.prepareStatement(sql);
 
             // パラメータの設定
@@ -100,6 +108,10 @@ public class ScoreListAction extends Action {
             }
             if (subjectCode != null && !subjectCode.isEmpty()) {
                 pstmt.setString(paramIndex, subjectCode);
+                paramIndex++;
+            }
+            if (times != null && !times.isEmpty()) {
+                pstmt.setString(paramIndex, times);
             }
 
             rs = pstmt.executeQuery();
@@ -152,12 +164,46 @@ public class ScoreListAction extends Action {
             	subjectNameSet.add(subjectList.get(i).getSubjectName());
             }
 
+            List<Test> testList = new ArrayList<>();
+
+            //不足しているテストデータを生成
+            for (int i = 0; i < studentList.size(); i++) {
+            	Student currentStudent = studentList.get(i);
+            	List<Subject> currentSubjectList = subjectDao.filter(teacher.getSchool());
+            	for (int j = 0; j < currentSubjectList.size(); j++) {
+            		Subject currentSubject = currentSubjectList.get(j);
+            		for (int k = 1; k < 3; k++) {
+            			Test currentTest = testDao.get(currentStudent, currentSubject, teacher.getSchool(), k);
+            			if (currentTest == null) {
+            				currentTest = new Test();
+                			currentTest.setClassNum(currentStudent.getClassNum());
+                			currentTest.setNo(k);
+                			currentTest.setPoint(0);
+                			currentTest.setSchool(teacher.getSchool());
+                			currentTest.setStudent(currentStudent);
+                			currentTest.setSubject(currentSubject);
+                			testList.add(currentTest);
+            			}
+            		}
+            	}
+            }
+            if (testList.size() >= 1) {
+            	testDao.save(testList);
+            }
+
+            if (filterFlag == true) {
+                testList = testDao.filter(teacher.getSchool(), entYear, classNum, subjectDao.get(subjectCode, teacher.getSchool()), Integer.parseInt(times));
+            } else {
+            	testList = testDao.getAll(teacher.getSchool());
+            }
+
             // リクエストにデータをセット
             request.setAttribute("ent_year_set", entYearSet);
             request.setAttribute("class_num_set", classNumSet);
             request.setAttribute("subject_cd_set", subjectCdSet);
             request.setAttribute("subject_name_set", subjectNameSet);
             request.setAttribute("students", studentList);
+            request.setAttribute("tests", testList);
             request.setAttribute("resultCount", resultCount);
             request.setAttribute("filterFlag", filterFlag);
 
