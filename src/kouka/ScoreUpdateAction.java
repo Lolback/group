@@ -38,13 +38,12 @@ public class ScoreUpdateAction extends Action {
 
         for (int i = 0; i < resultCount; i++) {
         	Test currentTest = testDao.get(studentDao.get(studentNoList[i]), subjectDao.get(subjectCdList[i], school), school, Integer.parseInt(noList[i]));
-        	currentTest.setPoint(Integer.parseInt(pointList[i]));
+    		currentTest.setPoint(Integer.parseInt(pointList[i]));
         	testList.add(currentTest);
         }
 
         //更新
         testDao.save(testList);
-
         // JSPへフォワード
         request.getRequestDispatcher("ScoreList.action").forward(request, response);
     }
