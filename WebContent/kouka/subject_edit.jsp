@@ -3,6 +3,7 @@
 <%@ page import="javax.sql.*" %>
 <%@ page import="bean.Teacher" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../background.html" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -34,7 +35,9 @@ function validateForm() {
 </script>
 </head>
 <body>
-    <h2>科目編集</h2>
+	<h1 class="toptitle">得点管理システム</h1>
+    <h2 class="subtitle">科目編集</h2>
+    <%@ include file="sidebar.jsp" %>
     <% String errorMessage = (String) request.getAttribute("errorMessage"); %>
     <% if (errorMessage != null && !errorMessage.isEmpty()) { %>
         <div style="color: red;"><%= errorMessage %></div>
@@ -66,18 +69,21 @@ function validateForm() {
             if (rs.next()) {
                 String subjectName = rs.getString("NAME");
     %>
+    			<h1></h1>
                 <form action="subject_update.jsp" method="post" onsubmit="return validateForm()">
+                <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                     <input type="hidden" name="originalSubjectCode" value="<%= subjectCode %>">
-                    <div>
+                    <div class="col-5">
                         <label for="subjectCode">科目コード:</label>
                         <input type="text" id="subjectCode" name="subjectCode" value="<%= subjectCode %>" required>
                     </div>
-                    <div>
+                    <div class="col-5">
                         <label for="subjectName">科目名:</label>
                         <input type="text" id="subjectName" name="subjectName" value="<%= subjectName %>" required>
                     </div>
-                    <div id="errorMessages" style="color: red;"></div>
+                    <div class="col-1" id="errorMessages" style="color: red;"></div>
                     <input type="submit" value="更新">
+                </div>
                 </form>
     <%
             } else {
@@ -113,3 +119,4 @@ function validateForm() {
     <a href="subject.jsp">科目一覧に戻る</a>
 </body>
 </html>
+<%@include file="../footer.html" %>
