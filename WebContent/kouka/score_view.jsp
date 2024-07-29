@@ -128,7 +128,7 @@
 	boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 	int resultCount = 0;
 	if (students.size() > 0 && filterFlag == true) { %>
-	<form action="score_update-out.jsp" method="post">
+	<form action="ScoreUpdate.action" method="post">
 		<table class="table table-hover">
 		    <tr>
 		        <th>入学年度</th>
@@ -159,7 +159,7 @@
 		                    <td><%= name %></td>
 		                    <td><%= subjectName %></td>
 		                    <td>
-		                            <input type="text" name="point" value="<%= point %>">
+		                            <input type="number" name="point" value="<%= point %>" min=0 max=100 step="1" required>
 		                            <input type="text" name="student_no" value="<%= studentNo %>" hidden="">
 		                            <input type="text" name="subject_cd" value="<%= subjectCd %>" hidden="">
 		                            <input type="text" name="num" value="<%= num %>" hidden="">
