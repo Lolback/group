@@ -323,6 +323,69 @@ table tbody td a:hover {
 	width: 100%;
 }
 
+.login_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* 左右中央揃え */
+    padding: 20px; /* フォーム全体に余白を追加 */
+    max-width: 400px; /* フォームの最大幅を設定 */
+    border: 1px solid #ccc; /* フォームに境界線を追加 */
+    border-radius: 10px; /* フォームの角を丸くする */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* フォームに影を追加 */
+}
+
+.login_form label {
+    margin-top: 10px; /* ラベルの上に余白を追加 */
+    width: 100%; /* ラベルをフォームの幅に合わせる */
+}
+
+.login_form input {
+    width: 100%; /* 入力フィールドをフォームの幅に合わせる */
+    padding: 10px; /* 入力フィールドに余白を追加 */
+    margin-top: 5px; /* 入力フィールドの上に余白を追加 */
+    margin-bottom: 15px; /* 入力フィールドの下に余白を追加 */
+    border: 1px solid #ccc; /* 入力フィールドに境界線を追加 */
+    border-radius: 5px; /* 入力フィールドの角を丸くする */
+}
+
+.login_form button {
+    width: 100%; /* ボタンをフォームの幅に合わせる */
+    padding: 10px; /* ボタンに余白を追加 */
+    background-color: #007bff; /* ボタンの背景色を設定 */
+    color: #fff; /* ボタンの文字色を設定 */
+    border: none; /* ボタンの境界線を削除 */
+    border-radius: 5px; /* ボタンの角を丸くする */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    margin-top: 10px; /* ボタンの上に余白を追加 */
+}
+
+.login_form button:hover {
+    background-color: #0056b3; /* ホバー時のボタンの背景色を変更 */
+}
+.checkbox-group {
+    display: flex;
+    align-items: center; /* チェックボックスとラベルを縦に中央揃え */
+    margin-top: 10px; /* チェックボックスとラベルの上に余白を追加 */
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 15px; /* チェックボックスの幅を設定 */
+    height: 15px; /* チェックボックスの高さを設定 */
+    margin-right: 8px; /* チェックボックスとラベルの間に余白を追加 */
+    vertical-align: middle; /* チェックボックスをラベルの中央に揃える */
+}
+
+.checkbox-group label {
+    font-size: 16px; /* ラベルのフォントサイズを設定 */
+    line-height: 20px; /* ラベルの行の高さを設定（チェックボックスと合わせる） */
+    margin: 0; /* ラベルの上下の余白を削除 */
+}
+
+
+
+
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
