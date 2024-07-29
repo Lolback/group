@@ -85,7 +85,7 @@
         <div class="col-2">
             <label class="form-label" for="times">回数</label>
             <select class="form-select" id="times" name="times" required>
-    	        <option value="">-----</option>
+    	        <option value="0">-----</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
             </select>
