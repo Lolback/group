@@ -17,11 +17,12 @@ import bean.School;
 import bean.Student;
 import bean.Subject;
 import bean.Teacher;
+import bean.Test;
 import bean.TestListSubject;
 import dao.ClassNumDao;
 import dao.StudentDao;
 import dao.SubjectDao;
-import dao.TestListSubjectDao;
+import dao.TestDao;
 import tool.Action;
 
 public class TestListStudentAction extends Action {
@@ -40,12 +41,15 @@ public class TestListStudentAction extends Action {
         StudentDao studentDao = new StudentDao();
         ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
         SubjectDao subjectDao = new SubjectDao(); // 科目Daoを初期化
-        TestListSubjectDao testDao = new TestListSubjectDao(); // テストDaoを初期化
+        TestDao testDao = new TestDao(); // テストDaoを初期化
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         boolean filterFlag = true;
         int resultCount = 0;
+
+        List<Test> testList = new ArrayList<>();
+        List<TestListSubject> tlsubList = new ArrayList<>();
 
         teacher = (Teacher) session.getAttribute("current_teacher");
         School school = teacher.getSchool();
@@ -57,7 +61,6 @@ public class TestListStudentAction extends Action {
             List<Student> studentList = new ArrayList<>();
 
             Student student = studentDao.get(student_no, school);
-            studentList.add(student);
 
             //日付候補
             // リストを初期化
@@ -92,7 +95,6 @@ public class TestListStudentAction extends Action {
             	subjectNameSet.add(subjectList.get(i).getSubjectName());
             }
 
-            List<TestListSubject> testList = new ArrayList<>();
             testList = testDao.filter(student, school);
 
             // リクエストにデータをセット
@@ -101,7 +103,9 @@ public class TestListStudentAction extends Action {
             request.setAttribute("subject_cd_set", subjectCdSet);
             request.setAttribute("subject_name_set", subjectNameSet);
             request.setAttribute("students", studentList);
+            request.setAttribute("student", student);
             request.setAttribute("tests", testList);
+            request.setAttribute("tlsubs", tlsubList);
             request.setAttribute("resultCount", resultCount);
             request.setAttribute("filterFlag", filterFlag);
             request.setAttribute("academicYear", entYearStr);

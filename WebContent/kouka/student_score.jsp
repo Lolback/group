@@ -4,6 +4,7 @@
 <%@ page import="javax.sql.*" %>
 <%@ page import="java.util.List" %>
 <%@ page import="bean.Student" %>
+<%@ page import="bean.Test" %>
 <%@ page import="bean.TestListSubject" %>
 <%@include file="../background.html" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -119,9 +120,12 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 <%
 	// セッションから学生リストを取得
 	List<Student> students = (List<Student>) request.getAttribute("students");
-	List<TestListSubject> tests = (List<TestListSubject>) request.getAttribute("tests");
+	List<Test> tests = (List<Test>) request.getAttribute("tests");
+	List<TestListSubject> tlsub = (List<TestListSubject>) request.getAttribute("tlsubs");
+	Student student = (Student) request.getAttribute("student");
 	int resultCount = 0;
 	if (students.size() > 0 && filterFlag == true) { %>
+	<p>科目：<%= request.getAttribute("subject_name") %></p>
 		<table class="table table-hover">
 		    <tr>
 		        <th>入学年度</th>
@@ -132,8 +136,8 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 		        <th>2回</th>
 		    </tr>
 		    <%
-		            for (int i = 0; i < tests.size(); i++) {
-		            	TestListSubject currentTest = tests.get(i);
+		            for (int i = 0; i < tlsub.size(); i++) {
+		            	TestListSubject currentTest = tlsub.get(i);
 		                resultCount++;
 		                int entYear = currentTest.getEntYear();
 		                String classNum = currentTest.getClassNum();
@@ -154,8 +158,38 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 		            }
 		    %>
 		</table>
+		<div>検索結果：<%= resultCount %>件</div>
 		<% } %>
-<div>検索結果：<%= resultCount %>件</div>
+		<% 	if (student != null && filterFlag == true) { %>
+	<p>氏名：<%= student.getName() %>(<%= student.getNo() %>)</p>
+		<table class="table table-hover">
+		    <tr>
+		        <th>科目名</th>
+		        <th>科目コード</th>
+		        <th>回数</th>
+		        <th>点数</th>
+		    </tr>
+		    <%
+		            for (int i = 0; i < tests.size(); i++) {
+		            	Test currentTest = tests.get(i);
+		                resultCount++;
+		                String subjectName = currentTest.getSubject().getSubjectName();
+		                String subjectCd = currentTest.getSubject().getSubjectCode();
+		                int no = currentTest.getNo();
+		                int point = currentTest.getPoint();
+		    %>
+		                <tr>
+		                    <td><%= subjectName %></td>
+		                    <td><%= subjectCd %></td>
+		                    <td><%= no %></td>
+		                    <td><%= point %></td>
+		                </tr>
+		    <%
+		            }
+		    %>
+		</table>
+		<div>検索結果：<%= resultCount %>件</div>
+		<% } %>
 <%@include file="../footer.html" %>
 </body>
 </html>

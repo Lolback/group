@@ -20,6 +20,7 @@ import bean.School;
 import bean.Student;
 import bean.Subject;
 import bean.Teacher;
+import bean.Test;
 import bean.TestListSubject;
 import dao.ClassNumDao;
 import dao.SubjectDao;
@@ -56,8 +57,9 @@ public class ScoreListSubjectExecuteAction  extends Action{
 	        ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
 	        TestListSubjectDao tlsubdao = new TestListSubjectDao(); //成績参照daoを初期化
 
-	        List<TestListSubject> testList = new ArrayList<>();
-	        testList = tlsubdao.filter(entYear, classNum, subject, school);
+	        List<Test> testList = new ArrayList<>();
+	        List<TestListSubject> tlsubList = new ArrayList<>();
+	        tlsubList = tlsubdao.filter(entYear, classNum, subject, school);
 
 	        //いったん持ってくる
 	        Connection conn = null;
@@ -173,7 +175,7 @@ public class ScoreListSubjectExecuteAction  extends Action{
 	            }
 
 	            if (filterFlag == true) {
-	                testList = tlsubdao.filter(entYear, classNum, subjectDao.get(subjectCode, school), school);
+	            	tlsubList = tlsubdao.filter(entYear, classNum, subjectDao.get(subjectCode, school), school);
 	            }
 
 	            // リクエストにデータをセット
@@ -181,7 +183,10 @@ public class ScoreListSubjectExecuteAction  extends Action{
 	            request.setAttribute("class_num_set", classNumSet);
 	            request.setAttribute("subject_cd_set", subjectCdSet);
 	            request.setAttribute("subject_name_set", subjectNameSet);
+	            request.setAttribute("subject_name", subject.getSubjectName());
 	            request.setAttribute("students", studentList);
+	            request.setAttribute("student", null);
+	            request.setAttribute("tlsubs", tlsubList);
 	            request.setAttribute("tests", testList);
 	            request.setAttribute("resultCount", resultCount);
 	            request.setAttribute("filterFlag", filterFlag);
