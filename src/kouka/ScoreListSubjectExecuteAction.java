@@ -20,6 +20,7 @@ import bean.Subject;
 import bean.Teacher;
 import bean.TestListSubject;
 import dao.ClassNumDao;
+import dao.SubjectDao;
 import dao.TestListSubjectDao;
 import tool.Action;
 
@@ -38,13 +39,10 @@ public class ScoreListSubjectExecuteAction  extends Action{
 		    teacher = (Teacher) session.getAttribute("current_teacher");
 		    School school = new School();
 		    school = teacher.getSchool();
-		    Subject subject = new Subject();
-
+		    SubjectDao subjectDao = new SubjectDao();
+		    Subject subject = subjectDao.get(request.getParameter("subject"), school);
 
 	        int resultCount = 0;
-	        System.out.println(entYearStr);
-	        System.out.println(classNum);
-	        System.out.println(subject);
 
 	        entYear = Integer.parseInt(entYearStr);
 
@@ -53,10 +51,6 @@ public class ScoreListSubjectExecuteAction  extends Action{
 
 	        List<TestListSubject> testList = new ArrayList<>();
 	        testList = tlsubdao.filter(entYear, classNum, subject, school);
-
-	        TestListSubject test = testList.get(1);
-
-	        System.out.println(test);
 
 	        //いったん持ってくる
 	        Connection conn = null;

@@ -22,6 +22,9 @@
 <%@ include file="sidebar.jsp" %>
 <h1></h1>
 <%
+	//検索済みかを取得
+	boolean filterFlag = (boolean) request.getAttribute("filterFlag");
+
     // セッションからメッセージを取得
     String updateMessage = (String) request.getSession().getAttribute("updateMessage");
 
@@ -45,10 +48,16 @@
             <select class="form-select" id="academicYear" name="academicYear" required>
 	            <option value="">-----</option>
 				<%
+					int oldEntYear = -1;
+            		if (filterFlag == true) {
+    					String oldEntYearStr = (String) request.getAttribute("academicYear");
+                		oldEntYear = Integer.parseInt(oldEntYearStr);
+            		}
 			    	List<Integer> entYearSet = (List<Integer>) request.getAttribute("ent_year_set");
 				    for (int i = 0; i < entYearSet.size(); i++) {
+				    	int currentEntYear = entYearSet.get(i);
 				%>
-				   <option value="<%= entYearSet.get(i) %>"><%= entYearSet.get(i) %></option>
+				   <option value="<%= currentEntYear %>" <% if (currentEntYear == oldEntYear) {%>selected<%} %>><%= currentEntYear %></option>
 				<%
 				    }
 				%>
@@ -59,10 +68,16 @@
             <select class="form-select" id="class" name="class" required>
 	            <option value="">-----</option>
 				<%
+					int oldClassNum = -1;
+	        		if (filterFlag == true) {
+						String oldClassNumStr = (String) request.getAttribute("class");
+						oldClassNum = Integer.parseInt(oldClassNumStr);
+	        		}
 			    	List<Integer> classNumSet = (List<Integer>) request.getAttribute("class_num_set");
 				    for (int i = 0; i < classNumSet.size(); i++) {
+				    	int currentClassNum = classNumSet.get(i);
 				%>
-				   <option value="<%= classNumSet.get(i) %>"><%= classNumSet.get(i) %></option>
+				   <option value="<%= currentClassNum %>" <% if (currentClassNum == oldClassNum) {%>selected<%} %>><%= currentClassNum %></option>
 				<%
 				    }
 				%>
@@ -73,11 +88,16 @@
             <select class="form-select" id="subject" name="subject" required>
 	            <option value="">-----</option>
 				<%
+					String oldSubject = null;
+	        		if (filterFlag == true) {
+						oldSubject = (String) request.getAttribute("subject");
+	        		}
 			    	List<String> subjectCdSet = (List<String>) request.getAttribute("subject_cd_set");
 			    	List<String> subjectNameSet = (List<String>) request.getAttribute("subject_name_set");
 				    for (int i = 0; i < subjectCdSet.size(); i++) {
+					    String currentSubject = subjectCdSet.get(i);
 				%>
-				   <option value="<%= subjectCdSet.get(i) %>"><%= subjectNameSet.get(i) %></option>
+				   <option value="<%= currentSubject %>" <% if (currentSubject.equals(oldSubject)) {%>selected<%} %>><%= subjectNameSet.get(i) %></option>
 				<%
 				    }
 				%>
@@ -86,9 +106,16 @@
         <div class="col-2">
             <label class="form-label" for="times">回数</label>
             <select class="form-select" id="times" name="times" required>
+            	<%
+            		int oldTimes = -1;
+	        		if (filterFlag == true) {
+						String oldTimesStr = (String) request.getAttribute("times");
+						oldTimes = Integer.parseInt(oldTimesStr);
+	        		}
+	        		%>
     	        <option value="">-----</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
+                <option value="1" <% if (oldTimes == 1) {%>selected<%} %>>1</option>
+                <option value="2" <% if (oldTimes == 2) {%>selected<%} %>>2</option>
             </select>
         </div>
         <div class="col-1 text-center">
@@ -124,7 +151,6 @@
 	// セッションから学生リストを取得
 	List<Student> students = (List<Student>) request.getAttribute("students");
 	List<Test> tests = (List<Test>) request.getAttribute("tests");
-	boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 	int resultCount = 0;
 	if (students.size() > 0 && filterFlag == true) { %>
 	<form action="ScoreUpdate.action" method="post">

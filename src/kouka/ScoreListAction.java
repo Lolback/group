@@ -206,6 +206,10 @@ public class ScoreListAction extends Action {
             request.setAttribute("tests", testList);
             request.setAttribute("resultCount", resultCount);
             request.setAttribute("filterFlag", filterFlag);
+            request.setAttribute("academicYear", entYearStr);
+            request.setAttribute("class", classNum);
+            request.setAttribute("subject", subjectCode);
+            request.setAttribute("times", times);
 
         } catch (Exception e) {
             e.printStackTrace();

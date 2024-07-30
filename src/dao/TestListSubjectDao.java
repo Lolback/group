@@ -29,11 +29,11 @@ public class TestListSubjectDao extends Dao{
 					//成績インスタンスを初期化
 					TestListSubject tlsub = new TestListSubject();
 					//成績インスタンスに検索結果をセット
-					tlsub.setStudentNo(rSet.getString("studentNo"));
-					tlsub.setStudentName(rSet.getString("studentName"));
+					tlsub.setStudentNo(rSet.getString("no"));
+					tlsub.setStudentName(rSet.getString("name"));
 					tlsub.setEntYear(rSet.getInt("ent_year"));
 					tlsub.setClassNum(rSet.getString("class_num"));
-					tlsub.putPoint(rSet.getInt("key"), rSet.getInt("value"));
+					tlsub.putPoint(rSet.getInt("testno"), rSet.getInt("point"));
 					//リストに追加
 					list.add(tlsub);
 				}
@@ -66,9 +66,9 @@ public class TestListSubjectDao extends Dao{
 			//プリペアードステートメントにSQL文をセット
 			statement = connection.prepareStatement(baseSql + order);
 			//ステートメントに学校コードをバインド
-			statement.setInt(1, entYear);
+			statement.setString(1, school.getCd());
 			//プリペアードステートメントに入学年度をバインド
-			statement.setString(2, school.getCd());
+			statement.setInt(2, entYear);
 			//プリペアードステートメントにクラス番号をバインド
 			statement.setString(3, classNum);
 			//プリペアードステートメントに科目コードをバインド
