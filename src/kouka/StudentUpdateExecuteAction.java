@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.School;
 import bean.Student;
+import bean.Teacher;
 import dao.StudentDao;
 import tool.Action;
 
@@ -17,6 +19,9 @@ public class StudentUpdateExecuteAction extends Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 	throws Exception{
 		HttpSession session = request.getSession();//セッション
+        Teacher teacher = new Teacher();
+        teacher = (Teacher) session.getAttribute("current_teacher");
+        School school = teacher.getSchool();
 
 		String no="";//入力された学生番号
 		String classNum="";//入力されたクラス番号
@@ -45,7 +50,7 @@ public class StudentUpdateExecuteAction extends Action {
 		student.setName(name);
 		student.setIsAttend(isAttend);
 
-		sDao.save(student);
+		sDao.save(student, school);
 
 		//JSPへフォワード
 		request.getRequestDispatcher("student_update_success.jsp").forward(request, response);

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.School;
 import bean.Student;
 import bean.Teacher;
 import dao.StudentDao;
@@ -19,6 +20,8 @@ public class StudentCreateExecuteAction extends Action {
 	throws Exception{
 		HttpSession session = request.getSession();//セッション
         Teacher teacher = new Teacher();
+        teacher = (Teacher) session.getAttribute("current_teacher");
+        School school = teacher.getSchool();
 
 		String entYearStr="";//入力された入学年度
 		String no="";//入力された学生番号
@@ -30,8 +33,6 @@ public class StudentCreateExecuteAction extends Action {
 		Student student = new Student();//学生
 		StudentDao sDao = new StudentDao();//学生Dao
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
-
-        teacher = (Teacher) session.getAttribute("current_teacher");
 
 		//リクエストパラメータの取得 2
 		entYearStr = request.getParameter("f1");
@@ -58,14 +59,14 @@ public class StudentCreateExecuteAction extends Action {
 		student.setSchool(teacher.getSchool());
 
 		//重複検知
-		Student duplicateStudent = sDao.get(no);
+		Student duplicateStudent = sDao.get(no, school);
 		if (duplicateStudent != null) {
 			request.setAttribute("duplicate_flag", true);
 			request.getRequestDispatcher("StudentCreate.action").forward(request, response);
 			return;
 		}
 
-		sDao.save(student);
+		sDao.save(student, school);
 
 		//JSPへフォワード
 		request.getRequestDispatcher("student_add_success.jsp").forward(request, response);

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.ClassNum;
+import bean.School;
 import bean.Student;
 import bean.Teacher;
 import dao.ClassNumDao;
@@ -22,16 +23,16 @@ public class StudentUpdateAction extends Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 	throws Exception{
 		HttpSession session = request.getSession();//セッション
-
+        Teacher teacher = new Teacher();
+        teacher = (Teacher) session.getAttribute("current_teacher");
+        School school = teacher.getSchool();
 		String no = request.getParameter("no");
 		Student student = new Student();//学生
 		StudentDao sDao = new StudentDao();//学生Dao
         ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
-        Teacher teacher = new Teacher();
-        teacher = (Teacher) session.getAttribute("current_teacher");
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
-		student = sDao.get(no);
+		student = sDao.get(no,school);
 
         //クラス番号候補
         List<ClassNum> classNumList = cNumDao.filter(teacher.getSchool());
