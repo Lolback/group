@@ -37,7 +37,7 @@ public class ScoreUpdateAction extends Action {
         Integer resultCount = Integer.parseInt(request.getParameter("result_count"));
 
         for (int i = 0; i < resultCount; i++) {
-        	Test currentTest = testDao.get(studentDao.get(studentNoList[i]), subjectDao.get(subjectCdList[i], school), school, Integer.parseInt(noList[i]));
+        	Test currentTest = testDao.get(studentDao.get(studentNoList[i], school), subjectDao.get(subjectCdList[i], school), school, Integer.parseInt(noList[i]));
     		currentTest.setPoint(Integer.parseInt(pointList[i]));
     		System.out.println(pointList[i]);
         	testList.add(currentTest);
