@@ -8,22 +8,23 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 
 import bean.ClassNum;
+import bean.School;
 import bean.Student;
 import bean.Subject;
 import bean.Teacher;
+import bean.TestListSubject;
 import dao.ClassNumDao;
+import dao.StudentDao;
 import dao.SubjectDao;
+import dao.TestListSubjectDao;
 import tool.Action;
 
-public class TestListAction extends Action {
+public class TestListStudentAction extends Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -36,89 +37,27 @@ public class TestListAction extends Action {
         String subjectCode = ""; // 科目コード
         String times = ""; // 回数
         int entYear = 0; // 入学年度
+        StudentDao studentDao = new StudentDao();
         ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
         SubjectDao subjectDao = new SubjectDao(); // 科目Daoを初期化
+        TestListSubjectDao testDao = new TestListSubjectDao(); // テストDaoを初期化
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        boolean filterFlag = false;
+        boolean filterFlag = true;
         int resultCount = 0;
 
         teacher = (Teacher) session.getAttribute("current_teacher");
+        School school = teacher.getSchool();
 
         try {
-            Context initContext = new InitialContext();
-            DataSource ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/kouka");
-            conn = ds.getConnection();
-
             // リクエストパラメータの取得
-            entYearStr = request.getParameter("academicYear");
-            classNum = request.getParameter("class");
-            subjectCode = request.getParameter("subject");
-            times = request.getParameter("times");
-
-            // SQLの組み立て
-            String sql = "SELECT s.ENT_YEAR, s.CLASS_NUM, s.NO, s.NAME, sub.NAME AS SUBJECT_NAME " +
-                         //"COALESCE(t.POINT, 0) AS POINT " +
-                         "FROM STUDENT s " +
-                         "JOIN SUBJECT sub ON sub.SCHOOL_CD = s.SCHOOL_CD " +
-                         //"LEFT JOIN TEST t ON s.NO = t.STUDENT_NO AND sub.CD = t.SUBJECT_CD " +
-                         "WHERE s.SCHOOL_CD = ?";
-
-            // 入学年度が指定されている場合、条件を追加
-            if (entYearStr != null && !entYearStr.isEmpty()) {
-                entYear = Integer.parseInt(entYearStr);
-                sql += " AND s.ENT_YEAR = ?";
-                filterFlag = true;
-            }
-
-            // クラス番号が指定されている場合、条件を追加
-            if (classNum != null && !classNum.isEmpty()) {
-                sql += " AND s.CLASS_NUM = ?";
-                filterFlag = true;
-            }
-
-            // 科目コードが指定されている場合、条件を追加
-            if (subjectCode != null && !subjectCode.isEmpty()) {
-                sql += " AND sub.CD = ?";
-                filterFlag = true;
-            }
-
-            pstmt = conn.prepareStatement(sql);
-
-            // パラメータの設定
-            pstmt.setString(1, teacher.getSchool().getCd());
-            int paramIndex = 2;
-
-            if (entYear != 0) {
-                pstmt.setInt(paramIndex, entYear);
-                paramIndex++;
-            }
-            if (classNum != null && !classNum.isEmpty()) {
-                pstmt.setString(paramIndex, classNum);
-                paramIndex++;
-            }
-            if (subjectCode != null && !subjectCode.isEmpty()) {
-                pstmt.setString(paramIndex, subjectCode);
-            }
-
-            rs = pstmt.executeQuery();
+            String student_no = request.getParameter("student_no");
 
             List<Student> studentList = new ArrayList<>();
 
-            while (rs.next()) {
-                resultCount++;
-                Student student = new Student();
-                student.setEntYear(rs.getInt("ENT_YEAR"));
-                student.setClassNum(rs.getString("CLASS_NUM"));
-                student.setNo(rs.getString("NO"));
-                student.setName(rs.getString("NAME"));
-
-                Subject subject = new Subject();
-                subject.setSubjectName(rs.getString("SUBJECT_NAME"));
-
-                studentList.add(student);
-            }
+            Student student = studentDao.get(student_no, school);
+            studentList.add(student);
 
             //日付候補
             // リストを初期化
@@ -153,14 +92,22 @@ public class TestListAction extends Action {
             	subjectNameSet.add(subjectList.get(i).getSubjectName());
             }
 
+            List<TestListSubject> testList = new ArrayList<>();
+            testList = testDao.filter(student, school);
+
             // リクエストにデータをセット
             request.setAttribute("ent_year_set", entYearSet);
             request.setAttribute("class_num_set", classNumSet);
             request.setAttribute("subject_cd_set", subjectCdSet);
             request.setAttribute("subject_name_set", subjectNameSet);
             request.setAttribute("students", studentList);
+            request.setAttribute("tests", testList);
             request.setAttribute("resultCount", resultCount);
             request.setAttribute("filterFlag", filterFlag);
+            request.setAttribute("academicYear", entYearStr);
+            request.setAttribute("class", classNum);
+            request.setAttribute("subject", subjectCode);
+            request.setAttribute("times", times);
 
         } catch (Exception e) {
             e.printStackTrace();
