@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.School;
 import bean.Student;
+import bean.Teacher;
 import dao.StudentDao;
 import tool.Action;
 
@@ -25,7 +27,9 @@ public class StudentUpdateExecuteAction extends Action {
 		boolean isAttend = false;//在学フラグ
 		Student student = new Student();//学生
 		StudentDao sDao = new StudentDao();//学生Dao
-		//ClassNumDao cNumDao = new ClassNumDao();//クラス番号Daoを初期化
+        Teacher teacher = new Teacher();
+        teacher = (Teacher) session.getAttribute("current_teacher");
+        School school = teacher.getSchool();
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
 
 		//リクエストパラメータの取得
@@ -45,7 +49,7 @@ public class StudentUpdateExecuteAction extends Action {
 		student.setName(name);
 		student.setIsAttend(isAttend);
 
-		sDao.save(student);
+		sDao.save(student, school);
 
 		//JSPへフォワード
 		request.getRequestDispatcher("student_update_success.jsp").forward(request, response);

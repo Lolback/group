@@ -23,7 +23,7 @@ import dao.ClassNumDao;
 import dao.SubjectDao;
 import tool.Action;
 
-public class TestListAction extends Action {
+public class TestListStudent extends Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
