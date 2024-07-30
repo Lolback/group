@@ -7,9 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.School;
 import bean.Student;
-import bean.Teacher;
 import dao.StudentDao;
 import tool.Action;
 
@@ -24,11 +22,8 @@ public class StudentDeleteAction extends Action {
 		Student student = new Student();//学生
 		StudentDao sDao = new StudentDao();//学生Dao
 		Map<String, String> errors = new HashMap<>();//エラーメッセージ
-        Teacher teacher = new Teacher();
-        teacher = (Teacher) session.getAttribute("current_teacher");
-        School school = teacher.getSchool();
 
-		student = sDao.get(no, school);
+		student = sDao.get(no);
 		System.out.println(student.getNo());
 		System.out.println(student.getName());
 

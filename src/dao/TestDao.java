@@ -51,7 +51,7 @@ public class TestDao extends Dao {
 				test.setPoint(rSet.getInt("point"));
 				test.setPoint(rSet.getInt("point"));
 				test.setSchool(schoolDao.get(rSet.getString("school_cd")));
-				test.setStudent(studentDao.get(rSet.getString("student_no"), school));
+				test.setStudent(studentDao.get(rSet.getString("student_no")));
 				test.setSubject(subjectDao.get(rSet.getString("subject_cd"), schoolDao.get(rSet.getString("school_cd"))));
 			} else {
 				//リザルトセットが存在しない場合
@@ -152,7 +152,7 @@ public class TestDao extends Dao {
 					test.setPoint(rSet.getInt("point"));
 					test.setPoint(rSet.getInt("point"));
 					test.setSchool(school);
-					test.setStudent(studentDao.get(rSet.getString("student_no"), school));
+					test.setStudent(studentDao.get(rSet.getString("student_no")));
 					test.setSubject(subjectDao.get(rSet.getString("subject_cd"), school));
 					//リストに追加
 					list.add(test);
