@@ -78,9 +78,9 @@ public class TestListSubject {
 		this.points = points;
 	}
 
-	public String getPoint(int key) {
-		String Key = String.valueOf(key);
-		return Key;
+	public int getPoint(int key) {
+		int point = points.get(key);
+		return point;
 	}
 	public void putPoint(int key, int value) {
 		points.put(key, value);

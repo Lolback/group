@@ -16,7 +16,7 @@ public class StudentDao extends Dao {
 
 
 
-	public Student get(String no) throws Exception{
+	public Student get(String no, School school) throws Exception{
 
 		//学生インスタンスを初期化
 		Student student = new Student();
@@ -27,9 +27,10 @@ public class StudentDao extends Dao {
 
 		try {
 			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("select * from student where no=?");
+			statement = connection.prepareStatement("select * from student where no=? and school_cd=?");
 			//プリペアードステートメントに学生番号をバインド
 			statement.setString(1, no);
+			statement.setString(2, school.getCd());
 			//プリペアードステートメントを実行
 			ResultSet rSet =statement.executeQuery();
 
@@ -270,7 +271,7 @@ public class StudentDao extends Dao {
 
 
 
-	public boolean save(Student student) throws Exception{
+	public boolean save(Student student, School school) throws Exception{
 		//コネクションを確立
 		Connection connection = getConnection();
 
@@ -283,7 +284,7 @@ public class StudentDao extends Dao {
 		try {
 
 			//データベースから学生を取得
-			Student old = get(student.getNo());
+			Student old = get(student.getNo(), school);
 			if (old == null) {
 				//学生が存在しなかった場合
 				//プリペアードステートメントにINSERT文をセット
@@ -341,7 +342,7 @@ public class StudentDao extends Dao {
 		}
 	}
 
-	public void delete(String no) throws Exception{
+	public void delete(String no, School school) throws Exception{
 
 		//データベースへのコネクションを確立
 		Connection connection = getConnection();
@@ -350,9 +351,10 @@ public class StudentDao extends Dao {
 
 		try {
 			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("delete from student where no=?");
+			statement = connection.prepareStatement("delete from student where no=? school_cd=?");
 			//プリペアードステートメントに学生番号をバインド
 			statement.setString(1, no);
+			statement.setString(2, school.getCd());
 			//プリペアードステートメントを実行
 			int rSet =statement.executeUpdate();
 

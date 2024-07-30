@@ -3,6 +3,8 @@
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>
 <%@ page import="java.util.List" %>
+<%@ page import="bean.Student" %>
+<%@ page import="bean.TestListSubject" %>
 <%@include file="../background.html" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,6 +16,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+<%
+//検索済みかを取得
+boolean filterFlag = (boolean) request.getAttribute("filterFlag");
+%>
 <h1 class="toptitle">得点一覧</h1>
     <h2 class="subtitle">成績参照</h2>
     <%@ include file="sidebar.jsp" %>
@@ -98,18 +104,58 @@
 		</tr>
 		<tr>
 		<td>
-			<input type="text" name="f4" size="10" value="${f4}" placeholder="学生番号を入力してください">
+			<input type="text" name="student_no" size="10" value="${f4}" placeholder="学生番号を入力してください">
 		</td>
 			<td><input type="submit" value="検索"></td>
 		</tr>
 		</table>
-			</form>
+	</form>
 		</div>
 <!-- 利用方法案内メッセージ -->
 <p id="usageMessage">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</p>
 <!-- 隠しフィールド -->
 <input type="hidden" name="f" value="sj">
 <input type="hidden" name="f" value="st">
+<%
+	// セッションから学生リストを取得
+	List<Student> students = (List<Student>) request.getAttribute("students");
+	List<TestListSubject> tests = (List<TestListSubject>) request.getAttribute("tests");
+	int resultCount = 0;
+	if (students.size() > 0 && filterFlag == true) { %>
+		<table class="table table-hover">
+		    <tr>
+		        <th>入学年度</th>
+		        <th>クラス</th>
+		        <th>学生番号</th>
+		        <th>氏名</th>
+		        <th>1回</th>
+		        <th>2回</th>
+		    </tr>
+		    <%
+		            for (int i = 0; i < tests.size(); i++) {
+		            	TestListSubject currentTest = tests.get(i);
+		                resultCount++;
+		                int entYear = currentTest.getEntYear();
+		                String classNum = currentTest.getClassNum();
+		                String no = currentTest.getStudentNo();
+		                String name = currentTest.getStudentName();
+		                int point1 = currentTest.getPoint(1);
+		                int point2 = currentTest.getPoint(2);
+		    %>
+		                <tr>
+		                    <td><%= entYear %></td>
+		                    <td><%= classNum %></td>
+		                    <td><%= no %></td>
+		                    <td><%= name %></td>
+		                    <td><%= point1 %></td>
+		                    <td><%= point2 %></td>
+		                </tr>
+		    <%
+		            }
+		    %>
+		</table>
+		<% } %>
+<div>検索結果：<%= resultCount %>件</div>
 <%@include file="../footer.html" %>
 </body>
 </html>
