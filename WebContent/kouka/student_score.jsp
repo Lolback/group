@@ -101,7 +101,7 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 	<form method="post" action="TestListStudent.action">
 		<table class="table table-hover">
 		<tr>
-			<th>学生番号</th>
+			<p class="stn">学生番号</p>
 		</tr>
 		<tr>
 		<td>
