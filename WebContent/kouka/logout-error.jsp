@@ -12,9 +12,8 @@ href="${pageContext.request.contextPath}/css/style.css">
       text-align:center;
     }
   </style>
+
 <p>すでにログアウトしています。</p>
-<p><a href="menu.jsp">メニューに戻る</a>
-または
 <a href="login.jsp">再ログインはこちらから</a>
 </p>
 <%@include file="../footer.html" %>
