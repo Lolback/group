@@ -32,4 +32,5 @@
     </c:import>
 </body>
 </html>
+
 <%@include file="../footer.html" %>

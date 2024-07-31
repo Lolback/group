@@ -36,6 +36,7 @@
 <th></th>
 </tr>
 <c:forEach var="student" items="${students}">
+
 <tr>
 <td>${student.entYear}</td>
 <td>${student.no}</td>

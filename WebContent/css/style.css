@@ -3,7 +3,6 @@
   clear: both;
   overflow: hidden;
   margin: 0 auto;
-
 }
 #sidebar ul {
   list-style: none;
@@ -446,8 +445,6 @@ table tbody td a:hover {
     margin: 20px auto; /* Center align if necessary */
     padding-left: 30px;
 }
-
-
 
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
