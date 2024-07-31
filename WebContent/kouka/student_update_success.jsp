@@ -14,9 +14,10 @@
 <section class="me-4">
 
 
-<div>変更が完了しました</div>
-
-<a href="StudentList.action">学生一覧</a>
+<div class="message-box">変更が完了しました</div>
+<div class="button-container">
+<a href="StudentList.action" class="btn btn-back">学生一覧</a>
+</div>
 
 <c:choose>
 <c:when test="${not empty students}">
