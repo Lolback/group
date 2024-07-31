@@ -269,8 +269,6 @@ public class StudentDao extends Dao {
 		return list;
 	}
 
-
-
 	public boolean save(Student student, School school) throws Exception{
 		//コネクションを確立
 		Connection connection = getConnection();
@@ -351,7 +349,7 @@ public class StudentDao extends Dao {
 
 		try {
 			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("delete from student where no=? school_cd=?");
+			statement = connection.prepareStatement("delete from student where no=? and school_cd=?");
 			//プリペアードステートメントに学生番号をバインド
 			statement.setString(1, no);
 			statement.setString(2, school.getCd());
