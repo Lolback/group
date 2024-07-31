@@ -1,4 +1,3 @@
-
 <%@ page import="java.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <%@ page import="javax.sql.*" %>

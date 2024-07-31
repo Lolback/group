@@ -3,6 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../background.html" %>
 <% request.setCharacterEncoding("UTF-8"); %>
+<title>学生一覧</title>
 <c:import url="../common/base.jsp">
     <c:param name="title">
        <h1 class="toptitle">得点管理システム</h1>

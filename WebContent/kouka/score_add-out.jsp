@@ -2,6 +2,7 @@
 <link rel="stylesheet"
 href="${pageContext.request.contextPath}/css/style.css">
 <%@page contentType="text/html; charset=UTF-8" %>
+<title>登録完了</title>
 <%@include file="../header.html" %>
 <%@include file="../background.html" %>
 <h1 class="toptitle">得点管理システム</h1>

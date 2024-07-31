@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="../background.html" %>
 <% request.setCharacterEncoding("UTF-8"); %>
+<title>学生登録</title>
 <%@ page import="java.util.List" %>
 <% List<String> ent_year_set = (List<String>)request.getAttribute("ent_year_set"); %>
 <% List<String> class_num_set = (List<String>)request.getAttribute("class_num_set"); %>
