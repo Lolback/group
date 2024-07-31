@@ -52,6 +52,7 @@
 
             int result = pstmt.executeUpdate();
 
+
             if (result > 0) {
                 out.println("<div class='message-box'>科目が正常に更新されました。</div>");
                 out.println("<div class='button-container'><a href='subject.jsp' class='btn btn-back'>科目一覧に戻る</a></div></div>");

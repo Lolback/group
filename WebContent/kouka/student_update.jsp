@@ -7,6 +7,7 @@
 <c:param name="title">
 <h1 class="toptitle">得点管理システム</h1>
 <h2 class="subtitle">学生編集</h2>
+
 </c:param>
 <c:param name="scripts"></c:param>
 <c:param name="content">

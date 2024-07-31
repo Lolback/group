@@ -85,6 +85,7 @@ function validateForm() {
                     <input type="submit" value="更新">
                 </div>
                 </form>
+
     <%
             } else {
                 out.println("<div class='message-box'>指定された科目が見つかりません。</div>");
