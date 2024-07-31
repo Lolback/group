@@ -20,7 +20,6 @@
 
 <div class="button-container">
 <a href="StudentCreate.action" class="btn btn-back">戻る</a>
-
 <a href="StudentList.action" class="btn btn-stn">学生一覧</a>
 </div>
 

@@ -32,6 +32,7 @@
         rs.close();
         pstmt.close();
 
+
         if (count > 0) {
             errorMessage = "同じ学校の科目コードが重複しています。";
         } else {

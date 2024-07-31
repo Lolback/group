@@ -14,5 +14,4 @@ href="${pageContext.request.contextPath}/css/style.css">
 <a href="menu.jsp">メニューに戻る</a>
 </div>
 
-
 <%@include file="../footer.html" %>
