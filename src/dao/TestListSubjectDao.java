@@ -28,11 +28,6 @@ public class TestListSubjectDao extends Dao{
 					tlsub.setStudentName(rSet.getString("name"));
 					tlsub.setEntYear(rSet.getInt("ent_year"));
 					tlsub.setClassNum(rSet.getString("class_num"));
-					System.out.println("student");
-					System.out.println(rSet.getInt("no1"));
-					System.out.println(rSet.getInt("point1"));
-					System.out.println(rSet.getInt("no2"));
-					System.out.println(rSet.getInt("point2"));
 					tlsub.putPoint(rSet.getInt("no1"), rSet.getInt("point1"));
 					tlsub.putPoint(rSet.getInt("no2"), rSet.getInt("point2"));
 					//リストに追加

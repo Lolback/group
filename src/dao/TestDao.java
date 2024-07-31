@@ -216,6 +216,57 @@ public class TestDao extends Dao {
 	}
 
 
+
+
+	public List<Test> filter(Student student, School school) throws Exception{
+		//リストを初期化
+		List<Test> list = new ArrayList<>();
+		//コネクションを確立
+		Connection connection = getConnection();
+		//プリペアードステートメント
+		PreparedStatement statement = null;
+		//リザルトセット
+		ResultSet rSet = null;
+		//SQL文の条件
+		String condition = " test.school_cd=? and student.no=?";
+		//SQL文のソート
+		String order = " order by test.subject_cd asc";
+
+		try {
+			//プリペアードステートメントにSQL文をセット
+			statement = connection.prepareStatement(baseSql + condition + order);
+			//プリペアードステートメントにデータをバインド
+			statement.setString(1, school.getCd());
+			statement.setString(2, student.getNo());
+			//プライベートステートメントを実行
+			rSet = statement.executeQuery();
+			//リストへの格納処理を実行
+			list = postFilter(rSet, school);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			//プリペアードステートメントを閉じる
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			//コネクションを閉じる
+			if (connection !=null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+		return list;
+	}
+
+
+
 	public boolean save(List<Test> list) throws Exception{
 		//コネクションを確立
 		Connection connection = getConnection();
