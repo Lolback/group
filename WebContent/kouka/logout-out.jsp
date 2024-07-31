@@ -17,6 +17,4 @@ href="${pageContext.request.contextPath}/css/style.css">
 <p>ログアウトしました。<p>
 <a href="login.jsp">再ログインはこちらから</a>
 </p>
-
-
 <%@include file="../footer.html" %>

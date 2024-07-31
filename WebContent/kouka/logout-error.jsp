@@ -12,6 +12,7 @@ href="${pageContext.request.contextPath}/css/style.css">
       text-align:center;
     }
   </style>
+
 <p>すでにログアウトしています。</p>
 <a href="login.jsp">再ログインはこちらから</a>
 </p>
