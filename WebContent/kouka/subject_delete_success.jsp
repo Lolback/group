@@ -24,8 +24,8 @@
                 <div class="alert alert-success" role="alert">
                     科目情報が正常に削除されました。
                 </div>
-                <div class="my-2 text-center">
-                    <a href="subject.jsp">科目一覧に戻る</a>
+                <div class="button-container">
+                    <a href="subject.jsp" class="btn btn-back">科目一覧に戻る</a>
                 </div>
             </section>
         </c:param>
