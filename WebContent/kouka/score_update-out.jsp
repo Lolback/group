@@ -11,7 +11,6 @@ href="${pageContext.request.contextPath}/css/style.css">
 <div class="message-box">登録が完了しました。</div>
 <div class="button-container">
 <a href="ScoreList.action" class="btn btn-back">成績管理に戻る</a>
-または
 <a href="menu.jsp">メニューに戻る</a>
 </div>
 

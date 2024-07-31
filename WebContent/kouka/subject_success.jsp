@@ -11,8 +11,11 @@
 <body>
     <h1 class="toptitle">得点管理システム</h1>
     <h2 class="subtitle">科目登録完了</h2>
-    <p>科目の登録が完了しました。</p>
-    <a href="subject.jsp">科目一覧に戻る</a>
+    <%@include file="sidebar.jsp" %>
+    <div class="message-box">科目の登録が完了しました。</div>
+    <div class="button-container">
+    <a href="subject.jsp" class="btn btn-back">科目一覧に戻る</a>
+    </div>
 </body>
 </html>
 <%@include file="../footer.html" %>
