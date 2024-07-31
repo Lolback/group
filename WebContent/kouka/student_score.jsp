@@ -126,7 +126,7 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 		</tr>
 		<tr>
 		<td>
-			<input type="text" name="student_no" size="10" value="${f4}" placeholder="学生番号を入力してください">
+			<input type="text" name="student_no" size="10" value="${f4}" placeholder="学生番号を入力してください" required>
 		</td>
 			<td><input type="submit" value="検索"></td>
 		</tr>
