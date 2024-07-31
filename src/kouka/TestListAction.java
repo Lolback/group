@@ -161,6 +161,7 @@ public class TestListAction extends Action {
             request.setAttribute("students", studentList);
             request.setAttribute("resultCount", resultCount);
             request.setAttribute("filterFlag", filterFlag);
+            request.setAttribute("from", "none");
 
         } catch (Exception e) {
             e.printStackTrace();

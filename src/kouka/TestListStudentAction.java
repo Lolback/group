@@ -115,6 +115,7 @@ public class TestListStudentAction extends Action {
             request.setAttribute("class", classNum);
             request.setAttribute("subject", subjectCode);
             request.setAttribute("times", times);
+            request.setAttribute("from", "studentSearch");
 
         } catch (Exception e) {
             e.printStackTrace();
