@@ -179,6 +179,7 @@ public class TestListAction extends Action {
             		}
             	}
             }
+
             if (testList.size() >= 1) {
             	testDao.save(testList);
             }
