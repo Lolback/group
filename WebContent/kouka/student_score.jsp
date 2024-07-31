@@ -56,7 +56,9 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 					int oldEntYear = -1;
             		if (filterFlag == true) {
     					String oldEntYearStr = (String) request.getAttribute("academicYear");
-                		oldEntYear = Integer.parseInt(oldEntYearStr);
+    					if (!oldEntYearStr.isEmpty()) {
+                    		oldEntYear = Integer.parseInt(oldEntYearStr);
+    					}
             		}
 			    	List<Integer> entYearSet = (List<Integer>) request.getAttribute("ent_year_set");
 				    for (int i = 0; i < entYearSet.size(); i++) {
@@ -76,7 +78,9 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 					int oldClassNum = -1;
 	        		if (filterFlag == true) {
 						String oldClassNumStr = (String) request.getAttribute("class");
-						oldClassNum = Integer.parseInt(oldClassNumStr);
+    					if (!oldClassNumStr.isEmpty()) {
+    						oldClassNum = Integer.parseInt(oldClassNumStr);
+    					}
 	        		}
 			    	List<Integer> classNumSet = (List<Integer>) request.getAttribute("class_num_set");
 				    for (int i = 0; i < classNumSet.size(); i++) {
