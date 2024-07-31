@@ -112,7 +112,7 @@ public class StudentDao extends Dao {
 		//SQL文の条件
 		String condition = " and ent_year=? and class_num=?";
 		//SQL文のソート
-		String order = " order by class_num asc";
+		String order = " order by no asc";
 
 		//SQL文の在学フラグ条件
 		String conditionIsAttend = "";
@@ -172,7 +172,7 @@ public class StudentDao extends Dao {
 		//SQL文の条件
 		String condition = " and ent_year=?";
 		//SQL文のソート
-		String order = " order by class_num asc";
+		String order = " order by no asc";
 
 		//SQL文の在学フラグ
 		String conditionIsAttend = "";
@@ -226,7 +226,7 @@ public class StudentDao extends Dao {
 		//リザルトセット
 		ResultSet rSet = null;
 		//SQL文の条件
-		String order = " order by class_num asc";
+		String order = " order by no asc";
 
 		//SQL文の在学フラグ
 		String conditionIsAttend = "";
@@ -389,10 +389,12 @@ public class StudentDao extends Dao {
 		PreparedStatement statement = null;
 		//リザルトセット
 		ResultSet rSet = null;
+		//SQL文のソート
+		String order = " order by class_num asc, no asc";
 
 		try {
 			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement(baseSql);
+			statement = connection.prepareStatement(baseSql + order);
 			//プリペアードステートメントに学校コードをバインド
 			statement.setString(1, school.getCd());
 			//プライベートステートメントを実行
