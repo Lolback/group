@@ -342,40 +342,44 @@ public class StudentDao extends Dao {
 
 	public void delete(String no, School school) throws Exception{
 
-		//データベースへのコネクションを確立
-		Connection connection = getConnection();
-		//プリペアードステートメント
-		PreparedStatement statement = null;
+        Connection connection = null;
+        PreparedStatement statement = null;
+        boolean success = false;
 
-		try {
-			//プリペアードステートメントにSQL文をセット
-			statement = connection.prepareStatement("delete from student where no=? and school_cd=?");
-			//プリペアードステートメントに学生番号をバインド
-			statement.setString(1, no);
-			statement.setString(2, school.getCd());
-			//プリペアードステートメントを実行
-			int rSet =statement.executeUpdate();
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement("DELETE FROM STUDENT WHERE NO = ? AND SCHOOL_CD = ?");
+            statement.setString(1, no);
+            statement.setString(2, school.getCd());
+            int rowsAffected = statement.executeUpdate();
+            success = rowsAffected > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			//プリペアードステートメントを閉じる
-			if (statement != null) {
-				try {
-					statement.close();
-				} catch (SQLException sqle) {
-					throw sqle;
-				}
-			}
-		}
-			//コネクションを閉じる
-			if (connection != null) {
-				try{
-				connection.close();
-			} catch (SQLException sqle) {
-				throw sqle;
-			}
-		}
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement("DELETE FROM TEST WHERE STUDENT_NO = ? AND SCHOOL_CD = ?");
+            statement.setString(1, no);
+            statement.setString(2, school.getCd());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 	}
 
 	public List<Student> getAll(School school) throws Exception{

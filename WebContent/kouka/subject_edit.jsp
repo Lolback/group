@@ -75,7 +75,7 @@ function validateForm() {
                     <input type="hidden" name="originalSubjectCode" value="<%= subjectCode %>">
                     <div class="col-5">
                         <label for="subjectCode">科目コード:</label>
-                        <input type="text" id="subjectCode" name="subjectCode" value="<%= subjectCode %>" required>
+                        <%= subjectCode %>
                     </div>
                     <div class="col-5">
                         <label for="subjectName">科目名:</label>

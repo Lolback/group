@@ -172,6 +172,23 @@ public class SubjectDao extends Dao {
             }
         }
 
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement("DELETE FROM TEST WHERE SUBJECT_CD = ? AND SCHOOL_CD = ?");
+            statement.setString(1, subjectCode);
+            statement.setString(2, schoolCode);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
         return success;
     }
 
