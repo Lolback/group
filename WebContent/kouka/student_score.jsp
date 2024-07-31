@@ -101,7 +101,7 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 	<form method="post" action="TestListStudent.action">
 		<table class="table table-hover">
 		<tr>
-			<th>学生番号</th>
+			<p class="stn">学生番号</p>
 		</tr>
 		<tr>
 		<td>
@@ -189,6 +189,10 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 		    %>
 		</table>
 		<div>検索結果：<%= resultCount %>件</div>
+		<% } %>
+		<% 	if (student == null && students.size() == 0 && filterFlag == true) { %>
+	<p>氏名：大原 千太郎(<%= request.getAttribute("student_no") %>)</p>
+		<p>成績情報が存在しませんでした</p>
 		<% } %>
 <%@include file="../footer.html" %>
 </body>

@@ -13,7 +13,7 @@ href="${pageContext.request.contextPath}/css/style.css">
       text-align:center;
     }
   </style>
-<p>更新が完了しました。<p>
+<p>登録が完了しました。<p>
 <p><a href="ScoreList.action">成績管理に戻る</a>
 または
 <a href="menu.jsp">メニューに戻る</a>

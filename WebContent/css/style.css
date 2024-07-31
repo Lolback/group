@@ -383,7 +383,10 @@ table tbody td a:hover {
     margin: 0; /* ラベルの上下の余白を削除 */
 }
 
-
+.stn {
+	font-family: "Comic Sans MS";
+	margin-left: 15px; /* 左のマージンを追加して右にずらす */
+}
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors

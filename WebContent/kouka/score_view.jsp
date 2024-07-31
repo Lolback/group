@@ -196,9 +196,9 @@
 		</table>
 		<input type="text" name="result_count" value="<%= resultCount %>" hidden="">
 		<input type="submit" value="更新">
-		<% } %>
 	</form>
 <div>検索結果：<%= resultCount %>件</div>
+		<% } %>
 </body>
 </html>
 <%@include file="../footer.html" %>
