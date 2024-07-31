@@ -270,6 +270,54 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* ホバー時のシャドウの強調 */
 }
 
+.btn {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.btn-back {
+  color: #fff;
+  background-color: #337ab7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-back:hover {
+  color: #fff;
+  background-color: #286090;
+}
+
+.btn-stn {
+  color: #fff;
+  background-color: #337ab7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-stn:hover {
+  color: #fff;
+  background-color: #286090;
+}
+
 /* table全体のスタイリング */
 table {
     width: 100%;
@@ -387,6 +435,19 @@ table tbody td a:hover {
 	font-family: "Comic Sans MS";
 	margin-left: 15px; /* 左のマージンを追加して右にずらす */
 }
+
+.message-box {
+    border: 2px solid #337ab7;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #00ffff; /* Optional: Background color */
+    color: #333; /* Optional: Text color */
+    width: fit-content; /* Adjust the width based on content */
+    margin: 20px auto; /* Center align if necessary */
+    padding-left: 30px;
+}
+
+
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors

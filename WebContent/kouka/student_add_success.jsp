@@ -14,11 +14,14 @@
 <section class="me-4">
 
 
-<div>登録が完了しました</div>
+<div class="message-box">登録が完了しました</div>
+
 <h1></h1>
 
-<a href="StudentCreate.action">戻る</a>
-<a href="StudentList.action">学生一覧</a>
+<div class="button-container">
+<a href="StudentCreate.action" class="btn btn-back">戻る</a>
+<a href="StudentList.action" class="btn btn-stn">学生一覧</a>
+</div>
 
 <c:choose>
 <c:when test="${not empty students}">
