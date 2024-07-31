@@ -53,11 +53,11 @@
             int result = pstmt.executeUpdate();
 
             if (result > 0) {
-                out.println("<p>科目が正常に更新されました。</p>");
-                out.println("<a href='subject.jsp'>科目一覧に戻る</a>");
+                out.println("<div class='message-box'>科目が正常に更新されました。</div>");
+                out.println("<div class='button-container'><a href='subject.jsp' class='btn btn-back'>科目一覧に戻る</a></div></div>");
             } else {
-                out.println("<p>科目の更新に失敗しました。</p>");
-                out.println("<a href='subject_edit.jsp?subjectCode=" + originalSubjectCode + "'>編集画面に戻る</a>");
+                out.println("<div class='message-box'>科目の更新に失敗しました。</div>");
+                out.println("<div class='button-container'><div class='btn btn-back'><a href='subject_edit.jsp?subjectCode=" + originalSubjectCode + "'>編集画面に戻る</a></div></div>");
             }
         } catch (Exception e) {
             e.printStackTrace();
