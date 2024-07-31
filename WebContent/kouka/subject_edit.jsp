@@ -85,9 +85,10 @@ function validateForm() {
                     <input type="submit" value="更新">
                 </div>
                 </form>
+
     <%
             } else {
-                out.println("<p>指定された科目が見つかりません。</p>");
+                out.println("<div class='message-box'>指定された科目が見つかりません。</div>");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,7 +117,9 @@ function validateForm() {
             }
         }
     %>
-    <a href="subject.jsp">科目一覧に戻る</a>
+    <div class="button-container">
+    <a href="subject.jsp" class="btn btn-back">科目一覧に戻る</a>
+    </div>
 </body>
 </html>
 <%@include file="../footer.html" %>
