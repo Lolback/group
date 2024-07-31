@@ -19,8 +19,10 @@ import bean.ClassNum;
 import bean.Student;
 import bean.Subject;
 import bean.Teacher;
+import bean.Test;
 import dao.ClassNumDao;
 import dao.SubjectDao;
+import dao.TestDao;
 import tool.Action;
 
 public class TestListAction extends Action {
@@ -38,6 +40,7 @@ public class TestListAction extends Action {
         int entYear = 0; // 入学年度
         ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoを初期化
         SubjectDao subjectDao = new SubjectDao(); // 科目Daoを初期化
+        TestDao testDao = new TestDao();
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -151,6 +154,39 @@ public class TestListAction extends Action {
             for (int i = 0; i <= subjectList.size() - 1; i++) {
             	subjectCdSet.add(subjectList.get(i).getSubjectCode());
             	subjectNameSet.add(subjectList.get(i).getSubjectName());
+            }
+
+            List<Test> testList = new ArrayList<>();
+
+            //不足しているテストデータを生成
+            for (int i = 0; i < studentList.size(); i++) {
+            	Student currentStudent = studentList.get(i);
+            	List<Subject> currentSubjectList = subjectDao.filter(teacher.getSchool());
+            	for (int j = 0; j < currentSubjectList.size(); j++) {
+            		Subject currentSubject = currentSubjectList.get(j);
+            		for (int k = 1; k < 3; k++) {
+            			Test currentTest = testDao.get(currentStudent, currentSubject, teacher.getSchool(), k);
+            			if (currentTest == null) {
+            				currentTest = new Test();
+                			currentTest.setClassNum(currentStudent.getClassNum());
+                			currentTest.setNo(k);
+                			currentTest.setPoint(0);
+                			currentTest.setSchool(teacher.getSchool());
+                			currentTest.setStudent(currentStudent);
+                			currentTest.setSubject(currentSubject);
+                			testList.add(currentTest);
+            			}
+            		}
+            	}
+            }
+            if (testList.size() >= 1) {
+            	testDao.save(testList);
+            }
+
+            if (filterFlag == true) {
+                testList = testDao.filter(teacher.getSchool(), entYear, classNum, subjectDao.get(subjectCode, teacher.getSchool()), Integer.parseInt(times));
+            } else {
+            	testList = testDao.getAll(teacher.getSchool());
             }
 
             // リクエストにデータをセット
