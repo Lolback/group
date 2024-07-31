@@ -194,6 +194,7 @@ public class ScoreListSubjectExecuteAction  extends Action{
 	            request.setAttribute("class", classNum);
 	            request.setAttribute("subject", subjectCode);
 	            request.setAttribute("times", times);
+	            request.setAttribute("from", "testSearch");
 
 
 	        } catch (Exception e) {
