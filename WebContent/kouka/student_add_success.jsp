@@ -12,7 +12,6 @@
 <c:param name="content">
 <%@ include file="sidebar.jsp" %>
 <section class="me-4">
-
 <div class="message-box">登録が完了しました</div>
 
 <h1></h1>

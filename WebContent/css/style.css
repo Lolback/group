@@ -423,6 +423,7 @@ table tbody td a:hover {
     vertical-align: middle; /* チェックボックスをラベルの中央に揃える */
 }
 
+
 .checkbox-group label {
     font-size: 16px; /* ラベルのフォントサイズを設定 */
     line-height: 20px; /* ラベルの行の高さを設定（チェックボックスと合わせる） */
