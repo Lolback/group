@@ -95,7 +95,9 @@ public class TestListStudentAction extends Action {
             	subjectNameSet.add(subjectList.get(i).getSubjectName());
             }
 
-            testList = testDao.filter(student, school);
+            if (student != null) {
+            	testList = testDao.filter(student, school);
+            }
 
             // リクエストにデータをセット
             request.setAttribute("ent_year_set", entYearSet);
@@ -103,6 +105,7 @@ public class TestListStudentAction extends Action {
             request.setAttribute("subject_cd_set", subjectCdSet);
             request.setAttribute("subject_name_set", subjectNameSet);
             request.setAttribute("students", studentList);
+            request.setAttribute("student_no", student_no);
             request.setAttribute("student", student);
             request.setAttribute("tests", testList);
             request.setAttribute("tlsubs", tlsubList);

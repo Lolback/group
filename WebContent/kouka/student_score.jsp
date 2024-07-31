@@ -190,6 +190,10 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 		</table>
 		<div>検索結果：<%= resultCount %>件</div>
 		<% } %>
+		<% 	if (student == null && students.size() == 0 && filterFlag == true) { %>
+	<p>氏名：大原 千太郎(<%= request.getAttribute("student_no") %>)</p>
+		<p>成績情報が存在しませんでした</p>
+		<% } %>
 <%@include file="../footer.html" %>
 </body>
 </html>
