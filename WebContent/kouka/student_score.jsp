@@ -133,7 +133,9 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 	</form>
 		</div>
 <!-- 利用方法案内メッセージ -->
+<% if (filterFlag == false) { %>
 <p id="usageMessage">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</p>
+<% } %>
 <!-- 隠しフィールド -->
 <input type="hidden" name="f" value="sj">
 <input type="hidden" name="f" value="st">
@@ -146,7 +148,8 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 	String from = (String) request.getAttribute("from");
 
 	int resultCount = 0;
-	if ( from.equals("testSearch") && filterFlag == true) { %>
+	if ( from.equals("testSearch") && filterFlag == true) {
+	if ( tlsub.size() > 0 ) {%>
 	<p>科目：<%= request.getAttribute("subject_name") %></p>
 		<table class="table table-hover">
 		    <tr>
@@ -181,7 +184,11 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 		    %>
 		</table>
 		<div>検索結果：<%= resultCount %>件</div>
-		<% } %>
+		<% } else { %>
+		<p>学生情報が存在しませんでした</p>
+	    <% }
+		}
+		%>
 		<% 	if (student != null && filterFlag == true) { %>
 	<p>氏名：<%= student.getName() %>(<%= student.getNo() %>)</p>
 		<table class="table table-hover">
@@ -214,7 +221,7 @@ boolean filterFlag = (boolean) request.getAttribute("filterFlag");
 		<% } %>
 		<% 	if (student == null && students.size() == 0 && filterFlag == true && from.equals("studentSearch")) { %>
 	<p>氏名：大原 千太郎(<%= request.getAttribute("student_no") %>)</p>
-		<p>成績情報が存在しませんでした</p>
+		<p>学生情報が存在しませんでした</p>
 		<% } %>
 <%@include file="../footer.html" %>
 </body>
