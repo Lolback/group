@@ -71,10 +71,10 @@ public class StudentListAction extends Action {
         if (filterFlag == false) {
         	students = sDao.getAll(teacher.getSchool());
         } else {
-            if (entYear != 0 && !classNum.equals("0")) {
+            if (entYear != 0 && !classNum.equals("")) {
                 // 入学年度とクラス番号を指定
                 students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
-            } else if (entYear != 0 && classNum.equals("0")) {
+            } else if (entYear != 0 && classNum.equals("")) {
                 // 入学年度のみ指定
                 students = sDao.filter(teacher.getSchool(), entYear, isAttend);
             } else if (entYear == 0 && (classNum == null || classNum.equals("0"))) {
